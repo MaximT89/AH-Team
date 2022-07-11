@@ -15,9 +15,9 @@ class AuthorizationFragment :
 
     override fun initObservers() {
 
-        viewModel.authState.observe(viewLifecycleOwner){ state ->
+        viewModel.authState.observe(viewLifecycleOwner) { state ->
 
-            when(state){
+            when (state) {
                 is AuthState.Error -> {}
                 AuthState.Loading -> {}
                 is AuthState.NoInternet -> {}
