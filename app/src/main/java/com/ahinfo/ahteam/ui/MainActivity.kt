@@ -3,7 +3,9 @@ package com.ahinfo.ahteam.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.ahinfo.ahteam.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

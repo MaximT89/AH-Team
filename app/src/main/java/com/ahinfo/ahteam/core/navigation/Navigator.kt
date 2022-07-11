@@ -1,4 +1,4 @@
-package com.ahinfo.ahteam.core
+package com.ahinfo.ahteam.core.navigation
 
 import android.os.Bundle
 import androidx.annotation.IdRes
