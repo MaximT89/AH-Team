@@ -1,4 +1,4 @@
-package com.ahinfo.ahteam.core.bases
+package com.ahinfo.ahteam.core.remote
 
 data class Failure(
     val code: Int,

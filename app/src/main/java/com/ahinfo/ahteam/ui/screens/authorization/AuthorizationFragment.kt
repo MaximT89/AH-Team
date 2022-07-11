@@ -10,27 +10,25 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AuthorizationFragment :
     BaseFragment<FragmentAuthorizationBinding, AuthorizationViewModel>(FragmentAuthorizationBinding::inflate) {
+
     override val viewModel: AuthorizationViewModel by viewModels()
 
+    override fun initObservers() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        viewModel.authState.observe(viewLifecycleOwner){ state ->
 
-        initObservers()
-    }
-
-    private fun initObservers() {
-
-        viewModel.authState.observe(viewLifecycleOwner){
-
-            when(it){
+            when(state){
                 is AuthState.Error -> {}
                 AuthState.Loading -> {}
                 is AuthState.NoInternet -> {}
                 is AuthState.Success -> {
-                    binding.testTask.text = it.data.task
+                    binding.testTask.text = state.data.task
                 }
             }
         }
+    }
+
+    override fun initView() {
+
     }
 }

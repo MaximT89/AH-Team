@@ -1,7 +1,6 @@
 package com.ahinfo.ahteam.core.remote
 
 import com.ahinfo.ahteam.core.bases.BaseResult
-import com.ahinfo.ahteam.core.bases.Failure
 import com.ahinfo.ahteam.core.bases.Mapper
 import retrofit2.Response
 import javax.inject.Inject

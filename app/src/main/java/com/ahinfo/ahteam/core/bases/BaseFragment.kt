@@ -35,6 +35,16 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initView()
+        initObservers()
+    }
+
+    abstract fun initView()
+    abstract fun initObservers()
+
     /**
      * Выносим логику навигации в базовый фрагмент, во фрагментах используем метод [navigateTo]
      */
