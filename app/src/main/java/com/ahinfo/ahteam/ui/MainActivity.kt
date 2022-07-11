@@ -1,7 +1,8 @@
-package com.ahinfo.ahteam
+package com.ahinfo.ahteam.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.ahinfo.ahteam.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
