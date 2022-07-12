@@ -14,9 +14,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(Frag
     override val viewModel: SplashViewModel by viewModels()
 
     override fun initView() = with(binding){
-        logo.rotateAnimations( 3500, View.ROTATION_Y).playSingleSet()
+        logo.rotateAnimations( 2000, View.ROTATION_Y).playSingleSet()
 
-        imgBackInLogo.rotateAnimations( 3500, View.ROTATION).playSingleSet {
+        imgBackInLogo.rotateAnimations( 2000, View.ROTATION).playSingleSet {
             navigateAfterCheckAuth()
         }
 

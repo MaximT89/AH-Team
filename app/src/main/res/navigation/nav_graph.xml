@@ -10,7 +10,6 @@
         android:name="com.ahinfo.ahteam.ui.screens.authorization.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization" >
-
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
