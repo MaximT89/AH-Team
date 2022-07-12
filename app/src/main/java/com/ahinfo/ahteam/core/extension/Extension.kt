@@ -1,5 +1,7 @@
 package com.ahinfo.ahteam.core.extension
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
@@ -11,6 +13,10 @@ import android.widget.TextView
 import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 fun updateText(view: TextView, message: Any) {
     view.text = message.toString()
@@ -70,6 +76,29 @@ fun View.animateLikeButton() {
             duration = 100
             start()
         }
+    }
+}
+
+fun List<AnimatorSet>.playAllSets(coroutineScope: CoroutineScope, end : () -> Unit){
+    coroutineScope.launch(Dispatchers.Main){
+        for(animSet in this@playAllSets){
+            animSet.start()
+            delay(animSet.duration)
+        }
+        delay(1500)
+        end.invoke()
+    }
+}
+
+fun AnimatorSet.playSingleSet(end: () -> Unit) {
+    apply {
+        start()
+        addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                super.onAnimationEnd(animation)
+                end.invoke()
+            }
+        })
     }
 }
 

@@ -2,6 +2,7 @@ package com.ahinfo.ahteam.ui.screens.splash
 
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.navigation.Destinations
 import com.ahinfo.ahteam.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -10,9 +11,11 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(Frag
     override val viewModel: SplashViewModel by viewModels()
 
     override fun initView() {
+
     }
 
     override fun initObservers() {
+
     }
 
 
