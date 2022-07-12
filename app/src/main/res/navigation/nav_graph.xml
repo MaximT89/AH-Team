@@ -10,9 +10,7 @@
         android:name="com.ahinfo.ahteam.ui.screens.authorization.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization" >
-        <action
-            android:id="@+id/action_authorizationFragment_to_splashFragment"
-            app:destination="@id/splashFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -21,6 +19,8 @@
         tools:layout="@layout/fragment_splash" >
         <action
             android:id="@+id/action_splashFragment_to_authorizationFragment"
-            app:destination="@id/authorizationFragment" />
+            app:destination="@id/authorizationFragment"
+            app:popUpTo="@id/nav_graph.xml"
+            />
     </fragment>
 </navigation>

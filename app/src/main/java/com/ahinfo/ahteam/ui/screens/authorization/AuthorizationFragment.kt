@@ -3,6 +3,8 @@ package com.ahinfo.ahteam.ui.screens.authorization
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.databinding.FragmentAuthorizationBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +31,9 @@ class AuthorizationFragment :
     }
 
     override fun initView() {
+        requireActivity().onBackPressedDispatcher
 
     }
+
+
 }
