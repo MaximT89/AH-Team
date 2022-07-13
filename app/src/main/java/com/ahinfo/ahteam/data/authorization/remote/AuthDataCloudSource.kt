@@ -7,7 +7,7 @@ import com.ahinfo.ahteam.data.authorization.remote.api.AuthService
 import com.ahinfo.ahteam.domain.authorization.entity.AuthModelDomain
 import javax.inject.Inject
 
-class AuthCloudDataSource @Inject constructor(
+class AuthDataCloudSource @Inject constructor(
     private val api : AuthService,
     private val responseWrapper: ResponseWrapper,
     private val mapper : AuthDataToDomainMapper

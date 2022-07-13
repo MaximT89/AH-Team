@@ -1,6 +1,6 @@
 package com.ahinfo.ahteam.data.authorization.module
 
-import com.ahinfo.ahteam.data.authorization.remote.AuthRepositoryImpl
+import com.ahinfo.ahteam.data.authorization.AuthRepositoryImpl
 import com.ahinfo.ahteam.domain.authorization.repository.AuthRepository
 import dagger.Binds
 import dagger.Module

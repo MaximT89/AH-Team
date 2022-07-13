@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.databinding.FragmentAuthorizationBinding
+import com.ahinfo.ahteam.ui.screens.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

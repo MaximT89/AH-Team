@@ -21,5 +21,14 @@
             app:destination="@id/authorizationFragment"
             app:popUpTo="@id/nav_graph.xml"
             />
+        <action
+            android:id="@+id/action_splashFragment_to_testFragment"
+            app:destination="@id/testFragment"
+            app:popUpTo="@id/nav_graph.xml"/>
     </fragment>
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.testScreen.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/fragment_test" />
 </navigation>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/swipe_refresh"
+    android:layout_height="match_parent"
+    tools:context=".ui.screens.testScreen.TestFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/items_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                tools:text="items_left: 66555" />
+
+            <TextView
+                android:id="@+id/total_items"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/items_left"
+                android:textSize="20dp"
+                tools:text="total_items: 98106" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:translationZ="2dp"
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="10dp"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
