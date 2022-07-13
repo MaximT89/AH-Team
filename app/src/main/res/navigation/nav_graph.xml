@@ -19,8 +19,7 @@
         <action
             android:id="@+id/action_splashFragment_to_authorizationFragment"
             app:destination="@id/authorizationFragment"
-            app:popUpTo="@id/nav_graph.xml"
-            />
+            app:popUpTo="@id/nav_graph.xml" />
         <action
             android:id="@+id/action_splashFragment_to_testFragment"
             app:destination="@id/testFragment"
