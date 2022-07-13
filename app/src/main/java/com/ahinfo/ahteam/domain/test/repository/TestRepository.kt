@@ -6,5 +6,5 @@ import com.ahinfo.ahteam.domain.test.entity.TestModelDomain
 
 interface TestRepository {
 
-    suspend fun fetchTestData1() : BaseResult<TestModelDomain, Failure>
+    suspend fun fetchTestData1(id : Int) : BaseResult<TestModelDomain, Failure>
 }

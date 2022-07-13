@@ -10,7 +10,7 @@ import javax.inject.Inject
 class TestRepositoryImpl @Inject constructor(private val cloudDataSource: TestDataCloudSource) :
     TestRepository {
 
-    override suspend fun fetchTestData1(): BaseResult<TestModelDomain, Failure> =
-        cloudDataSource.getResultTestData()
+    override suspend fun fetchTestData1(id : Int): BaseResult<TestModelDomain, Failure> =
+        cloudDataSource.getResultTestData(id)
 
 }

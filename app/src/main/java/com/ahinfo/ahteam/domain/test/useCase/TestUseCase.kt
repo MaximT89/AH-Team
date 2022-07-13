@@ -5,5 +5,5 @@ import javax.inject.Inject
 
 class TestUseCase @Inject constructor(private val repository: TestRepository){
 
-    suspend fun fetchTestData1() = repository.fetchTestData1()
+    suspend fun fetchTestData1(id : Int) = repository.fetchTestData1(id)
 }

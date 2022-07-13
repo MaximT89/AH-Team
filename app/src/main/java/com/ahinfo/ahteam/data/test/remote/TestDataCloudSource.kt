@@ -13,8 +13,8 @@ class TestDataCloudSource @Inject constructor(
     private val responseWrapper: ResponseWrapper
 )  {
 
-    suspend fun getResultTestData() : BaseResult<TestModelDomain, Failure> =
+    suspend fun getResultTestData(id : Int) : BaseResult<TestModelDomain, Failure> =
         responseWrapper.handleResponse(mapper){
-            api.getTestDataFromServer()
+            api.getTestDataFromServer(id)
         }
 }

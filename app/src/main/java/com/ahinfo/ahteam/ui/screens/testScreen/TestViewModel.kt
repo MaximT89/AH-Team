@@ -21,15 +21,18 @@ class TestViewModel @Inject constructor(private val useCase: TestUseCase) : View
     private var _testState = MutableLiveData<TestState>()
     val testState: LiveData<TestState> = _testState
 
+    private var _idProject = MutableLiveData(10)
+    val idProject : LiveData<Int> = _idProject
+
     init {
-        fetchTestDataFromServer()
+        fetchTestDataFromServer(_idProject.value!!)
     }
 
-    fun fetchTestDataFromServer() {
+    fun fetchTestDataFromServer(id : Int) {
 
         _testState.value = TestState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            when (val result = useCase.fetchTestData1()) {
+            when (val result = useCase.fetchTestData1(id)) {
                 is BaseResult.Error -> {
                     if (result.err.code != 0) {
                         _testState.postValue(TestState.Error(result.err.message))

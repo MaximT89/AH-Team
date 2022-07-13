@@ -7,5 +7,8 @@ object Constants {
      */
     const val BASE_URL = "https://dev.ah-info.ru:8443"
 
-    const val SPEED_ANIMATION : Long = 1000
+    /**
+     * Длительность анимаций на [SplashFragment]
+     */
+    const val SPEED_ANIMATION : Long = 3500
 }

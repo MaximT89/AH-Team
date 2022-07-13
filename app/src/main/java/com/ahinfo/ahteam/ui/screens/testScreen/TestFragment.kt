@@ -23,7 +23,7 @@ class TestFragment :
     override fun initView() = with(binding) {
 
         swipeRefresh.setOnRefreshListener {
-            viewModel.fetchTestDataFromServer()
+            viewModel.fetchTestDataFromServer(viewModel.idProject.value!!)
         }
     }
 
