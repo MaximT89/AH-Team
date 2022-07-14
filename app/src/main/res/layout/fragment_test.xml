@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/swipe_refresh"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.testScreen.TestFragment">
+    tools:context=".ui.screens.parser.testScreen.TestFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
