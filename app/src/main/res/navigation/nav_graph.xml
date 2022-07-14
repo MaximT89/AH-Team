@@ -10,6 +10,9 @@
         android:name="com.ahinfo.ahteam.ui.screens.project-authorization.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization" >
+        <action
+            android:id="@+id/action_authorizationFragment_to_sectionsFragment"
+            app:destination="@id/sectionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -24,10 +27,53 @@
             android:id="@+id/action_splashFragment_to_testFragment"
             app:destination="@id/testFragment"
             app:popUpTo="@id/nav_graph.xml"/>
+        <action
+            android:id="@+id/action_splashFragment_to_sectionsFragment"
+            app:destination="@id/sectionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/testFragment"
         android:name="com.ahinfo.ahteam.ui.screens.parser.testScreen.TestFragment"
         android:label="fragment_test"
         tools:layout="@layout/fragment_test" />
+    <fragment
+        android:id="@+id/addProjectFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.addProject.AddProjectFragment"
+        android:label="fragment_add_project"
+        tools:layout="@layout/fragment_add_project" />
+    <fragment
+        android:id="@+id/addTaskFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.addTaskProject.AddTaskFragment"
+        android:label="fragment_add_task"
+        tools:layout="@layout/fragment_add_task" />
+    <fragment
+        android:id="@+id/detailProjectFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.detailsProject.DetailProjectFragment"
+        android:label="fragment_detail_project"
+        tools:layout="@layout/fragment_detail_project" >
+        <action
+            android:id="@+id/action_detailProjectFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listProjectsFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsFragment"
+        android:label="fragment_list_projects"
+        tools:layout="@layout/fragment_list_projects" >
+        <action
+            android:id="@+id/action_listProjectsFragment_to_addProjectFragment"
+            app:destination="@id/addProjectFragment" />
+        <action
+            android:id="@+id/action_listProjectsFragment_to_detailProjectFragment"
+            app:destination="@id/detailProjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sectionsFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.project.sections.SectionsFragment"
+        android:label="fragment_sections"
+        tools:layout="@layout/fragment_sections" >
+        <action
+            android:id="@+id/action_sectionsFragment_to_listProjectsFragment"
+            app:destination="@id/listProjectsFragment" />
+    </fragment>
 </navigation>
