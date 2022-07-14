@@ -12,7 +12,7 @@ interface ListProjectsApi {
      * @pageNumber - данный параметр определяет какая страница
      * @countElementOnPage - данный параметр определяет сколько элементов должно быть на странице
      */
-    @GET("/parsing/getprojects/{pageNumber}/{countElementOnPage}/")
+    @GET("/parsing/get.projects/{pageNumber}/{countElementOnPage}/")
     suspend fun getListProjects(
         @Path("pageNumber") pageNumber: Int,
         @Path("countElementOnPage") countElementOnPage: Int

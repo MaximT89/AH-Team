@@ -9,9 +9,9 @@ class ListProjectsDataToDomainMapper @Inject constructor() :
     Mapper<ResponseListProjects, ListProjectsDomain> {
     override fun map(data: ResponseListProjects): ListProjectsDomain {
         return ListProjectsDomain(
-            data.response?.summary,
-            data.response?.elements,
-            data.response?.pageCount
+            data.summary,
+            data.elements,
+            data.pageCount
         )
     }
 }

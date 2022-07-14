@@ -15,6 +15,7 @@ class AuthorizationFragment :
 
         viewModel.authState.observe(viewLifecycleOwner) { state ->
 
+            // TODO: обработать как следует
             when (state) {
                 is AuthState.Error -> {}
                 AuthState.Loading -> {}

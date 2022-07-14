@@ -4,8 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseListProjects(
 
-	@field:SerializedName("response")
-	val response: Response? = null
+	@field:SerializedName("summary")
+	val summary: Int? = null,
+
+	@field:SerializedName("elements")
+	val elements: List<ElementsItem?>? = null,
+
+	@field:SerializedName("page_count")
+	val pageCount: Int? = null
 )
 
 data class ElementsItem(
@@ -24,16 +30,4 @@ data class ElementsItem(
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
-
-data class Response(
-
-	@field:SerializedName("summary")
-	val summary: Int? = null,
-
-	@field:SerializedName("elements")
-	val elements: List<ElementsItem?>? = null,
-
-	@field:SerializedName("page_count")
-	val pageCount: Int? = null
 )
