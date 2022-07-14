@@ -1,6 +1,6 @@
 package com.ahinfo.ahteam.data.project.project_authorization.module
 
-import com.ahinfo.ahteam.data.project.project_authorization.remote.api.AuthService
+import com.ahinfo.ahteam.data.project.project_authorization.remote.api.AuthApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import retrofit2.Retrofit
 object AuthApiModule {
 
     @Provides
-    fun provideAuthService(retrofit: Retrofit) : AuthService = retrofit.create(AuthService::class.java)
+    fun provideAuthService(retrofit: Retrofit) : AuthApi = retrofit.create(AuthApi::class.java)
 }

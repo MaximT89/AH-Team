@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface TestService {
+interface TestApi {
 
     /**
      * Запрашиваем тестовые данные для [TestFragment]

@@ -1,6 +1,6 @@
 package com.ahinfo.ahteam.data.parser.test.module
 
-import com.ahinfo.ahteam.data.parser.test.remote.api.TestService
+import com.ahinfo.ahteam.data.parser.test.remote.api.TestApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,5 +12,5 @@ import retrofit2.Retrofit
 object TestApiModule {
 
     @Provides
-    fun provideTestApi(retrofit: Retrofit) : TestService = retrofit.create(TestService::class.java)
+    fun provideTestApi(retrofit: Retrofit) : TestApi = retrofit.create(TestApi::class.java)
 }

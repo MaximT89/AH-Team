@@ -4,7 +4,7 @@ import com.ahinfo.ahteam.data.project.project_authorization.remote.dto.ResponseT
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface AuthService {
+interface AuthApi {
 
     /**
      * Запрос на авторизацию пользователя в системе
