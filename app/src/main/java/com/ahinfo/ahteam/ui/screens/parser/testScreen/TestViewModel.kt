@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.domain.parser.test.entity.TestModelDomain
-import com.ahinfo.ahteam.domain.parser.test.useCase.TestUseCase
+import com.ahinfo.ahteam.domain.parser.test.useCases.TestUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.ahinfo.ahteam.domain.parser.test.useCase
+package com.ahinfo.ahteam.domain.parser.test.useCases
 
 import com.ahinfo.ahteam.domain.parser.test.repository.TestRepository
 import javax.inject.Inject
