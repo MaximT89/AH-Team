@@ -43,7 +43,7 @@
             android:id="@+id/img_pencil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="15dp"
             android:src="@drawable/ic_pencil"
             app:layout_constraintEnd_toStartOf="@+id/img_trash"
             app:layout_constraintTop_toTopOf="parent"
