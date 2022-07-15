@@ -1,11 +1,17 @@
 package com.ahinfo.ahteam.data.parser.listProjects.remote.api
 
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ResponseDeleteProject
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ResponseListProjects
 import retrofit2.Response
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ListProjectsApi {
+
+    // TODO: занести pageNumber и countElementOnPage в файл с prefs
+    // TODO: сделать базовый файл для pref
 
     /**
      * Запрашиваем список проектов для парсинга
@@ -18,6 +24,18 @@ interface ListProjectsApi {
         @Path("countElementOnPage") countElementOnPage: Int
     ) : Response<ResponseListProjects>
 
-    // TODO: занести pageNumber и countElementOnPage в файл с prefs
-    // TODO: сделать базовый файл для pref
+    /**
+     * Данным запросом удаляем проект в [idProject] передаем id проекта, который собираемся удалять
+     */
+    @DELETE("/parsing/del.project/{idProject}/")
+    suspend fun deleteProject(
+        @Path("idProject") idProject: Int
+    ) : Response<ResponseDeleteProject>
+
+//    @PUT("/parsing/del.project/{idProject}/")
+//    suspend fun addProject(
+//
+//    ) : Response<>
+
+
 }

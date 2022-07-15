@@ -13,6 +13,8 @@ import com.ahinfo.ahteam.databinding.HolderListProjectBinding
 class ListProjectsAdapter :
     ListAdapter<ElementsItem, ListProjectsAdapter.ProjectHolder>(ItemComparator()) {
 
+    var callBackDeleteProject : ((id : Int) -> Unit)? = null
+
     class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
         override fun areItemsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
             return oldItem.id == newItem.id
@@ -35,6 +37,10 @@ class ListProjectsAdapter :
             idProject.text = "Id проекта: ${item.id.toString()}"
             statusProject.text = "Статус: ${item.status ?: ""}"
             dateCreateProject.text = "Дата создания: ${item.unixTime?.convertToDate() ?: ""}"
+
+            imgTrash.setOnClickListener {
+                callBackDeleteProject?.invoke(item.id!!)
+            }
 
             // TODO: добавить обработку по клику на картинки
         }

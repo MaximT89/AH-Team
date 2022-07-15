@@ -5,7 +5,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
-import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsDomain
+import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +22,10 @@ class ListProjectsFragment :
         swipeRefresh.setOnRefreshListener {
             // TODO: данные нужно брать из префов
             viewModel.updateListProjectsData(1, 10)
+        }
+
+        listProjectsAdapter.callBackDeleteProject = {
+            id -> viewModel.deleteProject(id)
         }
     }
 
@@ -49,11 +53,17 @@ class ListProjectsFragment :
                     showContent(true)
                     updateContent(it.data)
                 }
+                ListProjectsState.ErrorDeleteProject -> {
+                    // TODO: вывести снекбар где описана ошибка удаления проекта
+                }
+                ListProjectsState.SuccessDeleteProject -> {
+                    // TODO: вывести снекбар где описано успешное удаление проекта
+                }
             }
         }
     }
 
-    private fun updateContent(data: ListProjectsDomain) {
+    private fun updateContent(data: ListProjectsGetDomain) {
         listProjectsAdapter.submitList(data.elements)
     }
 

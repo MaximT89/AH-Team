@@ -12,4 +12,6 @@ class ListProjectsUseCase @Inject constructor(private val repository: ListProjec
         pageNumber,
         countElementOnPage
     )
+
+    suspend fun deleteProject(idProject: Int) = repository.deleteProject(idProject)
 }
