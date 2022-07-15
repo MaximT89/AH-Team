@@ -35,7 +35,7 @@ class ListProjectsAdapter :
             descriptionProject.text = "Описание: ${item.description ?: ""}"
 
             idProject.text = "Id проекта: ${item.id.toString()}"
-            statusProject.text = "Статус: ${item.status ?: ""}"
+            statusProject.text = "Статус: ${item.status}"
             dateCreateProject.text = "Дата создания: ${item.unixTime?.convertToDate() ?: ""}"
 
             imgTrash.setOnClickListener {

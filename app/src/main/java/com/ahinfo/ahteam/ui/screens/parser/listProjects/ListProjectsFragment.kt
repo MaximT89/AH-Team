@@ -12,9 +12,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListProjectsFragment :
     BaseFragment<FragmentListProjectsBinding, ListProjectsViewModel>(FragmentListProjectsBinding::inflate) {
 
-    private val listProjectsAdapter = ListProjectsAdapter()
-
     override val viewModel: ListProjectsViewModel by viewModels()
+
+    private val listProjectsAdapter = ListProjectsAdapter()
 
     override fun initView() = with(binding) {
         recyclerView.adapter = listProjectsAdapter
@@ -29,10 +29,10 @@ class ListProjectsFragment :
         }
     }
 
-    override fun initObservers() = with(binding) {
-        viewModel.listProjectState.observe(this@ListProjectsFragment) {
+    override fun initObservers() {
+        viewModel.listProjectState.observe(this@ListProjectsFragment) { state ->
 
-            when (it) {
+            when (state) {
                 is ListProjectsState.Error -> {
                     isRefreshingFalse()
                     loading(false)
@@ -51,7 +51,7 @@ class ListProjectsFragment :
                     isRefreshingFalse()
                     loading(false)
                     showContent(true)
-                    updateContent(it.data)
+                    updateContent(state.data)
                 }
                 ListProjectsState.ErrorDeleteProject -> {
                     // TODO: вывести снекбар где описана ошибка удаления проекта
