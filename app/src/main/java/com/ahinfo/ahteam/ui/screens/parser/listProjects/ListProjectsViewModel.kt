@@ -25,7 +25,7 @@ class ListProjectsViewModel @Inject constructor(private val useCase: ListProject
 
     fun updateListProjectsData(numberPage: Int, countProjectsOnPage: Int) {
         _listProjectState.value = ListProjectsState.Loading
-        viewModelScope.launch(Dispatchers.IO){
+        viewModelScope.launch(Dispatchers.IO) {
             getListProjects(numberPage, countProjectsOnPage)
         }
     }
@@ -41,8 +41,7 @@ class ListProjectsViewModel @Inject constructor(private val useCase: ListProject
                     if (result.data.result == true) {
                         _listProjectState.postValue(ListProjectsState.SuccessDeleteProject)
                         getListProjects(1, 10)
-                    }
-                    else _listProjectState.postValue(ListProjectsState.ErrorDeleteProject)
+                    } else _listProjectState.postValue(ListProjectsState.ErrorDeleteProject)
                 }
             }
         }
@@ -66,7 +65,6 @@ class ListProjectsViewModel @Inject constructor(private val useCase: ListProject
                 )
             }
         }
-
 }
 
 sealed class ListProjectsState {
