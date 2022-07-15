@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.LinearGradient
 import android.graphics.Shader
@@ -17,6 +18,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun updateText(view: TextView, message: Any) {
     view.text = message.toString()
@@ -143,3 +146,11 @@ fun <T> downItem(position: Int, list: MutableLiveData<MutableList<T>?>) {
         }
     } else list.value
 }
+
+@SuppressLint("SimpleDateFormat")
+fun Long.convertToDate() : String{
+    val date = Date(this * 1000L)
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    return sdf.format(date)
+}
+

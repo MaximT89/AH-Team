@@ -31,12 +31,12 @@ class TestFragment :
                 TestState.Loading -> {
                     progressBar(true)
                     content(false)
-                    isRefreshingFalse()
                 }
                 is TestState.NoInternet -> {
                     isRefreshingFalse()
                 }
                 is TestState.Success -> {
+                    isRefreshingFalse()
                     progressBar(false)
                     content(true)
                     updateUi(state.data)

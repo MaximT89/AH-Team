@@ -25,7 +25,8 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(Frag
 
     private fun navigateAfterCheckAuth() {
 //        navigateTo(Destinations.SPLASH_TO_AUTH.id)
-        navigateTo(Destinations.SPLASH_TO_TEST.id)
+//        navigateTo(Destinations.SPLASH_TO_TEST.id)
+        navigateTo(Destinations.SPLASH_TO_SECTIONS.id)
     }
 
     override fun initObservers() {

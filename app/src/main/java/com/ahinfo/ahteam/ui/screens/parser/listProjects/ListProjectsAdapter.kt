@@ -1,6 +1,52 @@
 package com.ahinfo.ahteam.ui.screens.parser.listProjects
 
-class ListProjectsAdapter {
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.ahinfo.ahteam.core.extension.convertToDate
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
+import com.ahinfo.ahteam.databinding.HolderListProjectBinding
 
-    // TODO: тут нужно сделать rv для списка проектов
+class ListProjectsAdapter :
+    ListAdapter<ElementsItem, ListProjectsAdapter.ProjectHolder>(ItemComparator()) {
+
+    class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
+        override fun areItemsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    inner class ProjectHolder(private val binding: HolderListProjectBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        @SuppressLint("SetTextI18n")
+        fun bind(item: ElementsItem) = with(binding) {
+
+            nameProject.text = "Название: ${item.name ?: ""}"
+            descriptionProject.text = "Описание: ${item.description ?: ""}"
+
+            idProject.text = "Id проекта: ${item.id.toString()}"
+            statusProject.text = "Статус: ${item.status ?: ""}"
+            dateCreateProject.text = "Дата создания: ${item.unixTime?.convertToDate() ?: ""}"
+
+            // TODO: добавить обработку по клику на картинки
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectHolder {
+        return ProjectHolder(
+            HolderListProjectBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        )
+    }
+
+    override fun onBindViewHolder(holder: ProjectHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
 }

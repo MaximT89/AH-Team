@@ -19,22 +19,26 @@ class ListProjectsViewModel @Inject constructor(private val useCase: ListProject
     private var _listProjectState = MutableLiveData<ListProjectsState>()
     val listProjectState: LiveData<ListProjectsState> = _listProjectState
 
+    init {
+        // TODO: вытащить данные в префы и брать оттуда
+        updateListProjectsData(1, 10)
+    }
+
     fun updateListProjectsData(numberPage: Int, countProjectsOnPage: Int) {
+        _listProjectState.value = ListProjectsState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            val result = useCase.getListProjects(numberPage, countProjectsOnPage)
-            when (result) {
+            when (val result = useCase.getListProjects(numberPage, countProjectsOnPage)) {
                 is BaseResult.Error -> {
                     if (result.err.code != 0) {
-
+                        _listProjectState.postValue(ListProjectsState.Error(result.err.message))
                     } else {
                         _listProjectState.postValue(ListProjectsState.NoInternet(result.err.message))
                     }
                 }
-                is BaseResult.Success -> TODO()
+                is BaseResult.Success -> _listProjectState.postValue(ListProjectsState.Success(result.data))
             }
         }
     }
-
 }
 
 sealed class ListProjectsState {
