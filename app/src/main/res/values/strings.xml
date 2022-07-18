@@ -9,4 +9,6 @@
     <string name="create_name_project">Название проекта</string>
     <string name="create_description_project">Описание проекта</string>
     <string name="btn_create_project">Создать проект</string>
+    <string name="update_project">Изменить проект</string>
+    <string name="btn_update_project">сохранить изменения</string>
 </resources>

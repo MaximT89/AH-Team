@@ -1,6 +1,8 @@
 package com.ahinfo.ahteam.data.parser.listProjects.remote.dto
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class ResponseListProjects(
 
@@ -14,6 +16,7 @@ data class ResponseListProjects(
 	val pageCount: Int? = null
 )
 
+@Parcelize
 data class ElementsItem(
 
 	@field:SerializedName("name")
@@ -30,4 +33,4 @@ data class ElementsItem(
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
+) : Parcelable

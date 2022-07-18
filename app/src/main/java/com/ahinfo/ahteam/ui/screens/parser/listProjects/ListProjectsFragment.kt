@@ -1,5 +1,6 @@
 package com.ahinfo.ahteam.ui.screens.parser.listProjects
 
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
@@ -30,6 +31,11 @@ class ListProjectsFragment :
 
         listProjectsAdapter.callBackDeleteProject = { id ->
             viewModel.deleteProject(id)
+        }
+
+        listProjectsAdapter.callBackUpgradeProject = { parserProject ->
+            setFragmentResult("upgrade_parser_project", bundleOf("parser_project" to parserProject))
+            navigateTo(Destinations.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
         }
 
         btnAddProject.setOnClickListener { navigateTo(Destinations.LIST_PROJECTS_TO_ADD_PROJECT.id) }

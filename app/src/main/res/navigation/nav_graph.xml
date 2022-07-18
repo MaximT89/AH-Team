@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_listProjectsFragment_to_detailProjectFragment"
             app:destination="@id/detailProjectFragment" />
+        <action
+            android:id="@+id/action_listProjectsFragment_to_updateProjectFragment"
+            app:destination="@id/updateProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/sectionsFragment"
@@ -78,6 +81,15 @@
         tools:layout="@layout/fragment_sections" >
         <action
             android:id="@+id/action_sectionsFragment_to_listProjectsFragment"
+            app:destination="@id/listProjectsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProjectFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.updateProject.UpdateProjectFragment"
+        android:label="fragment_update_project"
+        tools:layout="@layout/fragment_update_project" >
+        <action
+            android:id="@+id/action_updateProjectFragment_to_listProjectsFragment"
             app:destination="@id/listProjectsFragment" />
     </fragment>
 </navigation>
