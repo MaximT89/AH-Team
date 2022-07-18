@@ -2,10 +2,14 @@ package com.ahinfo.ahteam.ui.screens.parser.listProjects
 
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.navigation.Destinations
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,8 +28,33 @@ class ListProjectsFragment :
             viewModel.updateListProjectsData(1, 10)
         }
 
-        listProjectsAdapter.callBackDeleteProject = {
-            id -> viewModel.deleteProject(id)
+        listProjectsAdapter.callBackDeleteProject = { id ->
+            viewModel.deleteProject(id)
+        }
+
+        btnAddProject.setOnClickListener { navigateTo(Destinations.LIST_PROJECTS_TO_ADD_PROJECT.id) }
+
+        setFragmentResultListener("add_project") { _, bundle ->
+            val result = bundle.getBoolean("result_add_project")
+
+            if (result) {
+                viewModel.updateListProjectsData(1, 100)
+                // TODO: вывети снекбар кастомизированный зеленый
+                Snackbar.make(
+                    requireActivity(),
+                    binding.root,
+                    "Проект добавлен",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            } else {
+                // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
+                Snackbar.make(
+                    requireActivity(),
+                    binding.root,
+                    "Ошибка добавления проекта",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
