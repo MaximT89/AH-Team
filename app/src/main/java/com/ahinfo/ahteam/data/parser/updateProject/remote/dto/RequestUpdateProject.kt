@@ -2,7 +2,7 @@ package com.ahinfo.ahteam.data.parser.updateProject.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class RequestUpgradeProject(
+data class RequestUpdateProject(
     @field:SerializedName("name")
     val name: String? = null,
     @field:SerializedName("description")

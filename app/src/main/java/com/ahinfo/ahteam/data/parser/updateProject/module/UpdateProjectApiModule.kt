@@ -1,6 +1,6 @@
 package com.ahinfo.ahteam.data.parser.updateProject.module
 
-import com.ahinfo.ahteam.data.parser.updateProject.remote.api.UpgradeProjectApi
+import com.ahinfo.ahteam.data.parser.updateProject.remote.api.UpdateProjectApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +12,6 @@ import retrofit2.Retrofit
 object UpdateProjectApiModule {
 
     @Provides
-    fun provideUpgradeProjectApi(retrofit: Retrofit): UpgradeProjectApi =
-        retrofit.create(UpgradeProjectApi::class.java)
+    fun provideUpdateProjectApi(retrofit: Retrofit): UpdateProjectApi =
+        retrofit.create(UpdateProjectApi::class.java)
 }
