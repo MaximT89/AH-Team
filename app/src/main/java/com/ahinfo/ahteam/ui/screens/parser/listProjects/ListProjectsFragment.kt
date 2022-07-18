@@ -44,18 +44,18 @@ class ListProjectsFragment :
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
             updatePageAndShowSnackbar(
-                result,
-                string(R.string.success_add_project),
-                string(R.string.fail_add_project)
+                result = result,
+                positiveMess = string(R.string.success_add_project),
+                negativeMess = string(R.string.fail_add_project)
             )
         }
 
         setFragmentResultListener("update_project") { _, bundle ->
             val result = bundle.getBoolean("update_result")
             updatePageAndShowSnackbar(
-                result,
-                string(R.string.success_update_project),
-                string(R.string.fail_update_project)
+                result = result,
+                positiveMess = string(R.string.success_update_project),
+                negativeMess = string(R.string.fail_update_project)
             )
         }
     }
