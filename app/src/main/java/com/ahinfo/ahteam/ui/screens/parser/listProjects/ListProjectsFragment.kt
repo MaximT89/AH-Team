@@ -42,26 +42,23 @@ class ListProjectsFragment :
 
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
-            if (result) {
-                viewModel.updateListProjectsData(1, 100)
-                // TODO: вывети снекбар кастомизированный зеленый
-                showSnackbar(binding.root, "Проект добавлен")
-            } else {
-                // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
-                showSnackbar(binding.root, "Ошибка добавления проекта")
-            }
+            updatePageAndShowSnackbar(result, "Проект добавлен", "Ошибка добавления проекта")
         }
 
         setFragmentResultListener("update_project") { _ , bundle ->
             val result = bundle.getBoolean("update_result")
-            if (result) {
-                viewModel.updateListProjectsData(1, 100)
-                // TODO: вывети снекбар кастомизированный зеленый
-                showSnackbar(binding.root, "Проект изменен")
-            } else {
-                // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
-                showSnackbar(binding.root, "Ошибка изменения проекта")
-            }
+            updatePageAndShowSnackbar(result, "Проект изменен", "Ошибка изменения проекта")
+        }
+    }
+
+    private fun updatePageAndShowSnackbar(result: Boolean, positiveMess : String, negativeMess : String) {
+        if (result) {
+            viewModel.updateListProjectsData(1, 100)
+            // TODO: вывети снекбар кастомизированный зеленый
+            showSnackbar(binding.root, positiveMess)
+        } else {
+            // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
+            showSnackbar(binding.root, negativeMess)
         }
     }
 
