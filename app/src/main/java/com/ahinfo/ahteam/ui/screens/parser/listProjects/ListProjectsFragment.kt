@@ -42,24 +42,25 @@ class ListProjectsFragment :
 
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
-
             if (result) {
                 viewModel.updateListProjectsData(1, 100)
                 // TODO: вывети снекбар кастомизированный зеленый
-                Snackbar.make(
-                    requireActivity(),
-                    binding.root,
-                    "Проект добавлен",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                showSnackbar(binding.root, "Проект добавлен")
             } else {
                 // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
-                Snackbar.make(
-                    requireActivity(),
-                    binding.root,
-                    "Ошибка добавления проекта",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                showSnackbar(binding.root, "Ошибка добавления проекта")
+            }
+        }
+
+        setFragmentResultListener("update_project") { _ , bundle ->
+            val result = bundle.getBoolean("update_result")
+            if (result) {
+                viewModel.updateListProjectsData(1, 100)
+                // TODO: вывети снекбар кастомизированный зеленый
+                showSnackbar(binding.root, "Проект изменен")
+            } else {
+                // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
+                showSnackbar(binding.root, "Ошибка изменения проекта")
             }
         }
     }
