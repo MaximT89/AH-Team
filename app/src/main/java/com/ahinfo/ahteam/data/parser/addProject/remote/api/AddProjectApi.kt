@@ -9,7 +9,6 @@ import retrofit2.http.PUT
 
 interface AddProjectApi {
 
-    @FormUrlEncoded
     @PUT("/parsing/add.project/")
     suspend fun addProject(@Body requestAddProject: RequestAddProject): Response<ResponseAddProject>
 }

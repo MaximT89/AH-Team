@@ -25,7 +25,7 @@ data class ElementsItem(
 	@field:SerializedName("description")
 	val description: String? = null,
 
-	@field:SerializedName("id")
+	@field:SerializedName("project_id")
 	val id: Int? = null,
 
 	@field:SerializedName("status")
