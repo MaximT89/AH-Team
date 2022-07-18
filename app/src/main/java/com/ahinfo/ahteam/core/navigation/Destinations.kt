@@ -13,4 +13,6 @@ enum class Destinations(val id : Int) {
     LIST_PROJECTS_TO_ADD_PROJECT(R.id.action_listProjectsFragment_to_addProjectFragment),
 
     DETAIL_PROJECT_TO_ADD_TASK(R.id.action_detailProjectFragment_to_addTaskFragment),
+
+    ADD_PROJECT_TO_LIST_PROJECTS(R.id.action_addProjectFragment_to_listProjectsFragment)
 }

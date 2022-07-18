@@ -5,4 +5,8 @@
     <string name="hello_authorization_fragment">Hello authorization fragment</string>
     <string name="splash_hello">Добро пожаловать</string>
     <string name="title_list_project">Список проектов</string>
+    <string name="add_project">Создание проекта</string>
+    <string name="create_name_project">Название проекта</string>
+    <string name="create_description_project">Описание проекта</string>
+    <string name="btn_create_project">Создать проект</string>
 </resources>
