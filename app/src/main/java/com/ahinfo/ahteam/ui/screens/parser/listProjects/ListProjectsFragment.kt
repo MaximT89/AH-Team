@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.navigation.Destinations
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
@@ -42,16 +43,28 @@ class ListProjectsFragment :
 
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
-            updatePageAndShowSnackbar(result, "Проект добавлен", "Ошибка добавления проекта")
+            updatePageAndShowSnackbar(
+                result,
+                string(R.string.success_add_project),
+                string(R.string.fail_add_project)
+            )
         }
 
-        setFragmentResultListener("update_project") { _ , bundle ->
+        setFragmentResultListener("update_project") { _, bundle ->
             val result = bundle.getBoolean("update_result")
-            updatePageAndShowSnackbar(result, "Проект изменен", "Ошибка изменения проекта")
+            updatePageAndShowSnackbar(
+                result,
+                string(R.string.success_update_project),
+                string(R.string.fail_update_project)
+            )
         }
     }
 
-    private fun updatePageAndShowSnackbar(result: Boolean, positiveMess : String, negativeMess : String) {
+    private fun updatePageAndShowSnackbar(
+        result: Boolean,
+        positiveMess: String,
+        negativeMess: String
+    ) {
         if (result) {
             viewModel.updateListProjectsData(1, 100)
             // TODO: вывети снекбар кастомизированный зеленый

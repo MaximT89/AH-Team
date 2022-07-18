@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -51,6 +52,8 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
     fun showSnackbar(view: View, message: String) {
         Snackbar.make(requireActivity(), view, message, Snackbar.LENGTH_LONG).show()
     }
+
+    fun string(@StringRes id: Int): String = requireActivity().getString(id)
 
     /**
      * Выносим логику навигации в базовый фрагмент, во фрагментах используем метод [navigateTo]
