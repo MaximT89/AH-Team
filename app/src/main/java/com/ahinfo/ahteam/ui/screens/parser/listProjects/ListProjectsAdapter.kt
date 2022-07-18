@@ -14,6 +14,7 @@ class ListProjectsAdapter :
     ListAdapter<ElementsItem, ListProjectsAdapter.ProjectHolder>(ItemComparator()) {
 
     var callBackDeleteProject : ((id : Int) -> Unit)? = null
+    var callBackUpgradeProject : ((id : Int) -> Unit)? = null
 
     class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
         override fun areItemsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
@@ -42,7 +43,9 @@ class ListProjectsAdapter :
                 callBackDeleteProject?.invoke(item.id!!)
             }
 
-            // TODO: добавить обработку по клику на картинки
+            imgPencil.setOnClickListener {
+                callBackUpgradeProject?.invoke(item.id!!)
+            }
         }
     }
 
