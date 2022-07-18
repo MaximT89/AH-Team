@@ -32,10 +32,5 @@ interface ListProjectsApi {
         @Path("idProject") idProject: Int
     ) : Response<ResponseDeleteProject>
 
-//    @PUT("/parsing/del.project/{idProject}/")
-//    suspend fun addProject(
-//
-//    ) : Response<>
-
 
 }
