@@ -2,7 +2,7 @@ package com.ahinfo.ahteam.core.navigation
 
 import com.ahinfo.ahteam.R
 
-enum class Destinations(val id : Int) {
+enum class DestinationsParser(val id : Int) {
     SPLASH_TO_AUTH(R.id.action_splashFragment_to_authorizationFragment),
     SPLASH_TO_SECTIONS(R.id.action_splashFragment_to_sectionsFragment),
 

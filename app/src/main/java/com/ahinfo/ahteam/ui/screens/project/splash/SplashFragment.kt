@@ -5,7 +5,7 @@ import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.constants.Constants
 import com.ahinfo.ahteam.core.extension.playSingleSet
-import com.ahinfo.ahteam.core.navigation.Destinations
+import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.databinding.FragmentSplashBinding
 import com.ahinfo.ahteam.ui.animations.rotateAnimations
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +23,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(Frag
     }
 
     private fun navigateAfterCheckAuth() {
-        navigateTo(Destinations.SPLASH_TO_SECTIONS.id)
+        navigateTo(DestinationsParser.SPLASH_TO_SECTIONS.id)
     }
 
     override fun initObservers() {

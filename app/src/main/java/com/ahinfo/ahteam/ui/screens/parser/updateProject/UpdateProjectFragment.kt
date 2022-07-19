@@ -5,7 +5,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
-import com.ahinfo.ahteam.core.navigation.Destinations
+import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
 import com.ahinfo.ahteam.data.parser.updateProject.remote.dto.RequestUpdateProject
 import com.ahinfo.ahteam.databinding.FragmentUpdateProjectBinding
@@ -46,7 +46,7 @@ class UpdateProjectFragment :
                         "update_project",
                         bundleOf("update_result" to state.data.result)
                     )
-                    navigateTo(Destinations.UPDATE_PROJECT_TO_LIST_PROJECTS.id)
+                    navigateTo(DestinationsParser.UPDATE_PROJECT_TO_LIST_PROJECTS.id)
                 }
             }
         }
@@ -62,6 +62,6 @@ class UpdateProjectFragment :
     }
 
     override fun navigationArrowBack() = with(binding) {
-        titleField.arrowBack.setOnClickListener { navigateTo(Destinations.UPDATE_PROJECT_TO_LIST_PROJECTS.id) }
+        titleField.arrowBack.setOnClickListener { navigateTo(DestinationsParser.UPDATE_PROJECT_TO_LIST_PROJECTS.id) }
     }
 }

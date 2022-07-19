@@ -8,10 +8,9 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
-import com.ahinfo.ahteam.core.navigation.Destinations
+import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,10 +35,10 @@ class ListProjectsFragment :
 
         listProjectsAdapter.callBackUpgradeProject = { parserProject ->
             setFragmentResult("upgrade_parser_project", bundleOf("parser_project" to parserProject))
-            navigateTo(Destinations.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
+            navigateTo(DestinationsParser.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
         }
 
-        btnAddProject.setOnClickListener { navigateTo(Destinations.LIST_PROJECTS_TO_ADD_PROJECT.id) }
+        btnAddProject.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECTS_TO_ADD_PROJECT.id) }
 
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
@@ -132,6 +131,6 @@ class ListProjectsFragment :
     }
 
     override fun navigationArrowBack() = with(binding) {
-        titleField.arrowBack.setOnClickListener { navigateTo(Destinations.LIST_PROJECT_TO_SECTIONS_APP.id) }
+        titleField.arrowBack.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECT_TO_SECTIONS_APP.id) }
     }
 }

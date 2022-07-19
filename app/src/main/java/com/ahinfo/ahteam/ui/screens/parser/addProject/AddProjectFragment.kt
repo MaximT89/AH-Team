@@ -5,7 +5,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.extension.log
-import com.ahinfo.ahteam.core.navigation.Destinations
+import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.addProject.remote.dto.RequestAddProject
 import com.ahinfo.ahteam.databinding.FragmentAddProjectBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +21,6 @@ class AddProjectFragment :
                 name = editNameProject.text.toString(),
                 description = editTextDescription.text.toString()
             )
-
-            log("btnCreateProject : work , request name ${request.name}, request desc ${request.description}")
             viewModel.addProject(request)
         }
     }
@@ -39,7 +37,7 @@ class AddProjectFragment :
                         "add_project", bundleOf("result_add_project" to state.data.result!!)
                     )
 
-                    navigateTo(Destinations.ADD_PROJECT_TO_LIST_PROJECTS.id)
+                    navigateTo(DestinationsParser.ADD_PROJECT_TO_LIST_PROJECTS.id)
                 }
             }
         }
@@ -51,7 +49,7 @@ class AddProjectFragment :
 
     override fun navigationArrowBack() = with(binding){
         titleField.arrowBack.setOnClickListener {
-            navigateTo(Destinations.ADD_PROJECT_TO_LIST_PROJECTS.id)
+            navigateTo(DestinationsParser.ADD_PROJECT_TO_LIST_PROJECTS.id)
         }
     }
 }
