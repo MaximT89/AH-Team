@@ -34,12 +34,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_name_project"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editNameProject"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,13 +53,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayoutRootName"
                 android:layout_marginTop="5dp"
-                android:hint="@string/create_description_project">
+                android:hint="@string/create_description_project"
+                app:counterEnabled="true"
+                app:counterMaxLength="255">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
+                    android:maxLength="255"
                     android:minLines="10" />
 
             </com.google.android.material.textfield.TextInputLayout>

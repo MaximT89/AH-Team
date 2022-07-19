@@ -8,8 +8,9 @@
 
     tools:context=".ui.screens.parser.addProject.AddProjectFragment">
 
-    <include layout="@layout/title_layout"
-        android:id="@+id/title_field"/>
+    <include
+        android:id="@+id/title_field"
+        layout="@layout/title_layout" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,12 +30,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/create_name_project"
+                app:counterEnabled="true"
+                app:counterMaxLength="50"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editNameProject"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:maxLength="50" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,13 +49,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayoutRootName"
                 android:layout_marginTop="5dp"
-                android:hint="@string/create_description_project">
+                android:hint="@string/create_description_project"
+                app:counterEnabled="true"
+                app:counterMaxLength="255">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
+                    android:maxLength="255"
                     android:minLines="10" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -72,12 +79,12 @@
         android:id="@+id/btn_create_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_create_project"
+        android:layout_marginBottom="15dp"
         android:backgroundTint="@color/main_deep_dark"
+        android:text="@string/btn_create_project"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="15dp"
         app:layout_constraintStart_toStartOf="parent" />
 
 
