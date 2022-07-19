@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_deep_light">#F9F7F6</color>
+    <color name="main_deep_light_transparent_80">#CCF9F7F6</color>
+    <color name="main_deep_light_transparent_60">#99F9F7F6</color>
     <color name="main_deep_dark">#112D4F</color>
     <color name="main_dark">#3F72AE</color>
     <color name="main_light">#DBE2EE</color>
