@@ -5,6 +5,10 @@ import com.ahinfo.ahteam.core.bases.Mapper
 import retrofit2.Response
 import javax.inject.Inject
 
+/**
+ * Класс для приема запроса с сервера и разбора его, на выходе мы получаем [BaseResult] в который
+ * передаем тип данных соответствующий запросу или ошибку которую получаем в ходе разбора запроса
+ */
 interface ResponseWrapper {
 
     suspend fun <T, R> handleResponse(
