@@ -4,7 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
+import com.ahinfo.ahteam.core.bases.BaseViewModel
+import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
 import com.ahinfo.ahteam.domain.parser.listProjects.useCases.ListProjectsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,8 +15,11 @@ import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class ListProjectsViewModel @Inject constructor(private val useCase: ListProjectsUseCase) :
-    ViewModel() {
+class ListProjectsViewModel @Inject constructor(
+    private val useCase: ListProjectsUseCase,
+    private val resourceProvider: ResourceProvider
+) : BaseViewModel() {
+    override fun title(): String = resourceProvider.string(R.string.title_list_project)
 
     private var _listProjectState = MutableLiveData<ListProjectsState>()
     val listProjectState: LiveData<ListProjectsState> = _listProjectState
@@ -65,6 +71,8 @@ class ListProjectsViewModel @Inject constructor(private val useCase: ListProject
                 )
             }
         }
+
+
 }
 
 sealed class ListProjectsState {

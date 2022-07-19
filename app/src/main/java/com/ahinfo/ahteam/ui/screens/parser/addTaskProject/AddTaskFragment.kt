@@ -18,4 +18,12 @@ class AddTaskFragment :
 
     }
 
+    override fun title() {
+
+    }
+
+    override fun navigationArrowBack() {
+
+    }
+
 }

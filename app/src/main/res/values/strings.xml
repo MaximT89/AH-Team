@@ -18,4 +18,8 @@
 
     <string name="success_update_project">Проект изменен</string>
     <string name="fail_update_project">Ошибка изменения проекта</string>
+    <string name="sections">Разделы</string>
+    <string name="add_task">Добавление задачи</string>
+    <string name="detail_fragment">Параметры проекта</string>
+    <string name="autorization_title">Авторизация</string>
 </resources>

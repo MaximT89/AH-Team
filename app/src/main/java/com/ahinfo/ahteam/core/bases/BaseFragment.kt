@@ -44,16 +44,33 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
 
         initView()
         initObservers()
+        title()
+        navigationArrowBack()
     }
 
     abstract fun initView()
     abstract fun initObservers()
+    abstract fun title()
+    abstract fun navigationArrowBack()
 
+    /**
+     * Если нужно отобразить Snackbar, то его всегда можно получить из базового фрагмента.
+     * @param view нужно вставить binding.root.
+     * @param message сообщение которое вы хотите отобразить в snackbar.
+     */
     fun showSnackbar(view: View, message: String) {
         Snackbar.make(requireActivity(), view, message, Snackbar.LENGTH_LONG).show()
     }
 
-    fun string(@StringRes id: Int): String = requireActivity().getString(id)
+    /**
+     * Если нам нужно отобразить какой то текст из string, то можно использовать этот метод и не
+     * инжектить во фрагмент класс [ResourceProvider]
+     *
+     * @param id передаем id строки из [strings]
+     */
+    fun string(@StringRes id: Int): String {
+        return requireActivity().getString(id)
+    }
 
     /**
      * Выносим логику навигации в базовый фрагмент, во фрагментах используем метод [navigateTo]

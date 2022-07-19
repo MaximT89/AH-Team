@@ -20,12 +20,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(Frag
         imgBackInLogo.rotateAnimations(Constants.SPEED_ANIMATION, View.ROTATION).playSingleSet {
             navigateAfterCheckAuth()
         }
-
     }
 
     private fun navigateAfterCheckAuth() {
-//        navigateTo(Destinations.SPLASH_TO_AUTH.id)
-//        navigateTo(Destinations.SPLASH_TO_TEST.id)
         navigateTo(Destinations.SPLASH_TO_SECTIONS.id)
     }
 
@@ -34,5 +31,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(Frag
         // TODO: после получения информации нужно отправить пользователя или на авторизацию или на главную
     }
 
-
+    // На splash экране не будет toolbar , поэтому делаем заглушки для title и кнопки назад
+    override fun title() = Unit
+    override fun navigationArrowBack() = Unit
 }

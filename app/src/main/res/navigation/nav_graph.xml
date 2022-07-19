@@ -24,18 +24,9 @@
             app:destination="@id/authorizationFragment"
             app:popUpTo="@id/nav_graph.xml" />
         <action
-            android:id="@+id/action_splashFragment_to_testFragment"
-            app:destination="@id/testFragment"
-            app:popUpTo="@id/nav_graph.xml"/>
-        <action
             android:id="@+id/action_splashFragment_to_sectionsFragment"
             app:destination="@id/sectionsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/testFragment"
-        android:name="com.ahinfo.ahteam.ui.screens.parser.testScreen.TestFragment"
-        android:label="fragment_test"
-        tools:layout="@layout/fragment_test" />
     <fragment
         android:id="@+id/addProjectFragment"
         android:name="com.ahinfo.ahteam.ui.screens.parser.addProject.AddProjectFragment"
@@ -58,6 +49,9 @@
         <action
             android:id="@+id/action_detailProjectFragment_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_detailProjectFragment_to_listProjectsFragment"
+            app:destination="@id/listProjectsFragment" />
     </fragment>
     <fragment
         android:id="@+id/listProjectsFragment"
@@ -73,6 +67,9 @@
         <action
             android:id="@+id/action_listProjectsFragment_to_updateProjectFragment"
             app:destination="@id/updateProjectFragment" />
+        <action
+            android:id="@+id/action_listProjectsFragment_to_sectionsFragment"
+            app:destination="@id/sectionsFragment" />
     </fragment>
     <fragment
         android:id="@+id/sectionsFragment"

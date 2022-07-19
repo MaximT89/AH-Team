@@ -44,4 +44,14 @@ class AddProjectFragment :
             }
         }
     }
+
+    override fun title() = with(binding) {
+        titleField.title.text = viewModel.title()
+    }
+
+    override fun navigationArrowBack() = with(binding){
+        titleField.arrowBack.setOnClickListener {
+            navigateTo(Destinations.ADD_PROJECT_TO_LIST_PROJECTS.id)
+        }
+    }
 }

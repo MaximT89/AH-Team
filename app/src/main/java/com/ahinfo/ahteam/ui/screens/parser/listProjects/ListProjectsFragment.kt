@@ -126,4 +126,12 @@ class ListProjectsFragment :
     private fun isRefreshingFalse() = with(binding) {
         swipeRefresh.isRefreshing = false
     }
+
+    override fun title() = with(binding) {
+        titleField.title.text = viewModel.title()
+    }
+
+    override fun navigationArrowBack() = with(binding) {
+        titleField.arrowBack.setOnClickListener { navigateTo(Destinations.LIST_PROJECT_TO_SECTIONS_APP.id) }
+    }
 }

@@ -42,7 +42,10 @@ class UpdateProjectFragment :
                 UpdateProjectsState.Loading -> {}
                 is UpdateProjectsState.NoInternet -> {}
                 is UpdateProjectsState.Success -> {
-                    setFragmentResult("update_project", bundleOf("update_result" to state.data.result))
+                    setFragmentResult(
+                        "update_project",
+                        bundleOf("update_result" to state.data.result)
+                    )
                     navigateTo(Destinations.UPDATE_PROJECT_TO_LIST_PROJECTS.id)
                 }
             }
@@ -52,5 +55,13 @@ class UpdateProjectFragment :
     private fun updateUi(parserItem: ElementsItem?) = with(binding) {
         editNameProject.setText(parserItem?.name ?: "")
         editTextDescription.setText(parserItem?.description ?: "")
+    }
+
+    override fun title() = with(binding) {
+        titleField.title.text = viewModel.title()
+    }
+
+    override fun navigationArrowBack() = with(binding) {
+        titleField.arrowBack.setOnClickListener { navigateTo(Destinations.UPDATE_PROJECT_TO_LIST_PROJECTS.id) }
     }
 }

@@ -6,7 +6,6 @@
     tools:background="@drawable/main_bg"
     tools:context=".ui.screens.project.splash.SplashFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/greetings"
         android:layout_width="wrap_content"
