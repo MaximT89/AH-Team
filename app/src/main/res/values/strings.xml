@@ -22,4 +22,5 @@
     <string name="add_task">Добавление задачи</string>
     <string name="detail_fragment">Параметры проекта</string>
     <string name="autorization_title">Авторизация</string>
+    <string name="parsing_section">Парсинг сайтов</string>
 </resources>

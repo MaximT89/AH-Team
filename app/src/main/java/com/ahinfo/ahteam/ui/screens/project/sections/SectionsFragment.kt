@@ -12,19 +12,19 @@ class SectionsFragment :
     BaseFragment<FragmentSectionsBinding, SectionsViewModel>(FragmentSectionsBinding::inflate) {
     override val viewModel: SectionsViewModel by viewModels()
 
-    override fun initView() {
-
+    override fun initView() = with(binding) {
+        btnSectionParsing.setOnClickListener { navigateTo(Destinations.SECTIONS_TO_LIST_PROJECTS.id) }
     }
 
     override fun initObservers() {
 
     }
 
-    override fun title() = with(binding){
+    override fun title() = with(binding) {
         titleField.title.text = viewModel.title()
     }
 
-    override fun navigationArrowBack() = with(binding){
+    override fun navigationArrowBack() = with(binding) {
         titleField.arrowBack.hide()
     }
 }
