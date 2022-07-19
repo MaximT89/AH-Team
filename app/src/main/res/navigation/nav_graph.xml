@@ -25,6 +25,8 @@
             app:popUpTo="@id/nav_graph.xml" />
         <action
             android:id="@+id/action_splashFragment_to_sectionsFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph.xml"
             app:destination="@id/sectionsFragment" />
     </fragment>
     <fragment
@@ -60,15 +62,21 @@
         tools:layout="@layout/fragment_list_projects" >
         <action
             android:id="@+id/action_listProjectsFragment_to_addProjectFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph.xml"
             app:destination="@id/addProjectFragment" />
         <action
             android:id="@+id/action_listProjectsFragment_to_detailProjectFragment"
+            app:launchSingleTop="true"
             app:destination="@id/detailProjectFragment" />
         <action
             android:id="@+id/action_listProjectsFragment_to_updateProjectFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph.xml"
             app:destination="@id/updateProjectFragment" />
         <action
             android:id="@+id/action_listProjectsFragment_to_sectionsFragment"
+            app:launchSingleTop="true"
             app:destination="@id/sectionsFragment" />
     </fragment>
     <fragment
@@ -78,6 +86,7 @@
         tools:layout="@layout/fragment_sections" >
         <action
             android:id="@+id/action_sectionsFragment_to_listProjectsFragment"
+            app:launchSingleTop="true"
             app:destination="@id/listProjectsFragment" />
     </fragment>
     <fragment

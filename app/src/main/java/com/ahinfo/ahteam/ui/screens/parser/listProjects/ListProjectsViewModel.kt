@@ -25,7 +25,6 @@ class ListProjectsViewModel @Inject constructor(
     val listProjectState: LiveData<ListProjectsState> = _listProjectState
 
     init {
-        // TODO: вытащить данные в префы и брать оттуда
         updateListProjectsData(1, 10)
     }
 
