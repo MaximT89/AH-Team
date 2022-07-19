@@ -3,11 +3,13 @@ package com.ahinfo.ahteam.ui.screens.parser.listProjects
 import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
@@ -21,14 +23,7 @@ class ListProjectsFragment :
 
     private val listProjectsAdapter = ListProjectsAdapter()
 
-    override fun initView() = with(binding) {
-        recyclerView.adapter = listProjectsAdapter
-
-        swipeRefresh.setOnRefreshListener {
-            // TODO: данные нужно брать из префов
-            viewModel.updateListProjectsData(1, 10)
-        }
-
+    override fun initCallbacks() {
         listProjectsAdapter.callBackDeleteProject = { id ->
             viewModel.deleteProject(id)
         }
@@ -38,10 +33,27 @@ class ListProjectsFragment :
             navigateTo(DestinationsParser.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
         }
 
+        listProjectsAdapter.callBackGoDetailProject = { parserProject ->
+            setFragmentResult("detail_parser_project", bundleOf("parser_project" to parserProject))
+            navigateTo(DestinationsParser.LIST_PROJECTS_TO_DETAIL_PROJECT.id)
+        }
+    }
+
+    override fun initView() = with(binding) {
+        recyclerView.adapter = listProjectsAdapter
+
         btnAddProject.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECTS_TO_ADD_PROJECT.id) }
+
+        swipeRefresh.setOnRefreshListener {
+            // TODO: данные нужно брать из префов
+            viewModel.updateListProjectsData(1, 10)
+        }
 
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
+
+            if(result) log("add_project setFragmentResultListener work")
+
             updatePageAndShowSnackbar(
                 result = result,
                 positiveMess = string(R.string.success_add_project),
@@ -51,11 +63,17 @@ class ListProjectsFragment :
 
         setFragmentResultListener("update_project") { _, bundle ->
             val result = bundle.getBoolean("update_result")
+
+            if(result) log("update_project setFragmentResultListener work")
+
             updatePageAndShowSnackbar(
                 result = result,
                 positiveMess = string(R.string.success_update_project),
                 negativeMess = string(R.string.fail_update_project)
             )
+
+            // TODO: проверить работоспособность этого кода, нужно понять из за чего по 2 запроса
+//            clearFragmentResultListener("update_project")
         }
     }
 
@@ -65,6 +83,9 @@ class ListProjectsFragment :
         negativeMess: String
     ) {
         if (result) {
+
+
+
             viewModel.updateListProjectsData(1, 100)
             // TODO: вывети снекбар кастомизированный зеленый
             showSnackbar(binding.root, positiveMess)

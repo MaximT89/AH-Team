@@ -46,7 +46,10 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         initObservers()
         title()
         navigationArrowBack()
+        initCallbacks()
     }
+
+    open fun initCallbacks() = Unit
 
     abstract fun initView()
     abstract fun initObservers()
