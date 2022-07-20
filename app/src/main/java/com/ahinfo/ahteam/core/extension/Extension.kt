@@ -6,6 +6,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.SharedPreferences
 import android.graphics.LinearGradient
 import android.graphics.Shader
 import android.util.Log
@@ -83,6 +84,9 @@ fun View.animateLikeButton() {
     }
 }
 
+/**
+ * Метод для запуска множества сетов с анимациями и с прослушиванием окончания последней анимации
+ */
 fun List<AnimatorSet>.playAllSets(coroutineScope: CoroutineScope, end: () -> Unit) {
     coroutineScope.launch(Dispatchers.Main) {
         for (animSet in this@playAllSets) {
@@ -94,6 +98,9 @@ fun List<AnimatorSet>.playAllSets(coroutineScope: CoroutineScope, end: () -> Uni
     }
 }
 
+/**
+ * Метод для запуска одного сета с анимациями с прослушиванием окончания анимации
+ */
 fun AnimatorSet.playSingleSet(end: () -> Unit) {
     start()
     addListener(object : AnimatorListenerAdapter() {
@@ -105,6 +112,9 @@ fun AnimatorSet.playSingleSet(end: () -> Unit) {
 
 }
 
+/**
+ * Метод для запуска одного сета с анимациями без прослушивания окончания анимации
+ */
 fun AnimatorSet.playSingleSet() {
     start()
 }
@@ -147,10 +157,34 @@ fun <T> downItem(position: Int, list: MutableLiveData<MutableList<T>?>) {
     } else list.value
 }
 
+/**
+ * Метод для конверта UNIX_time в классическую строку времени
+ */
 @SuppressLint("SimpleDateFormat")
 fun Long.convertToDate() : String{
     val date = Date(this * 1000L)
     val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     return sdf.format(date)
+}
+
+/**
+ * Метод для чтения из префов
+ */
+fun SharedPreferences.editMe(operation: (SharedPreferences.Editor) -> Unit) =
+    edit().also(operation).apply()
+
+/**
+ * Метод для записи в префы
+ */
+fun SharedPreferences.Editor.put(pair: Pair<String, Any>) {
+    val key = pair.first
+    when (val value = pair.second) {
+        is String -> putString(key, value)
+        is Int -> putInt(key, value)
+        is Boolean -> putBoolean(key, value)
+        is Long -> putLong(key, value)
+        is Float -> putFloat(key, value)
+        else -> error("Only primitive types can be stored in SharedPreferences")
+    }
 }
 

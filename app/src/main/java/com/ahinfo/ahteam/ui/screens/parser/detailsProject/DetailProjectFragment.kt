@@ -24,6 +24,7 @@ class DetailProjectFragment :
             updateUi(elementItem)
 
             // TODO: тоже подумать о чистке setFragmentResultListener
+            // TODO: запустить запрос на получение данных по всем задачам
         }
     }
 
