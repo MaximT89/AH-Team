@@ -7,12 +7,10 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
-import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.navigation.Navigator
 import com.google.android.material.snackbar.Snackbar
 

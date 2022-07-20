@@ -42,7 +42,11 @@
         android:id="@+id/addTaskFragment"
         android:name="com.ahinfo.ahteam.ui.screens.parser.addTaskProject.AddTaskFragment"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTaskFragment_to_detailProjectFragment"
+            app:destination="@id/detailProjectFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailProjectFragment"
         android:name="com.ahinfo.ahteam.ui.screens.parser.detailsProject.DetailProjectFragment"
@@ -54,6 +58,9 @@
         <action
             android:id="@+id/action_detailProjectFragment_to_listProjectsFragment"
             app:destination="@id/listProjectsFragment" />
+        <action
+            android:id="@+id/action_detailProjectFragment_to_updateTaskProjectFragment"
+            app:destination="@id/updateTaskProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/listProjectsFragment"
@@ -95,5 +102,13 @@
         <action
             android:id="@+id/action_updateProjectFragment_to_listProjectsFragment"
             app:destination="@id/listProjectsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateTaskProjectFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.updateTaskProject.UpdateTaskProjectFragment"
+        android:label="UpdateTaskProjectFragment" >
+        <action
+            android:id="@+id/action_updateTaskProjectFragment_to_detailProjectFragment"
+            app:destination="@id/detailProjectFragment" />
     </fragment>
 </navigation>

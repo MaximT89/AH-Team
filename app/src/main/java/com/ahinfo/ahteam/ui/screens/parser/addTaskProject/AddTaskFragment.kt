@@ -2,6 +2,7 @@ package com.ahinfo.ahteam.ui.screens.parser.addTaskProject
 
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.databinding.FragmentAddTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,12 +19,14 @@ class AddTaskFragment :
 
     }
 
-    override fun title() {
-
+    override fun title() = with(binding){
+        titleField.title.text = viewModel.title()
     }
 
-    override fun navigationArrowBack() {
-
+    override fun navigationArrowBack() = with(binding){
+        titleField.arrowBack.setOnClickListener {
+            navigateTo(DestinationsParser.ADD_TASK_PROJECT_TO_DETAIL_PROJECT.id)
+        }
     }
 
 }
