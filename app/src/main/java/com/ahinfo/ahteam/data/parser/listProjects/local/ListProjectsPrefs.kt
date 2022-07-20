@@ -15,12 +15,12 @@ class ListProjectsPrefs @Inject constructor(private val baseSharedPreferences: B
         const val DEFAULT_COUNT_PROJECTS_ON_PAGE = 1000
     }
 
-    fun loadNumberPage() = baseSharedPreferences.defaultPref().getInt(NUMBER_PAGE, 1)
+    fun loadNumberPage() = baseSharedPreferences.defaultPref().getInt(NUMBER_PAGE, DEFAULT_NUMBER_PAGE)
     fun saveNumberPage(value: Int) {
         baseSharedPreferences.defaultPref().editMe { it.put(NUMBER_PAGE to value) }
     }
 
-    fun loadCountElementOnPage() = baseSharedPreferences.defaultPref().getInt(COUNT_PROJECTS_ON_PAGE, 1000)
+    fun loadCountElementOnPage() = baseSharedPreferences.defaultPref().getInt(COUNT_PROJECTS_ON_PAGE, DEFAULT_COUNT_PROJECTS_ON_PAGE)
     fun saveCountElementOnPage(value: Int) {
         baseSharedPreferences.defaultPref().editMe { it.put(COUNT_PROJECTS_ON_PAGE to value) }
     }

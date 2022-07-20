@@ -15,4 +15,14 @@ interface ListProjectsRepository {
     suspend fun deleteProject(
         idProject: Int
     ) : BaseResult<ListProjectDeleteDomain, Failure>
+
+    fun loadPage() : Int
+
+    fun savePage(value : Int)
+
+    fun loadCountProjectsOnPage() : Int
+
+    fun saveCountProjectsOnPage(value : Int)
+
+    fun returnToDefaultSettings()
 }
