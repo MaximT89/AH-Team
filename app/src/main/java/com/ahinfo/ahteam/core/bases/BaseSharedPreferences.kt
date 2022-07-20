@@ -11,6 +11,6 @@ class BaseSharedPreferences @Inject constructor(@ApplicationContext private val 
         private const val APP_PREF = "app_prefs"
     }
 
-    private fun defaultPref(): SharedPreferences =
+    fun defaultPref(): SharedPreferences =
         context.getSharedPreferences(APP_PREF, Context.MODE_PRIVATE)
 }
