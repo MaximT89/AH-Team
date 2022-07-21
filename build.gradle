@@ -26,4 +26,5 @@ ext {
     swipeRefresh = '1.1.0'
     coilVersion = '2.0.0-rc03'
     dataStoreVersion = '1.0.0'
+    leakcanary = '2.9.1'
 }

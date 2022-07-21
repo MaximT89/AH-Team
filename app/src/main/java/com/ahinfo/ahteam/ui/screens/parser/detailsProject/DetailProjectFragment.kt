@@ -22,9 +22,12 @@ class DetailProjectFragment :
     @Inject
     lateinit var resourceProvider: ResourceProvider
 
-    val projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
+    private var projectTasksAdapter: ProjectTasksAdapter? = null
 
     override fun initView() {
+
+        projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
+
 
         setFragmentResultListener("detail_parser_project") { _, bundle ->
             val elementItem = bundle.getParcelable<ElementsItem>("parser_project")

@@ -37,6 +37,10 @@ android {
 
 dependencies {
 
+    // Leakcanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanary"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanary"
+
     // Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
