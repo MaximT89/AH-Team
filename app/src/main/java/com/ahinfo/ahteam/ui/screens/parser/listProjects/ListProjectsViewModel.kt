@@ -25,7 +25,7 @@ class ListProjectsViewModel @Inject constructor(
     val listProjectState: LiveData<ListProjectsState> = _listProjectState
 
     init {
-        updateListProjectsData(1, 10)
+        updateListProjectsData(useCase.loadPage(), useCase.loadCountProjectsOnPage())
     }
 
     fun updateListProjectsData(numberPage: Int, countProjectsOnPage: Int) {
@@ -45,7 +45,7 @@ class ListProjectsViewModel @Inject constructor(
                 is BaseResult.Success -> {
                     if (result.data.result == true) {
                         _listProjectState.postValue(ListProjectsState.SuccessDeleteProject)
-                        getListProjects(1, 10)
+                        getListProjects(useCase.loadPage(), useCase.loadCountProjectsOnPage())
                     } else _listProjectState.postValue(ListProjectsState.ErrorDeleteProject)
                 }
             }
@@ -70,8 +70,6 @@ class ListProjectsViewModel @Inject constructor(
                 )
             }
         }
-
-
 }
 
 sealed class ListProjectsState {

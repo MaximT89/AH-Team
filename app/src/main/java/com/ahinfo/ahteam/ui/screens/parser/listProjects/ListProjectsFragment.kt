@@ -52,7 +52,7 @@ class ListProjectsFragment :
         setFragmentResultListener("add_project") { _, bundle ->
             val result = bundle.getBoolean("result_add_project")
 
-            if(result) log("add_project setFragmentResultListener work")
+            if (result) log("add_project setFragmentResultListener work")
 
             updatePageAndShowSnackbar(
                 result = result,
@@ -64,7 +64,7 @@ class ListProjectsFragment :
         setFragmentResultListener("update_project") { _, bundle ->
             val result = bundle.getBoolean("update_result")
 
-            if(result) log("update_project setFragmentResultListener work")
+            if (result) log("update_project setFragmentResultListener work")
 
             updatePageAndShowSnackbar(
                 result = result,
@@ -83,9 +83,6 @@ class ListProjectsFragment :
         negativeMess: String
     ) {
         if (result) {
-
-
-
             viewModel.updateListProjectsData(1, 100)
             // TODO: вывети снекбар кастомизированный зеленый
             showSnackbar(binding.root, positiveMess)
@@ -93,6 +90,8 @@ class ListProjectsFragment :
             // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
             showSnackbar(binding.root, negativeMess)
         }
+
+
     }
 
     override fun initObservers() {

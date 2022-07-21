@@ -29,4 +29,3 @@ class ListProjectsCloudDataSource @Inject constructor(
             api.deleteProject(idProject)
         }
 }
-
