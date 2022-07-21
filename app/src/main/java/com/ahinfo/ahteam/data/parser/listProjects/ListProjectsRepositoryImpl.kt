@@ -42,7 +42,7 @@ class ListProjectsRepositoryImpl @Inject constructor(
     }
 
     override fun returnToDefaultSettings() {
-        prefs.saveNumberPage(ListProjectsPrefs.DEFAULT_NUMBER_PAGE)
-        prefs.saveCountElementOnPage(ListProjectsPrefs.DEFAULT_COUNT_PROJECTS_ON_PAGE)
+        prefs.saveNumberPage(ListProjectsPrefs.DEFAULT_NUMBER_PAGE_PROJECT)
+        prefs.saveCountElementOnPage(ListProjectsPrefs.DEFAULT_COUNT_PROJECTS_ON_PAGE_PROJECT)
     }
 }
