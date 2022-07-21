@@ -29,7 +29,7 @@ data class ElementsItem(
 	val name: String? = null,
 
 	@field:SerializedName("unix_time")
-	val unixTime: Int? = null,
+	val unixTime: Long? = null,
 
 	@field:SerializedName("description")
 	val description: String? = null,

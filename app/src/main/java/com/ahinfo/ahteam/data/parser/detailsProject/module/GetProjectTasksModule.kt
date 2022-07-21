@@ -12,5 +12,6 @@ import retrofit2.Retrofit
 object GetProjectTasksModule {
 
     @Provides
-    fun provideGetProjectTasksApi(retrofit: Retrofit) : GetProjectTasksApi = retrofit.create(GetProjectTasksApi::class.java)
+    fun provideGetProjectTasksApi(retrofit: Retrofit): GetProjectTasksApi =
+        retrofit.create(GetProjectTasksApi::class.java)
 }

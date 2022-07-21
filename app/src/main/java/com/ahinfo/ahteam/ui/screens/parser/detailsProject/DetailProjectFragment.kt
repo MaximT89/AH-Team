@@ -5,17 +5,24 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 @SuppressLint("SetTextI18n")
 class DetailProjectFragment :
     BaseFragment<FragmentDetailProjectBinding, DetailProjectViewModel>(FragmentDetailProjectBinding::inflate) {
     override val viewModel: DetailProjectViewModel by viewModels()
+
+    @Inject
+    lateinit var resourceProvider: ResourceProvider
+
+    val projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
 
     override fun initView() {
 

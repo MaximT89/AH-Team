@@ -9,5 +9,5 @@ class ResourceProvider @Inject constructor(@ApplicationContext private val conte
 
     fun string(@StringRes id: Int): String = context.getString(id)
 
-    fun string(@StringRes id: Int, vararg args: Any): String = context.getString(id, args)
+    fun string(@StringRes id: Int, vararg args: String?): String = context.getString(id, *args)
 }
