@@ -30,4 +30,8 @@
     <string name="status_task_adapter">Статус: %s</string>
     <string name="date_task_adapter">Дата: %s</string>
 
+    <!--ProjectTasksAdapter-->
+    <string name="title_current_parser_project">Каталог товаров проекта</string>
+
+
 </resources>

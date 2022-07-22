@@ -1,6 +1,8 @@
 package com.ahinfo.ahteam.ui.screens.parser.detailsProject
 
 import android.annotation.SuppressLint
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
@@ -23,7 +25,7 @@ class DetailProjectFragment :
 
     private var projectTasksAdapter: ProjectTasksAdapter? = null
 
-    override fun initView() = with(binding){
+    override fun initView() = with(binding) {
 
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
@@ -36,7 +38,7 @@ class DetailProjectFragment :
         }
     }
 
-    private fun updateUi(elementItem: ElementsItemProject?) = with(binding){
+    private fun updateUi(elementItem: ElementsItemProject?) = with(binding) {
         nameProject.text = "Название: ${elementItem?.name}"
         descriptionProject.text = "Описание: ${elementItem?.description}"
         idProject.text = "ID: ${elementItem?.id}"
@@ -45,8 +47,8 @@ class DetailProjectFragment :
 
     override fun initObservers() {
         // TODO: обработать все статусы
-        viewModel.detailProjectState.observe(viewLifecycleOwner){ state ->
-            when(state){
+        viewModel.detailProjectState.observe(viewLifecycleOwner) { state ->
+            when (state) {
                 is DetailProjectState.Error -> {}
                 DetailProjectState.ErrorDeleteProject -> {}
                 DetailProjectState.Loading -> {}
@@ -64,7 +66,18 @@ class DetailProjectFragment :
     }
 
     override fun initCallbacks() {
-        // TODO: обработать все колбеки
+        projectTasksAdapter?.callBackDeleteTask = { idTask ->
+            viewModel.deleteTask(idTask)
+        }
+
+        projectTasksAdapter?.callBackUpdateTask = { itemTask ->
+            setFragmentResult("current_project", bundleOf("item_task" to itemTask))
+            navigateTo(DestinationsParser.DETAIL_PROJECT_TO_UPDATE_TASK_PROJECT.id)
+        }
+
+        projectTasksAdapter?.callBackNavigateForTask = {
+            navigateTo(DestinationsParser.DETAIL_PROJECT_TO_CURRENT_PARSER_PROJECT.id)
+        }
     }
 
     override fun title() = with(binding) {

@@ -16,7 +16,7 @@ class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
 
     var callBackUpdateTask: ((item: ElementsItemTask) -> Unit)? = null
     var callBackDeleteTask: ((id: Int?) -> Unit)? = null
-    var callBackNavigateFromTask: (() -> Unit)? = null
+    var callBackNavigateForTask: (() -> Unit)? = null
 
     class ItemComparator : DiffUtil.ItemCallback<ElementsItemTask>() {
         override fun areItemsTheSame(oldItem: ElementsItemTask, newItem: ElementsItemTask): Boolean {
@@ -43,7 +43,7 @@ class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
 
             imgPencil.setOnClickListener { callBackUpdateTask?.invoke(item) }
             imgTrash.setOnClickListener { callBackDeleteTask?.invoke(item.parsingId) }
-            root.setOnClickListener { callBackNavigateFromTask?.invoke() }
+            root.setOnClickListener { callBackNavigateForTask?.invoke() }
         }
     }
 

@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_detailProjectFragment_to_updateTaskProjectFragment"
             app:destination="@id/updateTaskProjectFragment" />
+        <action
+            android:id="@+id/action_detailProjectFragment_to_currentParserProjectFragment"
+            app:destination="@id/currentParserProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/listProjectsFragment"
@@ -109,6 +112,15 @@
         android:label="UpdateTaskProjectFragment" >
         <action
             android:id="@+id/action_updateTaskProjectFragment_to_detailProjectFragment"
+            app:destination="@id/detailProjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/currentParserProjectFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.currentParserProject.CurrentParserProjectFragment"
+        android:label="fragment_current_parser_project"
+        tools:layout="@layout/fragment_current_parser_project" >
+        <action
+            android:id="@+id/action_currentParserProjectFragment_to_detailProjectFragment"
             app:destination="@id/detailProjectFragment" />
     </fragment>
 </navigation>

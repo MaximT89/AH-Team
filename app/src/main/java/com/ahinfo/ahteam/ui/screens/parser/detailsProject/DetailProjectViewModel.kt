@@ -50,11 +50,18 @@ class DetailProjectViewModel @Inject constructor(
                         _detailProjectState.postValue(DetailProjectState.NoInternet(result.err.message))
                     }
                 }
-                is BaseResult.Success -> {
-                    _detailProjectState.postValue(DetailProjectState.Success(result.data))
-                }
+                is BaseResult.Success -> _detailProjectState.postValue(
+                    DetailProjectState.Success(
+                        result.data
+                    )
+                )
+
             }
         }
+
+    fun deleteTask(idTask: Int?) {
+
+    }
 
 }
 
