@@ -24,6 +24,8 @@ class ListProjectsViewModel @Inject constructor(
     private var _listProjectState = MutableLiveData<ListProjectsState>()
     val listProjectState: LiveData<ListProjectsState> = _listProjectState
 
+
+
     init {
         updateListProjectsData(useCase.loadPage(), useCase.loadCountProjectsOnPage())
     }

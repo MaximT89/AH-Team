@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ahinfo.ahteam.core.extension.convertToDate
-import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.databinding.HolderListProjectBinding
 
 class ListProjectsAdapter :
-    ListAdapter<ElementsItem, ListProjectsAdapter.ProjectHolder>(ItemComparator()) {
+    ListAdapter<ElementsItemProject, ListProjectsAdapter.ProjectHolder>(ItemComparator()) {
 
     var callBackDeleteProject : ((id : Int) -> Unit)? = null
-    var callBackUpgradeProject : ((item : ElementsItem) -> Unit)? = null
-    var callBackGoDetailProject : ((item : ElementsItem) -> Unit)? = null
+    var callBackUpgradeProject : ((item : ElementsItemProject) -> Unit)? = null
+    var callBackGoDetailProject : ((item : ElementsItemProject) -> Unit)? = null
 
-    class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
-        override fun areItemsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
+    class ItemComparator : DiffUtil.ItemCallback<ElementsItemProject>() {
+        override fun areItemsTheSame(oldItem: ElementsItemProject, newItem: ElementsItemProject): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
+        override fun areContentsTheSame(oldItem: ElementsItemProject, newItem: ElementsItemProject): Boolean {
             return oldItem == newItem
         }
     }
@@ -31,7 +31,7 @@ class ListProjectsAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(item: ElementsItem) = with(binding) {
+        fun bind(item: ElementsItemProject) = with(binding) {
 
             nameProject.text = "Название: ${item.name ?: ""}"
             descriptionProject.text = "Описание: ${item.description ?: ""}"

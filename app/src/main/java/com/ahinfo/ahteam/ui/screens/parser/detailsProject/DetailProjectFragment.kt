@@ -3,12 +3,11 @@ package com.ahinfo.ahteam.ui.screens.parser.detailsProject
 import android.annotation.SuppressLint
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
-import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
-import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -24,21 +23,20 @@ class DetailProjectFragment :
 
     private var projectTasksAdapter: ProjectTasksAdapter? = null
 
-    override fun initView() {
+    override fun initView() = with(binding){
 
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
-
+        recyclerViewTasks.adapter = projectTasksAdapter
 
         setFragmentResultListener("detail_parser_project") { _, bundle ->
-            val elementItem = bundle.getParcelable<ElementsItem>("parser_project")
+            val elementItem = bundle.getParcelable<ElementsItemProject>("parser_project")
             updateUi(elementItem)
-
+            elementItem?.id?.let { viewModel.updateUiProjectTasks(it) }
             // TODO: тоже подумать о чистке setFragmentResultListener
-            // TODO: запустить запрос на получение данных по всем задачам
         }
     }
 
-    private fun updateUi(elementItem: ElementsItem?) = with(binding){
+    private fun updateUi(elementItem: ElementsItemProject?) = with(binding){
         nameProject.text = "Название: ${elementItem?.name}"
         descriptionProject.text = "Описание: ${elementItem?.description}"
         idProject.text = "ID: ${elementItem?.id}"
@@ -46,7 +44,27 @@ class DetailProjectFragment :
     }
 
     override fun initObservers() {
+        // TODO: обработать все статусы
+        viewModel.detailProjectState.observe(viewLifecycleOwner){ state ->
+            when(state){
+                is DetailProjectState.Error -> {}
+                DetailProjectState.ErrorDeleteProject -> {}
+                DetailProjectState.Loading -> {}
+                is DetailProjectState.NoInternet -> {}
+                DetailProjectState.SuccessDeleteProject -> {}
+                is DetailProjectState.Success -> {
+                    updateRecyclerView(state.data.elements)
+                }
+            }
+        }
+    }
 
+    private fun updateRecyclerView(elements: List<ElementsItemTask?>?) {
+        projectTasksAdapter?.submitList(elements)
+    }
+
+    override fun initCallbacks() {
+        // TODO: обработать все колбеки
     }
 
     override fun title() = with(binding) {

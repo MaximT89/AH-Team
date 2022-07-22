@@ -6,7 +6,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
-import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.data.parser.updateProject.remote.dto.RequestUpdateProject
 import com.ahinfo.ahteam.databinding.FragmentUpdateProjectBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,7 +18,7 @@ class UpdateProjectFragment :
 
     override fun initView() = with(binding) {
         setFragmentResultListener("upgrade_parser_project") { _, bundle ->
-            val parserItem = bundle.getParcelable<ElementsItem>("parser_project")
+            val parserItem = bundle.getParcelable<ElementsItemProject>("parser_project")
             viewModel.updateElementsItem(parserItem!!)
         }
 
@@ -26,14 +26,14 @@ class UpdateProjectFragment :
             val request = RequestUpdateProject(
                 name = editNameProject.text.toString(),
                 description = editTextDescription.text.toString(),
-                projectId = viewModel.elementsItem.value!!.id
+                projectId = viewModel.elementsItemProject.value!!.id
             )
             viewModel.updateProject(request)
         }
     }
 
     override fun initObservers() {
-        viewModel.elementsItem.observe(viewLifecycleOwner) { elementItem ->
+        viewModel.elementsItemProject.observe(viewLifecycleOwner) { elementItem ->
             updateUi(elementItem)
         }
         viewModel.updateProjectState.observe(viewLifecycleOwner) { state ->
@@ -52,7 +52,7 @@ class UpdateProjectFragment :
         }
     }
 
-    private fun updateUi(parserItem: ElementsItem?) = with(binding) {
+    private fun updateUi(parserItem: ElementsItemProject?) = with(binding) {
         editNameProject.setText(parserItem?.name ?: "")
         editTextDescription.setText(parserItem?.description ?: "")
     }

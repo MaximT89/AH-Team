@@ -10,14 +10,14 @@ data class ResponseListProjects(
 	val summary: Int? = null,
 
 	@field:SerializedName("elements")
-	val elements: List<ElementsItem?>? = null,
+	val elements: List<ElementsItemProject?>? = null,
 
 	@field:SerializedName("page_count")
 	val pageCount: Int? = null
 )
 
 @Parcelize
-data class ElementsItem(
+data class ElementsItemProject(
 
 	@field:SerializedName("name")
 	val name: String? = null,

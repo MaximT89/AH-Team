@@ -8,13 +8,13 @@ data class ResponseGetProjectTasks(
 	val summary: Int? = null,
 
 	@field:SerializedName("elements")
-	val elements: List<ElementsItem?>? = null,
+	val elements: List<ElementsItemTask?>? = null,
 
 	@field:SerializedName("page_count")
 	val pageCount: Int? = null
 )
 
-data class ElementsItem(
+data class ElementsItemTask(
 
 	@field:SerializedName("site")
 	val site: String? = null,

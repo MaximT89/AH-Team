@@ -11,4 +11,23 @@ class GetProjectTasksUseCase @Inject constructor(private val repository: GetProj
     suspend fun getProjectTasks(idProject: Int, numberPage: Int, countItemOnPage: Int):
             BaseResult<GetProjectTasksDomain, Failure> =
         repository.getProjectTasks(idProject, numberPage, countItemOnPage)
+
+
+    fun loadPage(): Int = repository.loadPage()
+
+    fun savePage(value: Int) {
+        repository.savePage(value)
+    }
+
+    fun loadCountProjectsOnPage(): Int = repository.loadCountProjectsOnPage()
+
+    fun saveCountProjectsOnPage(value: Int) {
+        repository.saveCountProjectsOnPage(value)
+    }
+
+    fun returnToDefaultSettings() {
+        repository.returnToDefaultSettings()
+    }
+
+
 }

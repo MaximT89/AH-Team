@@ -1,6 +1,5 @@
 package com.ahinfo.ahteam.ui.screens.parser.detailsProject
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,22 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.core.extension.convertToDate
-import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItem
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.HolderProjectTaskBinding
 
 class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
-    ListAdapter<ElementsItem, ProjectTasksAdapter.ProjectTaskHolder>(ItemComparator()) {
+    ListAdapter<ElementsItemTask, ProjectTasksAdapter.ProjectTaskHolder>(ItemComparator()) {
 
-
-    var callBackUpdateTask: ((item: ElementsItem) -> Unit)? = null
+    var callBackUpdateTask: ((item: ElementsItemTask) -> Unit)? = null
     var callBackDeleteTask: ((id: Int?) -> Unit)? = null
+    var callBackNavigateFromTask: (() -> Unit)? = null
 
-    class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
-        override fun areItemsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
+    class ItemComparator : DiffUtil.ItemCallback<ElementsItemTask>() {
+        override fun areItemsTheSame(oldItem: ElementsItemTask, newItem: ElementsItemTask): Boolean {
             return oldItem.parsingId == newItem.parsingId
         }
 
-        override fun areContentsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
+        override fun areContentsTheSame(oldItem: ElementsItemTask, newItem: ElementsItemTask): Boolean {
             return oldItem == newItem
         }
     }
@@ -32,28 +31,19 @@ class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
     inner class ProjectTaskHolder(private val binding: HolderProjectTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        @SuppressLint("SetTextI18n")
-        fun bind(item: ElementsItem) = with(binding) {
+        fun bind(item: ElementsItemTask) = with(binding) {
 
-            // TODO: переписать на ресурсы
             nameProject.text = resourceProvider.string(R.string.name_task, item.name)
-            descriptionProject.text = "Описание задачи: ${item.description}"
-            idProject.text = "ID проекта: ${item.projectId}"
-            idTask.text = "ID задачи: ${item.parsingId}"
-            statusProject.text = "Статус: ${item.status}"
-            dateCreateProject.text = "Дата: ${item.unixTime?.convertToDate()}"
+            descriptionProject.text = resourceProvider.string(R.string.description_task, item.description)
 
-            imgPencil.setOnClickListener {
-                callBackUpdateTask?.invoke(item)
-            }
+            idProject.text = resourceProvider.string(R.string.id_project_adapter, item.projectId.toString())
+            idTask.text = resourceProvider.string(R.string.id_task_adapter, item.parsingId.toString())
+            statusProject.text = resourceProvider.string(R.string.status_task_adapter, item.status)
+            dateCreateProject.text = resourceProvider.string(R.string.date_task_adapter, item.unixTime?.convertToDate())
 
-            imgTrash.setOnClickListener {
-                callBackDeleteTask?.invoke(item.parsingId)
-            }
-
-            root.setOnClickListener {
-                // TODO: сделать переход в детализацию задачи
-            }
+            imgPencil.setOnClickListener { callBackUpdateTask?.invoke(item) }
+            imgTrash.setOnClickListener { callBackDeleteTask?.invoke(item.parsingId) }
+            root.setOnClickListener { callBackNavigateFromTask?.invoke() }
         }
     }
 

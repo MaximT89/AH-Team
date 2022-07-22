@@ -22,6 +22,12 @@
     <string name="parsing_section">Парсинг сайтов</string>
     <string name="update_task">Изменить задачу</string>
 
+    <!--ProjectTasksAdapter-->
     <string name="name_task">Название задачи: %s</string>
+    <string name="description_task">Описание задачи: %s</string>
+    <string name="id_project_adapter">ID проекта: %s</string>
+    <string name="id_task_adapter">ID задачи: %s</string>
+    <string name="status_task_adapter">Статус: %s</string>
+    <string name="date_task_adapter">Дата: %s</string>
 
 </resources>

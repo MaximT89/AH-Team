@@ -2,15 +2,13 @@ package com.ahinfo.ahteam.ui.screens.parser.updateProject
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
-import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItem
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.data.parser.updateProject.remote.dto.RequestUpdateProject
-import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
 import com.ahinfo.ahteam.domain.parser.updateProject.entity.UpdateProjectDomain
 import com.ahinfo.ahteam.domain.parser.updateProject.useCase.UpdateProjectUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,14 +23,14 @@ class UpdateProjectViewModel @Inject constructor(
 ) : BaseViewModel() {
     override fun title(): String = resourceProvider.string(R.string.update_project)
 
-    private var _elementsItem = MutableLiveData<ElementsItem>()
-    val elementsItem: LiveData<ElementsItem> = _elementsItem
+    private var _elementsItemProject = MutableLiveData<ElementsItemProject>()
+    val elementsItemProject: LiveData<ElementsItemProject> = _elementsItemProject
 
     private var _updateProjectState = MutableLiveData<UpdateProjectsState>()
     val updateProjectState: LiveData<UpdateProjectsState> = _updateProjectState
 
-    fun updateElementsItem(item: ElementsItem) {
-        _elementsItem.value = item
+    fun updateElementsItem(item: ElementsItemProject) {
+        _elementsItemProject.value = item
     }
 
     fun updateProject(requestUpdateProject: RequestUpdateProject) {
