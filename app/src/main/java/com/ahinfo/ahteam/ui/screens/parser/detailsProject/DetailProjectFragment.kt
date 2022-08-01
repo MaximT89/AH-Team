@@ -7,6 +7,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
+import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
@@ -31,21 +32,12 @@ class DetailProjectFragment :
         recyclerViewTasks.adapter = projectTasksAdapter
 
         setFragmentResultListener("detail_parser_project") { _, bundle ->
-            val elementItem = bundle.getParcelable<ElementsItemProject>("parser_project")
-
-            // TODO: сохранить во вью моделе данные и потом уже их отображать в UI
-            updateUi(elementItem)
-
-            // TODO: запускать запрос из полуенных данных
-            elementItem?.id?.let { viewModel.updateUiProjectTasks(it) }
+            val projectId = bundle.getInt("parser_project_id")
+            viewModel.saveProjectIdInPrefs(projectId)
+            viewModel.updateUiProjectTasks()
+        }.let {
+            viewModel.updateUiProjectTasks()
         }
-    }
-
-    private fun updateUi(elementItem: ElementsItemProject?) = with(binding) {
-        nameProject.text = "Название: ${elementItem?.name}"
-        descriptionProject.text = "Описание: ${elementItem?.description}"
-        idProject.text = "ID: ${elementItem?.id}"
-        statusProject.text = "Статус: ${elementItem?.status}"
     }
 
     override fun initObservers() {

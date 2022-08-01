@@ -15,7 +15,7 @@ class ListProjectsAdapter :
 
     var callBackDeleteProject : ((id : Int) -> Unit)? = null
     var callBackUpgradeProject : ((item : ElementsItemProject) -> Unit)? = null
-    var callBackGoDetailProject : ((item : ElementsItemProject) -> Unit)? = null
+    var callBackGoDetailProject : ((projectId : Int) -> Unit)? = null
 
     class ItemComparator : DiffUtil.ItemCallback<ElementsItemProject>() {
         override fun areItemsTheSame(oldItem: ElementsItemProject, newItem: ElementsItemProject): Boolean {
@@ -49,7 +49,7 @@ class ListProjectsAdapter :
             }
 
             root.setOnClickListener {
-                callBackGoDetailProject?.invoke(item)
+                callBackGoDetailProject?.invoke(item.id!!)
             }
         }
     }

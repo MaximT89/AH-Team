@@ -9,10 +9,13 @@ class GetProjectTasksPrefs @Inject constructor(private val baseSharedPreferences
 
     companion object {
         const val NUMBER_PAGE_TASK = "number_page_task"
-        const val COUNT_PROJECTS_ON_PAGE_TASK = "count_project_on_page_task"
-
         const val DEFAULT_NUMBER_PAGE_TASK = 1
+
+        const val COUNT_PROJECTS_ON_PAGE_TASK = "count_project_on_page_task"
         const val DEFAULT_COUNT_PROJECTS_ON_PAGE = 1000
+
+        const val PROJECT_ID = "project_id"
+        const val DEFAULT_PROJECT_ID = 0
     }
 
     fun loadNumberPage() =
@@ -30,4 +33,10 @@ class GetProjectTasksPrefs @Inject constructor(private val baseSharedPreferences
     fun saveCountElementOnPage(value: Int) {
         baseSharedPreferences.defaultPref().editMe { it.put(COUNT_PROJECTS_ON_PAGE_TASK to value) }
     }
+
+    fun saveProjectId(value: Int){
+        baseSharedPreferences.defaultPref().editMe { it.put(PROJECT_ID to value) }
+    }
+
+    fun loadProjectId() = baseSharedPreferences.defaultPref().getInt(PROJECT_ID, DEFAULT_PROJECT_ID)
 }

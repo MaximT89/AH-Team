@@ -7,6 +7,8 @@ import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
+import com.ahinfo.ahteam.core.extension.log
+import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.useCases.GetProjectTasksUseCase
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
@@ -26,14 +28,15 @@ class DetailProjectViewModel @Inject constructor(
     private var _detailProjectState = MutableLiveData<DetailProjectState>()
     val detailProjectState: LiveData<DetailProjectState> = _detailProjectState
 
-    private var _currentProject = MutableLiveData<Int>()
-    val currentProject: LiveData<Int> = _currentProject
-
-    fun updateUiProjectTasks(projectId: Int) {
+    fun updateUiProjectTasks() {
         viewModelScope.launch {
             _detailProjectState.value = DetailProjectState.Loading
-            getProjectTasks(projectId)
+            getProjectTasks( useCase.loadProjectIdFromPrefs())
         }
+    }
+
+    fun saveProjectIdInPrefs(projectId : Int){
+        useCase.saveProjectIdInPrefs(projectId)
     }
 
     private suspend fun getProjectTasks(projectId: Int) =
@@ -55,13 +58,14 @@ class DetailProjectViewModel @Inject constructor(
                         result.data
                     )
                 )
-
             }
         }
 
     fun deleteTask(idTask: Int?) {
 
     }
+
+
 
 }
 

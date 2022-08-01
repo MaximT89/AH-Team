@@ -41,5 +41,9 @@ class GetProjectTasksRepositoryImpl @Inject constructor(
         prefs.saveCountElementOnPage(GetProjectTasksPrefs.DEFAULT_COUNT_PROJECTS_ON_PAGE)
     }
 
+    override fun saveProjectId(projectId: Int) {
+        prefs.saveProjectId(projectId)
+    }
 
+    override fun loadProjectId(): Int = prefs.loadProjectId()
 }

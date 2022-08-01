@@ -33,8 +33,8 @@ class ListProjectsFragment :
             navigateTo(DestinationsParser.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
         }
 
-        listProjectsAdapter.callBackGoDetailProject = { parserProject ->
-            setFragmentResult("detail_parser_project", bundleOf("parser_project" to parserProject))
+        listProjectsAdapter.callBackGoDetailProject = { projectId ->
+            setFragmentResult("detail_parser_project", bundleOf("parser_project_id" to projectId))
             navigateTo(DestinationsParser.LIST_PROJECTS_TO_DETAIL_PROJECT.id)
         }
     }

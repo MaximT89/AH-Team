@@ -29,5 +29,9 @@ class GetProjectTasksUseCase @Inject constructor(private val repository: GetProj
         repository.returnToDefaultSettings()
     }
 
+    fun saveProjectIdInPrefs(projectId : Int) {
+        repository.saveProjectId(projectId)
+    }
 
+    fun loadProjectIdFromPrefs() : Int = repository.loadProjectId()
 }

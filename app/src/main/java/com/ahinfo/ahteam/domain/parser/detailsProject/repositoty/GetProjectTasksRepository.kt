@@ -21,4 +21,8 @@ interface GetProjectTasksRepository {
     fun saveCountProjectsOnPage(value : Int)
 
     fun returnToDefaultSettings()
+
+    fun saveProjectId(projectId: Int)
+
+    fun loadProjectId() : Int
 }
