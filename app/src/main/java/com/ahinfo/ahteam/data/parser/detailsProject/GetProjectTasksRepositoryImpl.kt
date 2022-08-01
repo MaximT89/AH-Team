@@ -4,6 +4,7 @@ import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.remote.Failure
 import com.ahinfo.ahteam.data.parser.detailsProject.local.GetProjectTasksPrefs
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.GetProjectTasksCloudDataSource
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestGetProjectTasks
 import com.ahinfo.ahteam.data.parser.listProjects.local.ListProjectsPrefs
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.repositoty.GetProjectTasksRepository
@@ -15,13 +16,9 @@ class GetProjectTasksRepositoryImpl @Inject constructor(
 ) : GetProjectTasksRepository {
 
     override suspend fun getProjectTasks(
-        idProject: Int,
-        numberPage: Int,
-        countItemOnPage: Int
+        request: RequestGetProjectTasks
     ): BaseResult<GetProjectTasksDomain, Failure> = cloudDataSource.getProjectTasks(
-        idProject,
-        numberPage,
-        countItemOnPage
+        request
     )
 
     override fun loadPage(): Int = prefs.loadNumberPage()

@@ -4,6 +4,7 @@ import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.remote.Failure
 import com.ahinfo.ahteam.core.remote.ResponseWrapper
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.api.GetProjectTasksApi
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestGetProjectTasks
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.mapper.GetProjectTasksDataToDomainMapper
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import javax.inject.Inject
@@ -15,14 +16,10 @@ class GetProjectTasksCloudDataSource @Inject constructor(
 ) {
 
     suspend fun getProjectTasks(
-        idProject: Int,
-        numberPage: Int,
-        countItemOnPage: Int
+        request: RequestGetProjectTasks
     ): BaseResult<GetProjectTasksDomain, Failure> = responseWrapper.handleResponse(mapper) {
         api.getProjectTasks(
-            idProject,
-            numberPage,
-            countItemOnPage
+            request
         )
     }
 }

@@ -8,6 +8,7 @@ import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.core.extension.log
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestGetProjectTasks
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.useCases.GetProjectTasksUseCase
@@ -42,9 +43,12 @@ class DetailProjectViewModel @Inject constructor(
     private suspend fun getProjectTasks(projectId: Int) =
         withContext(Dispatchers.IO) {
             when (val result = useCase.getProjectTasks(
-                projectId,
-                useCase.loadPage(),
-                useCase.loadCountProjectsOnPage()
+                RequestGetProjectTasks(
+                    projectId,
+                    useCase.loadPage(),
+                    useCase.loadCountProjectsOnPage(),
+                    null
+                )
             )) {
                 is BaseResult.Error -> {
                     if (result.err.code != 0) {
@@ -62,7 +66,7 @@ class DetailProjectViewModel @Inject constructor(
         }
 
     fun deleteTask(idTask: Int?) {
-
+        // TODO: сделать запрос на удаление задачи в проекте
     }
 
 

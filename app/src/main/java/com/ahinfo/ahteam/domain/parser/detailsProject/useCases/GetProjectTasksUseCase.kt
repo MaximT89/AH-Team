@@ -2,15 +2,18 @@ package com.ahinfo.ahteam.domain.parser.detailsProject.useCases
 
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.remote.Failure
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestGetProjectTasks
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.repositoty.GetProjectTasksRepository
 import javax.inject.Inject
 
 class GetProjectTasksUseCase @Inject constructor(private val repository: GetProjectTasksRepository) {
 
-    suspend fun getProjectTasks(idProject: Int, numberPage: Int, countItemOnPage: Int):
+    suspend fun getProjectTasks(
+        request: RequestGetProjectTasks
+    ):
             BaseResult<GetProjectTasksDomain, Failure> =
-        repository.getProjectTasks(idProject, numberPage, countItemOnPage)
+        repository.getProjectTasks(request)
 
 
     fun loadPage(): Int = repository.loadPage()
