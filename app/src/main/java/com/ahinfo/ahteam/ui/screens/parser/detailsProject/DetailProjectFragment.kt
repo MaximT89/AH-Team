@@ -32,9 +32,12 @@ class DetailProjectFragment :
 
         setFragmentResultListener("detail_parser_project") { _, bundle ->
             val elementItem = bundle.getParcelable<ElementsItemProject>("parser_project")
+
+            // TODO: сохранить во вью моделе данные и потом уже их отображать в UI
             updateUi(elementItem)
+
+            // TODO: запускать запрос из полуенных данных
             elementItem?.id?.let { viewModel.updateUiProjectTasks(it) }
-            // TODO: тоже подумать о чистке setFragmentResultListener
         }
     }
 

@@ -36,7 +36,7 @@ class DetailProjectViewModel @Inject constructor(
         }
     }
 
-    suspend fun getProjectTasks(projectId: Int) =
+    private suspend fun getProjectTasks(projectId: Int) =
         withContext(Dispatchers.IO) {
             when (val result = useCase.getProjectTasks(
                 projectId,
