@@ -74,7 +74,8 @@ class DetailProjectFragment :
             navigateTo(DestinationsParser.DETAIL_PROJECT_TO_UPDATE_TASK_PROJECT.id)
         }
 
-        projectTasksAdapter?.callBackNavigateForTask = {
+        projectTasksAdapter?.callBackNavigateForTask = { itemTask ->
+            setFragmentResult(SET_RESULT_CURRENT_TASK, bundleOf("item_task" to itemTask))
             navigateTo(DestinationsParser.DETAIL_PROJECT_TO_CURRENT_PARSER_PROJECT.id)
         }
     }
