@@ -13,6 +13,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AddProjectFragment :
     BaseFragment<FragmentAddProjectBinding, AddProjectViewModel>(FragmentAddProjectBinding::inflate) {
+
+    companion object{
+        const val SET_RESULT_ADD_PROJECT = "result_add_project"
+    }
+
     override val viewModel: AddProjectViewModel by viewModels()
 
     override fun initView() = with(binding) {
@@ -28,13 +33,13 @@ class AddProjectFragment :
     override fun initObservers() {
         viewModel.addProjectState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is AddProjectsState.Error -> { log(state.messageError) }
-                AddProjectsState.Loading -> {log("Загрузка")}
-                is AddProjectsState.NoInternet -> {log(state.messageNoInternet) }
+                is AddProjectsState.Error -> { }
+                AddProjectsState.Loading -> {}
+                is AddProjectsState.NoInternet -> {}
                 is AddProjectsState.Success -> {
 
                     setFragmentResult(
-                        "add_project", bundleOf("result_add_project" to state.data.result!!)
+                        SET_RESULT_ADD_PROJECT, bundleOf("result_add_project" to state.data.result!!)
                     )
 
                     navigateTo(DestinationsParser.ADD_PROJECT_TO_LIST_PROJECTS.id)

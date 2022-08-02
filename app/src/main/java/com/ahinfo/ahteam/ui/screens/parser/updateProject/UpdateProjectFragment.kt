@@ -9,15 +9,21 @@ import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.data.parser.updateProject.remote.dto.RequestUpdateProject
 import com.ahinfo.ahteam.databinding.FragmentUpdateProjectBinding
+import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UpdateProjectFragment :
     BaseFragment<FragmentUpdateProjectBinding, UpdateProjectViewModel>(FragmentUpdateProjectBinding::inflate) {
+
+    companion object {
+        const val SET_RESULT_UPDATE_PROJECT = "result_update_project"
+    }
+
     override val viewModel: UpdateProjectViewModel by viewModels()
 
     override fun initView() = with(binding) {
-        setFragmentResultListener("upgrade_parser_project") { _, bundle ->
+        setFragmentResultListener(ListProjectsFragment.SET_RESULT_UPGRADE_PARSER) { _, bundle ->
             val parserItem = bundle.getParcelable<ElementsItemProject>("parser_project")
             viewModel.updateElementsItem(parserItem!!)
         }
@@ -43,7 +49,7 @@ class UpdateProjectFragment :
                 is UpdateProjectsState.NoInternet -> {}
                 is UpdateProjectsState.Success -> {
                     setFragmentResult(
-                        "update_project",
+                        SET_RESULT_UPDATE_PROJECT,
                         bundleOf("update_result" to state.data.result)
                     )
                     navigateTo(DestinationsParser.UPDATE_PROJECT_TO_LIST_PROJECTS.id)

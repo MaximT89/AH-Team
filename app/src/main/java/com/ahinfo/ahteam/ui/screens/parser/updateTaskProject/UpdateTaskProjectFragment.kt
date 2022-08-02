@@ -6,6 +6,7 @@ import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentUpdateTaskProjectBinding
+import com.ahinfo.ahteam.ui.screens.parser.detailsProject.DetailProjectFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,7 +17,7 @@ class UpdateTaskProjectFragment :
     override val viewModel: UpdateTaskProjectViewModel by viewModels()
 
     override fun initView() {
-        setFragmentResultListener("current_project") { _, bundle ->
+        setFragmentResultListener(DetailProjectFragment.SET_RESULT_CURRENT_TASK) { _, bundle ->
 
             val itemTask = bundle.getParcelable<ElementsItemTask>("item_task")
             // TODO: раскинуть по полям все значения которых хотим апдейтить

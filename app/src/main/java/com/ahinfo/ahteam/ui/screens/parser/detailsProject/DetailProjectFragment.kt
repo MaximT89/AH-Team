@@ -7,11 +7,10 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
-import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
-import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
+import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -19,6 +18,11 @@ import javax.inject.Inject
 @SuppressLint("SetTextI18n")
 class DetailProjectFragment :
     BaseFragment<FragmentDetailProjectBinding, DetailProjectViewModel>(FragmentDetailProjectBinding::inflate) {
+
+    companion object{
+        const val SET_RESULT_CURRENT_TASK = "set_current_task"
+    }
+
     override val viewModel: DetailProjectViewModel by viewModels()
 
     @Inject
@@ -31,7 +35,7 @@ class DetailProjectFragment :
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
 
-        setFragmentResultListener("detail_parser_project") { _, bundle ->
+        setFragmentResultListener(ListProjectsFragment.SET_RESULT_DETAIL_PARSER) { _, bundle ->
             val projectId = bundle.getInt("parser_project_id")
             viewModel.saveProjectIdInPrefs(projectId)
             viewModel.updateUiProjectTasks()
@@ -66,7 +70,7 @@ class DetailProjectFragment :
         }
 
         projectTasksAdapter?.callBackUpdateTask = { itemTask ->
-            setFragmentResult("current_project", bundleOf("item_task" to itemTask))
+            setFragmentResult(SET_RESULT_CURRENT_TASK, bundleOf("item_task" to itemTask))
             navigateTo(DestinationsParser.DETAIL_PROJECT_TO_UPDATE_TASK_PROJECT.id)
         }
 
