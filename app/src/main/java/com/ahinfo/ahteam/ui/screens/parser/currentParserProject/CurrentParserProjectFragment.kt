@@ -17,15 +17,16 @@ class CurrentParserProjectFragment :
     override val viewModel: CurrentParserProjectViewModel by viewModels()
 
     override fun initView() {
-
-    }
-
-    override fun initCallbacks() {
         setFragmentResultListener(DetailProjectFragment.SET_RESULT_CURRENT_TASK) { _ , bundle ->
             val itemTask = bundle.getParcelable<ElementsItemTask>("item_task")
 
+
+
             // TODO: нужно запустить статус загрузки и пока идет загрузка определиться с дельнейшим статуслм
             // TODO: далее нужно сохранить в локальном кеше номер проекта и номер задачи по парсингу
+        }.let {
+
+            // TODO: брать из префов значения и получить статус исходя из этих данных
         }
     }
 
