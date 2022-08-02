@@ -18,8 +18,6 @@ class GetProjectTasksCloudDataSource @Inject constructor(
     suspend fun getProjectTasks(
         request: RequestGetProjectTasks
     ): BaseResult<GetProjectTasksDomain, Failure> = responseWrapper.handleResponse(mapper) {
-        api.getProjectTasks(
-            request
-        )
+        api.getProjectTasks(request)
     }
 }

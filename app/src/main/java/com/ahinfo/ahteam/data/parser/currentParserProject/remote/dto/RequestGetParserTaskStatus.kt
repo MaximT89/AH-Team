@@ -15,7 +15,7 @@ import com.google.gson.annotations.SerializedName
  * id, то получим данные по задаче конкретного проекта
  *
  */
-data class RequestGetTaskStatus(
+data class RequestGetParserTaskStatus(
     @SerializedName("project_id")
     val projectId: Int,
     @SerializedName("page")

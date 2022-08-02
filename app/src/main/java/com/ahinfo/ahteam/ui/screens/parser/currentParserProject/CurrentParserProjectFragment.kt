@@ -20,9 +20,9 @@ class CurrentParserProjectFragment :
         setFragmentResultListener(DetailProjectFragment.SET_RESULT_CURRENT_TASK) { _ , bundle ->
             val itemTask = bundle.getParcelable<ElementsItemTask>("item_task")
 
+            viewModel.saveCurrentTaskId(itemTask!!)
+            viewModel.getCurrentTaskStatus()
 
-
-            // TODO: нужно запустить статус загрузки и пока идет загрузка определиться с дельнейшим статуслм
             // TODO: далее нужно сохранить в локальном кеше номер проекта и номер задачи по парсингу
         }.let {
 
@@ -37,8 +37,6 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.Error -> {}
                 CurrentParserState.Loading -> {}
                 is CurrentParserState.NoInternet -> {}
-                is CurrentParserState.Success -> {}
-                is CurrentParserState.EmptyParser -> TODO()
             }
         }
     }
