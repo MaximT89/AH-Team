@@ -34,11 +34,45 @@ class CurrentParserProjectFragment :
         viewModel.currentParserState.observe(viewLifecycleOwner){
             state ->
             when(state){
+                CurrentParserState.CatalogComplete -> {}
+                CurrentParserState.CatalogError -> {}
+                CurrentParserState.CatalogStart -> {}
+                CurrentParserState.ElementComplete -> {}
+                CurrentParserState.ElementError -> {}
+                CurrentParserState.ElementStart -> {}
                 is CurrentParserState.Error -> {}
                 CurrentParserState.Loading -> {}
+                CurrentParserState.MenuComplete -> {}
+                CurrentParserState.MenuError -> {}
+                CurrentParserState.MenuStart -> {}
                 is CurrentParserState.NoInternet -> {}
+                CurrentParserState.ParsingCreate -> {}
             }
         }
+    }
+
+    private fun showBtnDownloadCategory() = with(binding){
+        btnDownloadCategoty.isVisible = true
+        btnDownloadArticles.isGone = true
+        btnDownloadOffers.isGone = true
+    }
+
+    private fun showBtnDownloadArticles() = with(binding){
+        btnDownloadCategoty.isGone = true
+        btnDownloadArticles.isVisible = true
+        btnDownloadOffers.isGone = true
+    }
+
+    private fun showBtnDownloadOffers() = with(binding){
+        btnDownloadCategoty.isGone = true
+        btnDownloadArticles.isGone = true
+        btnDownloadOffers.isVisible = true
+    }
+
+    private fun hideAllStateBtn(){
+        btnDownloadCategoty.isGone = true
+        btnDownloadArticles.isGone = true
+        btnDownloadOffers.isGone  = true
     }
 
     override fun title() = with(binding){

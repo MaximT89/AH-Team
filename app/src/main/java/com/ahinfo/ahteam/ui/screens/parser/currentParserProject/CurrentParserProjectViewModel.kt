@@ -65,16 +65,17 @@ class CurrentParserProjectViewModel @Inject constructor(
 
     private fun adapterParserStatus(result: GetParserTaskStatusDomain) {
         when(result.status){
-            ParserStatuses.PARSING_CREATE.status -> {}
-            ParserStatuses.MENU_START.status -> {}
-            ParserStatuses.MENU_COMPLETE.status -> {}
-            ParserStatuses.CATALOG_START.status -> {}
-            ParserStatuses.CATALOG_COMPLETE.status -> {}
-            ParserStatuses.ELEMENT_START.status -> {}
-            ParserStatuses.ELEMENT_COMPLETE.status -> {}
-            ParserStatuses.MENU_ERROR.status -> {}
-            ParserStatuses.CATALOG_ERROR.status -> {}
-            ParserStatuses.ELEMENT_ERROR.status -> {}
+            ParserStatuses.PARSING_CREATE.status -> CurrentParserState.ParsingCreate
+            ParserStatuses.MENU_START.status -> CurrentParserState.MenuStart
+            ParserStatuses.MENU_COMPLETE.status -> CurrentParserState.MenuComplete
+            ParserStatuses.CATALOG_START.status -> CurrentParserState.CatalogStart
+            ParserStatuses.CATALOG_COMPLETE.status -> CurrentParserState.CatalogComplete
+            ParserStatuses.ELEMENT_START.status -> CurrentParserState.ElementStart
+            ParserStatuses.ELEMENT_COMPLETE.status -> CurrentParserState.ElementComplete
+            ParserStatuses.MENU_ERROR.status -> CurrentParserState.MenuError
+            ParserStatuses.CATALOG_ERROR.status -> CurrentParserState.CatalogError
+            ParserStatuses.ELEMENT_ERROR.status -> CurrentParserState.ElementError
+            null -> CurrentParserState.Error("Нет статуса")
         }
     }
 }
@@ -83,4 +84,14 @@ sealed class CurrentParserState {
     object Loading : CurrentParserState()
     class Error(val messageError: String, val messageCode: Int? = null) : CurrentParserState()
     class NoInternet(val messageNoInternet: String) : CurrentParserState()
+    object ParsingCreate : CurrentParserState()
+    object MenuStart : CurrentParserState()
+    object MenuComplete : CurrentParserState()
+    object CatalogStart : CurrentParserState()
+    object CatalogComplete : CurrentParserState()
+    object ElementStart : CurrentParserState()
+    object ElementComplete : CurrentParserState()
+    object MenuError : CurrentParserState()
+    object CatalogError : CurrentParserState()
+    object ElementError : CurrentParserState()
 }
