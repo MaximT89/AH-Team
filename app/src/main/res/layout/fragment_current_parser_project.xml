@@ -10,8 +10,19 @@
 
     <include
         android:id="@+id/title_field"
-        layout="@layout/title_layout"
-        />
+        layout="@layout/title_layout" />
+
+    <RelativeLayout
+        android:id="@+id/progress_bar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/field_state_btn"
@@ -32,30 +43,33 @@
 
         <Button
             android:id="@+id/btn_download_category"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Скачать категории"
-            android:visibility="gone"
-            tools:visibility="visible" />
+            android:text="1. Скачать категории (из меню)"
+            android:clickable="false"
+            android:enabled="false"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_download_articles"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:text="Скачать артикулы из категорий"
-            android:visibility="gone" />
+            android:clickable="false"
+            android:enabled="false"
+            android:text="2. Скачать артикулы из категорий"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_download_offers"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:text="Скачать параметры артикулов"
-            android:visibility="gone" />
+            android:clickable="false"
+            android:enabled="false"
+            android:text="3. Скачать параметры артикулов"
+            android:visibility="visible" />
 
         <View
             android:layout_width="match_parent"
@@ -79,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Статистика парсинга:"
+            android:text="Статистика по ссылкам:"
             android:textSize="16dp"
             android:textStyle="bold" />
 

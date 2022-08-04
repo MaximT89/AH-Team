@@ -7,6 +7,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
+import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class DetailProjectFragment :
     BaseFragment<FragmentDetailProjectBinding, DetailProjectViewModel>(FragmentDetailProjectBinding::inflate) {
 
-    companion object{
+    companion object {
         const val SET_RESULT_CURRENT_TASK = "set_current_task"
     }
 
@@ -35,11 +36,17 @@ class DetailProjectFragment :
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
 
+
         setFragmentResultListener(ListProjectsFragment.SET_RESULT_DETAIL_PARSER) { _, bundle ->
+
+            log("принял результат от списка проектов")
+
             val projectId = bundle.getInt("parser_project_id")
             viewModel.saveProjectIdInPrefs(projectId)
             viewModel.updateUiProjectTasks()
         }.let {
+            log("не принял результат от списка проектов")
+
             viewModel.updateUiProjectTasks()
         }
     }

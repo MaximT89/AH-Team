@@ -13,6 +13,8 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.content.res.Resources
+import android.widget.Button
+import androidx.core.view.isVisible
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
@@ -54,6 +56,18 @@ fun hideViews(vararg views: View) {
 
 fun log(message: String) {
     Log.d("TAG", "log: $message")
+}
+
+fun Button.active(){
+    isVisible = true
+    isEnabled = true
+    isClickable = true
+}
+
+fun Button.notActive(){
+    isVisible = true
+    isEnabled = false
+    isClickable = false
 }
 
 fun createGradient(textView: TextView, colors: IntArray) {

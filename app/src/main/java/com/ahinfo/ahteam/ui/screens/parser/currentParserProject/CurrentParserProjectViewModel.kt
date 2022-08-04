@@ -7,13 +7,11 @@ import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
+import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.data.parser.currentParserProject.local.ParserStatuses
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.dto.RequestGetParserTaskStatus
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
-import com.ahinfo.ahteam.domain.parser.addProject.entity.AddProjectDomain
-import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetParserTaskStatusDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.useCase.GetParserTaskStatusUseCase
-import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -58,24 +56,30 @@ class CurrentParserProjectViewModel @Inject constructor(
                     )
                     else _currentParserState.postValue(CurrentParserState.NoInternet(result.err.message))
                 }
-                is BaseResult.Success -> adapterParserStatus(result.data)
+                is BaseResult.Success -> {
+                    log("успех ${result.data.status}")
+                    adapterParserStatus(result.data.status)
+                }
             }
         }
     }
 
-    private fun adapterParserStatus(result: GetParserTaskStatusDomain) {
-        when(result.status){
-            ParserStatuses.PARSING_CREATE.status -> CurrentParserState.ParsingCreate
-            ParserStatuses.MENU_START.status -> CurrentParserState.MenuStart
-            ParserStatuses.MENU_COMPLETE.status -> CurrentParserState.MenuComplete
-            ParserStatuses.CATALOG_START.status -> CurrentParserState.CatalogStart
-            ParserStatuses.CATALOG_COMPLETE.status -> CurrentParserState.CatalogComplete
-            ParserStatuses.ELEMENT_START.status -> CurrentParserState.ElementStart
-            ParserStatuses.ELEMENT_COMPLETE.status -> CurrentParserState.ElementComplete
-            ParserStatuses.MENU_ERROR.status -> CurrentParserState.MenuError
-            ParserStatuses.CATALOG_ERROR.status -> CurrentParserState.CatalogError
-            ParserStatuses.ELEMENT_ERROR.status -> CurrentParserState.ElementError
-            null -> CurrentParserState.Error("Нет статуса")
+    private fun adapterParserStatus(result: String?) {
+        when(result){
+            ParserStatuses.PARSING_CREATE.status -> _currentParserState.postValue(CurrentParserState.ParsingCreate)
+            ParserStatuses.MENU_START.status -> _currentParserState.postValue(CurrentParserState.MenuStart)
+            ParserStatuses.MENU_COMPLETE.status -> _currentParserState.postValue(CurrentParserState.MenuComplete)
+            ParserStatuses.CATALOG_START.status -> {
+                log("viewModel catalog start is work")
+            _currentParserState.postValue(CurrentParserState.CatalogStart)
+            }
+            ParserStatuses.CATALOG_COMPLETE.status -> _currentParserState.postValue(CurrentParserState.CatalogComplete)
+            ParserStatuses.ELEMENT_START.status -> _currentParserState.postValue(CurrentParserState.ElementStart)
+            ParserStatuses.ELEMENT_COMPLETE.status -> _currentParserState.postValue(CurrentParserState.ElementComplete)
+            ParserStatuses.MENU_ERROR.status -> _currentParserState.postValue(CurrentParserState.MenuError)
+            ParserStatuses.CATALOG_ERROR.status -> _currentParserState.postValue(CurrentParserState.CatalogError)
+            ParserStatuses.ELEMENT_ERROR.status -> _currentParserState.postValue(CurrentParserState.ElementError)
+            else -> _currentParserState.postValue(CurrentParserState.Error("Нет статуса"))
         }
     }
 }
