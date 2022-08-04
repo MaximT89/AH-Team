@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface GetProjectTaskStatusApi {
+interface GetTaskStatusApi {
 
     /**
      * Запрашиваем статус задачи в проекте

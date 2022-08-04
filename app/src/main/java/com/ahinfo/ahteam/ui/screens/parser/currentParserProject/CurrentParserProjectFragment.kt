@@ -2,13 +2,17 @@ package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.core.extension.*
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentCurrentParserProjectBinding
+import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetSectionStatDomain
 import com.ahinfo.ahteam.ui.screens.parser.detailsProject.DetailProjectFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CurrentParserProjectFragment :
@@ -17,17 +21,15 @@ class CurrentParserProjectFragment :
     ) {
     override val viewModel: CurrentParserProjectViewModel by viewModels()
 
+    @Inject
+    lateinit var resourceProvider: ResourceProvider
+
     override fun initView() {
         setFragmentResultListener(DetailProjectFragment.SET_RESULT_CURRENT_TASK) { _, bundle ->
             val itemTask = bundle.getParcelable<ElementsItemTask>("item_task")
 
             viewModel.saveCurrentTaskId(itemTask!!)
             viewModel.getCurrentTaskStatus()
-
-            // TODO: далее нужно сохранить в локальном кеше номер проекта и номер задачи по парсингу
-        }.let {
-
-            // TODO: брать из префов значения и получить статус исходя из этих данных
         }
     }
 
@@ -35,62 +37,95 @@ class CurrentParserProjectFragment :
         viewModel.currentParserState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 CurrentParserState.CatalogComplete -> {
+                    log("CurrentParserState.CatalogComplete")
                     hideProgressBar()
                     showBtnsField()
                     showBtnDownloadOffers()
+                    loadTaskSectionStat()
                 }
                 CurrentParserState.CatalogError -> {
+                    log("CurrentParserState.CatalogError")
                     hideProgressBar()
                 }
                 CurrentParserState.CatalogStart -> {
-                    log("ui catalog start is work")
+                    log("CurrentParserState.CatalogError")
                     hideProgressBar()
                     showBtnsField()
                     allBtnNotActive()
+                    loadTaskSectionStat()
                 }
                 CurrentParserState.ElementComplete -> {
+                    log("CurrentParserState.CatalogError")
                     hideProgressBar()
                     showBtnsField()
                     allBtnNotActive()
+                    loadTaskSectionStat()
                 }
                 CurrentParserState.ElementError -> {
+                    log("CurrentParserState.ElementError")
                     hideProgressBar()
                 }
                 CurrentParserState.ElementStart -> {
+                    log("CurrentParserState.ElementStart")
                     hideProgressBar()
                     showBtnsField()
                     allBtnNotActive()
+                    loadTaskSectionStat()
                 }
                 is CurrentParserState.Error -> {
+                    log("CurrentParserState.Error")
                     hideProgressBar()
                 }
                 CurrentParserState.Loading -> {
+                    log("CurrentParserState.Loading")
                     hideProgressBar()
                     showProgressBar()
                 }
                 CurrentParserState.MenuComplete -> {
+                    log("CurrentParserState.MenuComplete")
                     hideProgressBar()
                     showBtnsField()
                     showBtnDownloadArticles()
+                    loadTaskSectionStat()
                 }
                 CurrentParserState.MenuError -> {
+                    log("CurrentParserState.MenuError")
                     hideProgressBar()
                 }
                 CurrentParserState.MenuStart -> {
+                    log("CurrentParserState.MenuStart")
                     hideProgressBar()
                     showBtnsField()
                     allBtnNotActive()
                 }
                 is CurrentParserState.NoInternet -> {
+                    log("CurrentParserState.NoInternet")
                     hideProgressBar()
                 }
                 CurrentParserState.ParsingCreate -> {
+                    log("CurrentParserState.ParsingCreate ")
                     hideProgressBar()
                     showBtnsField()
                     showBtnDownloadCategory()
                 }
+                is CurrentParserState.SuccessLoadSectionStat -> {
+                    log("CurrentParserState.SuccessLoadSectionStat work")
+                    updateSectionStatField(state.data)
+                }
             }
         }
+    }
+
+    private fun loadTaskSectionStat() {
+        log("loadTaskSectionStat work")
+        viewModel.getTaskSectionStat()
+    }
+
+    private fun updateSectionStatField(data: GetSectionStatDomain) = with(binding) {
+        totalCountElements.text = resourceProvider.string(R.string.total_element_parsing, data.countElements.toString())
+        countElementsExist.text = resourceProvider.string(R.string.count_elements_exist, data.exist.toString())
+        minPriceElements.text = resourceProvider.string(R.string.min_price_elements, data.minPrice.toString())
+        maxPriceElements.text = resourceProvider.string(R.string.max_price_elements, data.maxPrice.toString())
     }
 
     private fun showProgressBar() { binding.progressBar.show() }
