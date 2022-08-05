@@ -21,9 +21,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListProjectsFragment :
     BaseFragment<FragmentListProjectsBinding, ListProjectsViewModel>(FragmentListProjectsBinding::inflate) {
 
-    companion object{
+    companion object {
         const val SET_RESULT_UPGRADE_PARSER = "upgrade_parser_project"
-        const val SET_RESULT_DETAIL_PARSER = "detail_parser_project"
+        const val PARSER_PROJECT_ID = "parser_project_id"
     }
 
     override val viewModel: ListProjectsViewModel by viewModels()
@@ -36,13 +36,19 @@ class ListProjectsFragment :
         }
 
         listProjectsAdapter.callBackUpgradeProject = { parserProject ->
-            setFragmentResult(SET_RESULT_UPGRADE_PARSER, bundleOf("parser_project" to parserProject))
+            setFragmentResult(
+                SET_RESULT_UPGRADE_PARSER,
+                bundleOf("parser_project" to parserProject)
+            )
+//            val bundle = bundleOf("parser_project" to parserProject)
             navigateTo(DestinationsParser.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
         }
 
         listProjectsAdapter.callBackGoDetailProject = { projectId ->
-            setFragmentResult(SET_RESULT_DETAIL_PARSER, bundleOf("parser_project_id" to projectId))
-            navigateTo(DestinationsParser.LIST_PROJECTS_TO_DETAIL_PROJECT.id)
+            navigateTo(
+                DestinationsParser.LIST_PROJECTS_TO_DETAIL_PROJECT.id,
+                bundleOf(PARSER_PROJECT_ID to projectId)
+            )
         }
     }
 

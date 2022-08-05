@@ -15,4 +15,9 @@ interface Navigator {
     fun navigateTo(
         @IdRes resId: Int
     )
+
+    fun navigateTo(
+        @IdRes resId: Int,
+        args: Bundle?,
+    )
 }

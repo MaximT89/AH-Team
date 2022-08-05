@@ -24,13 +24,15 @@ class CurrentParserProjectFragment :
     @Inject
     lateinit var resourceProvider: ResourceProvider
 
-    override fun initView() {
-        setFragmentResultListener(DetailProjectFragment.SET_RESULT_CURRENT_TASK) { _, bundle ->
-            val itemTask = bundle.getParcelable<ElementsItemTask>("item_task")
+    override fun initView() : Unit = with(binding) {
 
+        if (arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK) != null) {
+            val itemTask =
+                arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK)
             viewModel.saveCurrentTaskId(itemTask!!)
             viewModel.getCurrentTaskStatus()
-        }
+            arguments?.remove(DetailProjectFragment.ITEM_TASK)
+        } else viewModel.getCurrentTaskStatus()
     }
 
     override fun initObservers() {
@@ -122,15 +124,23 @@ class CurrentParserProjectFragment :
     }
 
     private fun updateSectionStatField(data: GetSectionStatDomain) = with(binding) {
-        totalCountElements.text = resourceProvider.string(R.string.total_element_parsing, data.countElements.toString())
-        countElementsExist.text = resourceProvider.string(R.string.count_elements_exist, data.exist.toString())
-        minPriceElements.text = resourceProvider.string(R.string.min_price_elements, data.minPrice.toString())
-        maxPriceElements.text = resourceProvider.string(R.string.max_price_elements, data.maxPrice.toString())
+        totalCountElements.text =
+            resourceProvider.string(R.string.total_element_parsing, data.countElements.toString())
+        countElementsExist.text =
+            resourceProvider.string(R.string.count_elements_exist, data.exist.toString())
+        minPriceElements.text =
+            resourceProvider.string(R.string.min_price_elements, data.minPrice.toString())
+        maxPriceElements.text =
+            resourceProvider.string(R.string.max_price_elements, data.maxPrice.toString())
     }
 
-    private fun showProgressBar() { binding.progressBar.show() }
+    private fun showProgressBar() {
+        binding.progressBar.show()
+    }
 
-    private fun hideProgressBar() { binding.progressBar.hide() }
+    private fun hideProgressBar() {
+        binding.progressBar.hide()
+    }
 
     private fun showBtnDownloadCategory() = with(binding) {
         btnDownloadCategory.active()

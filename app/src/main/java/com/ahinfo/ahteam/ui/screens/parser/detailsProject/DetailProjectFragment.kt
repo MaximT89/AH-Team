@@ -22,6 +22,7 @@ class DetailProjectFragment :
 
     companion object {
         const val SET_RESULT_CURRENT_TASK = "set_current_task"
+        const val ITEM_TASK = "item_task"
     }
 
     override val viewModel: DetailProjectViewModel by viewModels()
@@ -31,22 +32,17 @@ class DetailProjectFragment :
 
     private var projectTasksAdapter: ProjectTasksAdapter? = null
 
-    override fun initView() = with(binding) {
+    override fun initView(): Unit = with(binding) {
 
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
 
-
-        setFragmentResultListener(ListProjectsFragment.SET_RESULT_DETAIL_PARSER) { _, bundle ->
-
-            log("принял результат от списка проектов")
-
-            val projectId = bundle.getInt("parser_project_id")
-            viewModel.saveProjectIdInPrefs(projectId)
+        if (arguments?.getInt(ListProjectsFragment.PARSER_PROJECT_ID) != null) {
+            val projectId = arguments?.getInt(ListProjectsFragment.PARSER_PROJECT_ID)
+            viewModel.saveProjectIdInPrefs(projectId!!)
             viewModel.updateUiProjectTasks()
-        }.let {
-            log("не принял результат от списка проектов")
-
+            arguments?.remove(ListProjectsFragment.PARSER_PROJECT_ID)
+        } else {
             viewModel.updateUiProjectTasks()
         }
     }
@@ -82,8 +78,10 @@ class DetailProjectFragment :
         }
 
         projectTasksAdapter?.callBackNavigateForTask = { itemTask ->
-            setFragmentResult(SET_RESULT_CURRENT_TASK, bundleOf("item_task" to itemTask))
-            navigateTo(DestinationsParser.DETAIL_PROJECT_TO_CURRENT_PARSER_PROJECT.id)
+            navigateTo(
+                DestinationsParser.DETAIL_PROJECT_TO_CURRENT_PARSER_PROJECT.id,
+                bundleOf(ITEM_TASK to itemTask)
+            )
         }
     }
 

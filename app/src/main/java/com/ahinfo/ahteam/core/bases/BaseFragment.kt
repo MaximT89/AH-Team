@@ -79,6 +79,9 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
     override fun navigateTo(resId: Int, args: Bundle?, navOptions: NavOptions?) =
         findNavController().navigate(resId, args, navOptions)
 
+    override fun navigateTo(resId: Int, args: Bundle?) =
+        findNavController().navigate(resId, args)
+
     override fun navigateTo(resId: Int) =
         findNavController().navigate(resId)
 
