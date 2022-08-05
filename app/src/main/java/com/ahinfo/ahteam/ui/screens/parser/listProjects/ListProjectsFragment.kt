@@ -36,12 +36,10 @@ class ListProjectsFragment :
         }
 
         listProjectsAdapter.callBackUpgradeProject = { parserProject ->
-            setFragmentResult(
-                SET_RESULT_UPGRADE_PARSER,
-                bundleOf("parser_project" to parserProject)
+            navigateTo(
+                DestinationsParser.LIST_PROJECT_TO_UPGRADE_PROJECT.id,
+                bundleOf(PARSER_PROJECT_ID to parserProject)
             )
-//            val bundle = bundleOf("parser_project" to parserProject)
-            navigateTo(DestinationsParser.LIST_PROJECT_TO_UPGRADE_PROJECT.id)
         }
 
         listProjectsAdapter.callBackGoDetailProject = { projectId ->
@@ -58,26 +56,28 @@ class ListProjectsFragment :
         btnAddProject.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECTS_TO_ADD_PROJECT.id) }
 
         swipeRefresh.setOnRefreshListener {
-            // TODO: данные нужно брать из префов
+            // TODO: перевести обновление во вью модель
             viewModel.updateListProjectsData(1, 10)
         }
 
-        setFragmentResultListener(AddProjectFragment.SET_RESULT_ADD_PROJECT) { _, bundle ->
-            val result = bundle.getBoolean("result_add_project")
+        if (arguments?.getBoolean(AddProjectFragment.RESULT_ADD_PROJECT) != null) {
+            val result = arguments?.getBoolean(AddProjectFragment.RESULT_ADD_PROJECT)
             updatePageAndShowSnackbar(
-                result = result,
+                result = result!!,
                 positiveMess = string(R.string.success_add_project),
                 negativeMess = string(R.string.fail_add_project)
             )
+            arguments?.remove(AddProjectFragment.RESULT_ADD_PROJECT)
         }
 
-        setFragmentResultListener(UpdateProjectFragment.SET_RESULT_UPDATE_PROJECT) { _, bundle ->
-            val result = bundle.getBoolean("update_result")
+        if (arguments?.getBoolean(UpdateProjectFragment.RESULT_UPDATE_PROJECT) != null) {
+            val result = arguments?.getBoolean(UpdateProjectFragment.RESULT_UPDATE_PROJECT)
             updatePageAndShowSnackbar(
-                result = result,
+                result = result!!,
                 positiveMess = string(R.string.success_update_project),
                 negativeMess = string(R.string.fail_update_project)
             )
+            arguments?.remove(UpdateProjectFragment.RESULT_UPDATE_PROJECT)
         }
     }
 

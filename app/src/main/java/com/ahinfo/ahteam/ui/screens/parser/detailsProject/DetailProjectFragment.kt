@@ -32,7 +32,7 @@ class DetailProjectFragment :
 
     private var projectTasksAdapter: ProjectTasksAdapter? = null
 
-    override fun initView(): Unit = with(binding) {
+    override fun initView() = with(binding) {
 
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
@@ -73,8 +73,10 @@ class DetailProjectFragment :
         }
 
         projectTasksAdapter?.callBackUpdateTask = { itemTask ->
-            setFragmentResult(SET_RESULT_CURRENT_TASK, bundleOf("item_task" to itemTask))
-            navigateTo(DestinationsParser.DETAIL_PROJECT_TO_UPDATE_TASK_PROJECT.id)
+            navigateTo(
+                DestinationsParser.DETAIL_PROJECT_TO_UPDATE_TASK_PROJECT.id,
+                bundleOf(ITEM_TASK to itemTask)
+            )
         }
 
         projectTasksAdapter?.callBackNavigateForTask = { itemTask ->

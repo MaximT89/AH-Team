@@ -51,8 +51,6 @@ class UpdateProjectViewModel @Inject constructor(
             }
         }
     }
-
-
 }
 
 sealed class UpdateProjectsState {

@@ -14,8 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddProjectFragment :
     BaseFragment<FragmentAddProjectBinding, AddProjectViewModel>(FragmentAddProjectBinding::inflate) {
 
-    companion object{
-        const val SET_RESULT_ADD_PROJECT = "result_add_project"
+    companion object {
+        const val RESULT_ADD_PROJECT = "result_add_project"
     }
 
     override val viewModel: AddProjectViewModel by viewModels()
@@ -36,14 +36,10 @@ class AddProjectFragment :
                 is AddProjectsState.Error -> {}
                 AddProjectsState.Loading -> {}
                 is AddProjectsState.NoInternet -> {}
-                is AddProjectsState.Success -> {
-
-                    setFragmentResult(
-                        SET_RESULT_ADD_PROJECT, bundleOf("result_add_project" to state.data.result!!)
-                    )
-
-                    navigateTo(DestinationsParser.ADD_PROJECT_TO_LIST_PROJECTS.id)
-                }
+                is AddProjectsState.Success -> navigateTo(
+                    DestinationsParser.ADD_PROJECT_TO_LIST_PROJECTS.id,
+                    bundleOf(RESULT_ADD_PROJECT to state.data.result!!)
+                )
             }
         }
     }
@@ -52,7 +48,7 @@ class AddProjectFragment :
         titleField.title.text = viewModel.title()
     }
 
-    override fun navigationArrowBack() = with(binding){
+    override fun navigationArrowBack() = with(binding) {
         titleField.arrowBack.setOnClickListener {
             navigateTo(DestinationsParser.ADD_PROJECT_TO_LIST_PROJECTS.id)
         }

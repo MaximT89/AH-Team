@@ -1,6 +1,5 @@
 package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
@@ -24,7 +23,7 @@ class CurrentParserProjectFragment :
     @Inject
     lateinit var resourceProvider: ResourceProvider
 
-    override fun initView() : Unit = with(binding) {
+    override fun initView() = with(binding) {
 
         if (arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK) != null) {
             val itemTask =

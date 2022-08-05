@@ -1,6 +1,5 @@
 package com.ahinfo.ahteam.ui.screens.parser.updateTaskProject
 
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
@@ -17,10 +16,13 @@ class UpdateTaskProjectFragment :
     override val viewModel: UpdateTaskProjectViewModel by viewModels()
 
     override fun initView() {
-        setFragmentResultListener(DetailProjectFragment.SET_RESULT_CURRENT_TASK) { _, bundle ->
 
-            val itemTask = bundle.getParcelable<ElementsItemTask>("item_task")
+        if (arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK) != null) {
+            val itemTask = arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK)
             // TODO: раскинуть по полям все значения которых хотим апдейтить
+
+
+            arguments?.remove(DetailProjectFragment.ITEM_TASK)
         }
     }
 
@@ -37,5 +39,4 @@ class UpdateTaskProjectFragment :
             navigateTo(DestinationsParser.UPDATE_TASK_PROJECT_TO_DETAIL_PROJECT.id)
         }
     }
-
 }

@@ -17,15 +17,18 @@ class UpdateProjectFragment :
     BaseFragment<FragmentUpdateProjectBinding, UpdateProjectViewModel>(FragmentUpdateProjectBinding::inflate) {
 
     companion object {
-        const val SET_RESULT_UPDATE_PROJECT = "result_update_project"
+        const val RESULT_UPDATE_PROJECT = "result_update_project"
     }
 
     override val viewModel: UpdateProjectViewModel by viewModels()
 
     override fun initView() = with(binding) {
-        setFragmentResultListener(ListProjectsFragment.SET_RESULT_UPGRADE_PARSER) { _, bundle ->
-            val parserItem = bundle.getParcelable<ElementsItemProject>("parser_project")
+
+        if (arguments?.getParcelable<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID) != null) {
+            val parserItem =
+                arguments?.getParcelable<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID)
             viewModel.updateElementsItem(parserItem!!)
+            arguments?.remove(ListProjectsFragment.PARSER_PROJECT_ID)
         }
 
         btnUpdateProject.setOnClickListener {
@@ -48,11 +51,10 @@ class UpdateProjectFragment :
                 UpdateProjectsState.Loading -> {}
                 is UpdateProjectsState.NoInternet -> {}
                 is UpdateProjectsState.Success -> {
-                    setFragmentResult(
-                        SET_RESULT_UPDATE_PROJECT,
-                        bundleOf("update_result" to state.data.result)
+                    navigateTo(
+                        DestinationsParser.UPDATE_PROJECT_TO_LIST_PROJECTS.id,
+                        bundleOf(RESULT_UPDATE_PROJECT to state.data.result)
                     )
-                    navigateTo(DestinationsParser.UPDATE_PROJECT_TO_LIST_PROJECTS.id)
                 }
             }
         }
