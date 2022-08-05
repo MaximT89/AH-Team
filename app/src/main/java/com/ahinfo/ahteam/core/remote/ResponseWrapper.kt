@@ -29,12 +29,6 @@ interface ResponseWrapper {
             return try {
                 val response = apiRequest.invoke()
 
-                if (response == null){
-                    log("response нулевой")
-                } else {
-                    log("response не нулевой")
-                }
-
                 if (response.isSuccessful) {
                     val body = response.body()
                     log("success body = $body")
