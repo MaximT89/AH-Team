@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.ahinfo.ahteam.core.extension.log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -19,8 +20,10 @@ class NetworkInterceptor @Inject constructor(@ApplicationContext private val app
 
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isConnected()) {
+            log("NetworkInterceptor error")
             throw NoInternetConnectionException()
         }
+        log("NetworkInterceptor no error")
         val newRequest = chain.request().newBuilder().build()
         return chain.proceed(newRequest)
     }

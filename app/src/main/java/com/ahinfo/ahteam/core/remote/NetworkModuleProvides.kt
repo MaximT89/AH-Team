@@ -33,9 +33,9 @@ object NetworkModuleProvides {
             .addNetworkInterceptor(networkInterceptor)
             .callTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
             .connectTimeout(30, TimeUnit.SECONDS)
             .build()
-
 
     @Singleton
     @Provides

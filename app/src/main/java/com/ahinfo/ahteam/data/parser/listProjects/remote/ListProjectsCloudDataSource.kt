@@ -1,6 +1,7 @@
 package com.ahinfo.ahteam.data.parser.listProjects.remote
 
 import com.ahinfo.ahteam.core.bases.BaseResult
+import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.remote.Failure
 import com.ahinfo.ahteam.core.remote.ResponseWrapper
 import com.ahinfo.ahteam.data.parser.listProjects.remote.api.ListProjectsApi
@@ -20,8 +21,15 @@ class ListProjectsCloudDataSource @Inject constructor(
     suspend fun getListProjectsFromServer(
         pageNumber: Int,
         countElementOnPage: Int
-    ): BaseResult<ListProjectsGetDomain, Failure> = responseWrapper.handleResponse(mapperGet) {
-        api.getListProjects(pageNumber, countElementOnPage)
+    ): BaseResult<ListProjectsGetDomain, Failure> {
+
+        log("-- Data source check --")
+
+        return responseWrapper.handleResponse(mapperGet) {
+
+            log("-- ResponseWrapper check --")
+            api.getListProjects(pageNumber, countElementOnPage)
+        }
     }
 
     suspend fun deleteProjectFromServer(idProject: Int): BaseResult<ListProjectDeleteDomain, Failure> =

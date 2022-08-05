@@ -10,9 +10,6 @@ import retrofit2.http.Path
 
 interface ListProjectsApi {
 
-    // TODO: занести pageNumber и countElementOnPage в файл с prefs
-    // TODO: сделать базовый файл для pref
-
     /**
      * Запрашиваем список проектов для парсинга
      * @pageNumber - данный параметр определяет какая страница
