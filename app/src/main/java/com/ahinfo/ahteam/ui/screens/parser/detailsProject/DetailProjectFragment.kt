@@ -5,6 +5,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
+import com.ahinfo.ahteam.core.extension.isRefreshingFalse
+import com.ahinfo.ahteam.core.extension.isRefreshingTrue
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
@@ -33,6 +35,8 @@ class DetailProjectFragment :
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
 
+        swipeRefresh.setOnRefreshListener { viewModel.updateUiProjectTasks() }
+
         if (arguments?.getInt(ListProjectsFragment.PARSER_PROJECT_ID) != null) {
             val projectId = arguments?.getInt(ListProjectsFragment.PARSER_PROJECT_ID)
             viewModel.saveProjectIdInPrefs(projectId!!)
@@ -47,12 +51,13 @@ class DetailProjectFragment :
         // TODO: обработать все статусы
         viewModel.detailProjectState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is DetailProjectState.Error -> {}
-                DetailProjectState.ErrorDeleteProject -> {}
-                DetailProjectState.Loading -> {}
-                is DetailProjectState.NoInternet -> {}
-                DetailProjectState.SuccessDeleteProject -> {}
+                is DetailProjectState.Error -> loading(false)
+                DetailProjectState.ErrorDeleteProject -> loading(false)
+                DetailProjectState.Loading -> loading(true)
+                is DetailProjectState.NoInternet -> loading(false)
+                DetailProjectState.SuccessDeleteProject -> loading(false)
                 is DetailProjectState.Success -> {
+                    loading(false)
                     updateRecyclerView(state.data.elements)
                 }
             }
@@ -81,6 +86,11 @@ class DetailProjectFragment :
                 bundleOf(ITEM_TASK to itemTask)
             )
         }
+    }
+
+    private fun loading(status: Boolean) {
+        if (status) isRefreshingTrue(binding.swipeRefresh)
+        else isRefreshingFalse(binding.swipeRefresh)
     }
 
     override fun title() {

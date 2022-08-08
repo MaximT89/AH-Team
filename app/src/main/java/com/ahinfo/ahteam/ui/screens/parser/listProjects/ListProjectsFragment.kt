@@ -6,6 +6,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
+import com.ahinfo.ahteam.core.extension.isRefreshingFalse
+import com.ahinfo.ahteam.core.extension.isRefreshingTrue
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
@@ -93,7 +95,7 @@ class ListProjectsFragment :
 
             when (state) {
                 is ListProjectsState.Error -> {
-                    isRefreshingFalse()
+                    isRefreshingFalse(binding.swipeRefresh)
                     loading(false)
                     showContent(false)
                 }
@@ -102,12 +104,12 @@ class ListProjectsFragment :
                     showContent(false)
                 }
                 is ListProjectsState.NoInternet -> {
-                    isRefreshingFalse()
+                    isRefreshingFalse(binding.swipeRefresh)
                     loading(false)
                     showContent(false)
                 }
                 is ListProjectsState.Success -> {
-                    isRefreshingFalse()
+                    isRefreshingFalse(binding.swipeRefresh)
                     loading(false)
                     showContent(true)
                     updateContent(state.data)
@@ -132,16 +134,8 @@ class ListProjectsFragment :
     }
 
     private fun loading(status: Boolean) {
-        if (status) isRefreshingTrue()
-        else isRefreshingFalse()
-    }
-
-    private fun isRefreshingFalse() {
-        binding.swipeRefresh.isRefreshing = false
-    }
-
-    private fun isRefreshingTrue() {
-        binding.swipeRefresh.isRefreshing = true
+        if (status) isRefreshingTrue(binding.swipeRefresh)
+        else isRefreshingFalse(binding.swipeRefresh)
     }
 
     override fun title() {

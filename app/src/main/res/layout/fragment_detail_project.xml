@@ -7,6 +7,7 @@
     android:background="@color/main_deep_light_transparent_80"
     tools:context=".ui.screens.parser.detailsProject.DetailProjectFragment">
 
+
     <include
         android:id="@+id/title_field"
         layout="@layout/title_layout"
@@ -15,13 +16,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_field">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_tasks"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/holder_project_task"
-            app:layout_constraintTop_toBottomOf="@+id/title_field" />
-
+            app:layout_constraintTop_toBottomOf="@+id/title_field"
+            tools:listitem="@layout/holder_project_task" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
