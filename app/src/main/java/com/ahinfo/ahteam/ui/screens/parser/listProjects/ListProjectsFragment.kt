@@ -3,13 +3,9 @@ package com.ahinfo.ahteam.ui.screens.parser.listProjects
 import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.fragment.app.clearFragmentResultListener
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
-import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.databinding.FragmentListProjectsBinding
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
@@ -22,7 +18,6 @@ class ListProjectsFragment :
     BaseFragment<FragmentListProjectsBinding, ListProjectsViewModel>(FragmentListProjectsBinding::inflate) {
 
     companion object {
-        const val SET_RESULT_UPGRADE_PARSER = "upgrade_parser_project"
         const val PARSER_PROJECT_ID = "parser_project_id"
     }
 
@@ -55,10 +50,7 @@ class ListProjectsFragment :
 
         btnAddProject.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECTS_TO_ADD_PROJECT.id) }
 
-        swipeRefresh.setOnRefreshListener {
-            // TODO: перевести обновление во вью модель
-            viewModel.updateListProjectsData(1, 10)
-        }
+        swipeRefresh.setOnRefreshListener { viewModel.updateListProjectsData() }
 
         if (arguments?.getBoolean(AddProjectFragment.RESULT_ADD_PROJECT) != null) {
             val result = arguments?.getBoolean(AddProjectFragment.RESULT_ADD_PROJECT)
@@ -87,7 +79,7 @@ class ListProjectsFragment :
         negativeMess: String
     ) {
         if (result) {
-            viewModel.updateListProjectsData(1, 100)
+            viewModel.updateListProjectsData()
             // TODO: вывети снекбар кастомизированный зеленый
             showSnackbar(binding.root, positiveMess)
         } else {
@@ -139,17 +131,21 @@ class ListProjectsFragment :
         else recyclerView.isGone = true
     }
 
-    private fun loading(status: Boolean) = with(binding) {
-        if (status) progressBar.isVisible = true
-        else progressBar.isGone = true
+    private fun loading(status: Boolean) {
+        if (status) isRefreshingTrue()
+        else isRefreshingFalse()
     }
 
-    private fun isRefreshingFalse() = with(binding) {
-        swipeRefresh.isRefreshing = false
+    private fun isRefreshingFalse() {
+        binding.swipeRefresh.isRefreshing = false
     }
 
-    override fun title() = with(binding) {
-        titleField.title.text = viewModel.title()
+    private fun isRefreshingTrue() {
+        binding.swipeRefresh.isRefreshing = true
+    }
+
+    override fun title() {
+        binding.titleField.title.text = viewModel.title()
     }
 
     override fun navigationArrowBack() = with(binding) {

@@ -30,13 +30,15 @@ class DetailProjectViewModel @Inject constructor(
     val detailProjectState: LiveData<DetailProjectState> = _detailProjectState
 
     fun updateUiProjectTasks() {
-        viewModelScope.launch {
-            _detailProjectState.value = DetailProjectState.Loading
-            getProjectTasks( useCase.loadProjectIdFromPrefs())
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                _detailProjectState.value = DetailProjectState.Loading
+            }
+            getProjectTasks(useCase.loadProjectIdFromPrefs())
         }
     }
 
-    fun saveProjectIdInPrefs(projectId : Int){
+    fun saveProjectIdInPrefs(projectId: Int) {
         useCase.saveProjectIdInPrefs(projectId)
     }
 
@@ -51,7 +53,9 @@ class DetailProjectViewModel @Inject constructor(
                 )
             )) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) {
+                    if (result.err.code == 1) {
+                        updateUiProjectTasks()
+                    } else if (result.err.code != 0) {
                         _detailProjectState.postValue(DetailProjectState.Error(result.err.message))
                     } else {
                         _detailProjectState.postValue(DetailProjectState.NoInternet(result.err.message))
@@ -68,7 +72,6 @@ class DetailProjectViewModel @Inject constructor(
     fun deleteTask(idTask: Int?) {
         // TODO: сделать запрос на удаление задачи в проекте
     }
-
 
 
 }

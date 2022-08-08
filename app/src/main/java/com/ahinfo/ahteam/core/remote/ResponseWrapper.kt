@@ -4,6 +4,7 @@ import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.Mapper
 import com.ahinfo.ahteam.core.extension.log
 import retrofit2.Response
+import java.net.ProtocolException
 import javax.inject.Inject
 
 /**
@@ -15,9 +16,9 @@ interface ResponseWrapper {
     suspend fun <T, R> handleResponse(
         mapper: Mapper<T, R>,
         apiRequest: suspend () -> Response<T>
-    ) : BaseResult<R, Failure>
+    ): BaseResult<R, Failure>
 
-    class Base @Inject constructor(): ResponseWrapper{
+    class Base @Inject constructor() : ResponseWrapper {
 
         override suspend fun <T, R> handleResponse(
             mapper: Mapper<T, R>,
@@ -40,7 +41,11 @@ interface ResponseWrapper {
             } catch (e: NoInternetConnectionException) {
                 log("NoInternetConnectionException")
                 BaseResult.Error(Failure(0, e.message))
-            } catch (e: Exception) {
+            } catch (e: ProtocolException) {
+                log("!!!!! Protocol exception !!!!!")
+                BaseResult.Error(Failure(1, "Protocol exception"))
+            }
+             catch (e: Exception) {
                 e.printStackTrace()
                 log("Exception ${e.message}")
                 log("Exception $e")

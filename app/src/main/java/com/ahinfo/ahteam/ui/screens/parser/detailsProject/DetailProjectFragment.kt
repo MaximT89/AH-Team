@@ -2,12 +2,9 @@ package com.ahinfo.ahteam.ui.screens.parser.detailsProject
 
 import android.annotation.SuppressLint
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
-import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
@@ -21,7 +18,6 @@ class DetailProjectFragment :
     BaseFragment<FragmentDetailProjectBinding, DetailProjectViewModel>(FragmentDetailProjectBinding::inflate) {
 
     companion object {
-        const val SET_RESULT_CURRENT_TASK = "set_current_task"
         const val ITEM_TASK = "item_task"
     }
 
@@ -87,11 +83,11 @@ class DetailProjectFragment :
         }
     }
 
-    override fun title() = with(binding) {
-        titleField.title.text = viewModel.title()
+    override fun title() {
+        binding.titleField.title.text = viewModel.title()
     }
 
-    override fun navigationArrowBack() = with(binding) {
-        titleField.arrowBack.setOnClickListener { navigateTo(DestinationsParser.DETAIL_PROJECT_TO_LIST_PROJECTS.id) }
+    override fun navigationArrowBack() {
+        binding.titleField.arrowBack.setOnClickListener { navigateTo(DestinationsParser.DETAIL_PROJECT_TO_LIST_PROJECTS.id) }
     }
 }

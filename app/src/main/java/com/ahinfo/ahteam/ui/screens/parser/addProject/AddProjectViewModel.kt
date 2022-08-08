@@ -32,7 +32,8 @@ class AddProjectViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = useCase.addProject(addProjectRequest)) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) _addProjectState.postValue(
+                    if (result.err.code == 1) addProject(addProjectRequest)
+                    else if (result.err.code != 0) _addProjectState.postValue(
                         AddProjectsState.Error(
                             result.err.message
                         )

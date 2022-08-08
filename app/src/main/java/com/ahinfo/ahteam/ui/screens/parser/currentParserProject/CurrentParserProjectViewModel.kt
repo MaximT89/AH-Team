@@ -40,22 +40,27 @@ class CurrentParserProjectViewModel @Inject constructor(
         taskStatusUseCase.saveCurrentProjectId(itemTask.projectId!!)
     }
 
-    fun getTaskSectionStat(){
-        log("getTaskSectionStat start")
-        viewModelScope.launch(Dispatchers.IO){
-            when(val result = taskSectionStatUseCase.getSectionStat(taskStatusUseCase.loadCurrentTaskId())){
+    fun getTaskSectionStat() {
+        viewModelScope.launch(Dispatchers.IO) {
+            when (val result =
+                taskSectionStatUseCase.getSectionStat(taskStatusUseCase.loadCurrentTaskId())) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) _currentParserState.postValue(
-                        CurrentParserState.Error(
-                            result.err.message,
-                            result.err.code
+                    if (result.err.code == 1)
+                        getTaskSectionStat()
+                    else if (result.err.code != 0) {
+                        _currentParserState.postValue(
+                            CurrentParserState.Error(
+                                result.err.message,
+                                result.err.code
+                            )
                         )
+                    } else _currentParserState.postValue(CurrentParserState.NoInternet(result.err.message))
+                }
+                is BaseResult.Success -> _currentParserState.postValue(
+                    CurrentParserState.SuccessLoadSectionStat(
+                        result.data
                     )
-                    else _currentParserState.postValue(CurrentParserState.NoInternet(result.err.message))
-                }
-                is BaseResult.Success -> {
-                    _currentParserState.postValue(CurrentParserState.SuccessLoadSectionStat(result.data))
-                }
+                )
             }
         }
     }
@@ -71,12 +76,14 @@ class CurrentParserProjectViewModel @Inject constructor(
                 )
             )) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) _currentParserState.postValue(
-                        CurrentParserState.Error(
-                            result.err.message,
-                            result.err.code
+                    if (result.err.code == 1) getCurrentTaskStatus()
+                    else if (result.err.code != 0)
+                        _currentParserState.postValue(
+                            CurrentParserState.Error(
+                                result.err.message,
+                                result.err.code
+                            )
                         )
-                    )
                     else _currentParserState.postValue(CurrentParserState.NoInternet(result.err.message))
                 }
                 is BaseResult.Success -> {
@@ -87,14 +94,18 @@ class CurrentParserProjectViewModel @Inject constructor(
     }
 
     private fun adapterParserStatus(result: String?) {
-        when(result){
+        when (result) {
             ParserStatuses.PARSING_CREATE.status -> _currentParserState.postValue(CurrentParserState.ParsingCreate)
             ParserStatuses.MENU_START.status -> _currentParserState.postValue(CurrentParserState.MenuStart)
             ParserStatuses.MENU_COMPLETE.status -> _currentParserState.postValue(CurrentParserState.MenuComplete)
             ParserStatuses.CATALOG_START.status -> _currentParserState.postValue(CurrentParserState.CatalogStart)
-            ParserStatuses.CATALOG_COMPLETE.status -> _currentParserState.postValue(CurrentParserState.CatalogComplete)
+            ParserStatuses.CATALOG_COMPLETE.status -> _currentParserState.postValue(
+                CurrentParserState.CatalogComplete
+            )
             ParserStatuses.ELEMENT_START.status -> _currentParserState.postValue(CurrentParserState.ElementStart)
-            ParserStatuses.ELEMENT_COMPLETE.status -> _currentParserState.postValue(CurrentParserState.ElementComplete)
+            ParserStatuses.ELEMENT_COMPLETE.status -> _currentParserState.postValue(
+                CurrentParserState.ElementComplete
+            )
             ParserStatuses.MENU_ERROR.status -> _currentParserState.postValue(CurrentParserState.MenuError)
             ParserStatuses.CATALOG_ERROR.status -> _currentParserState.postValue(CurrentParserState.CatalogError)
             ParserStatuses.ELEMENT_ERROR.status -> _currentParserState.postValue(CurrentParserState.ElementError)
@@ -106,7 +117,7 @@ class CurrentParserProjectViewModel @Inject constructor(
 sealed class CurrentParserState {
     object Loading : CurrentParserState()
     class Error(val messageError: String, val messageCode: Int? = null) : CurrentParserState()
-    class SuccessLoadSectionStat(val data : GetSectionStatDomain) : CurrentParserState()
+    class SuccessLoadSectionStat(val data: GetSectionStatDomain) : CurrentParserState()
     class NoInternet(val messageNoInternet: String) : CurrentParserState()
     object ParsingCreate : CurrentParserState()
     object MenuStart : CurrentParserState()

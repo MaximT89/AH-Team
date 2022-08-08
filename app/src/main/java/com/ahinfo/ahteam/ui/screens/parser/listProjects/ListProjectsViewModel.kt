@@ -8,6 +8,7 @@ import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
+import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
 import com.ahinfo.ahteam.domain.parser.listProjects.useCases.ListProjectsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,16 +25,16 @@ class ListProjectsViewModel @Inject constructor(
     private var _listProjectState = MutableLiveData<ListProjectsState>()
     val listProjectState: LiveData<ListProjectsState> = _listProjectState
 
-
-
     init {
-        updateListProjectsData(useCase.loadPage(), useCase.loadCountProjectsOnPage())
+        updateListProjectsData()
     }
 
-    fun updateListProjectsData(numberPage: Int, countProjectsOnPage: Int) {
-        _listProjectState.value = ListProjectsState.Loading
+    fun updateListProjectsData() {
         viewModelScope.launch(Dispatchers.IO) {
-            getListProjects(numberPage, countProjectsOnPage)
+            withContext(Dispatchers.Main){
+                _listProjectState.value = ListProjectsState.Loading
+            }
+            getListProjects(useCase.loadPage(), useCase.loadCountProjectsOnPage())
         }
     }
 
@@ -41,7 +42,8 @@ class ListProjectsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = useCase.deleteProject(idProject)) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) _listProjectState.postValue(ListProjectsState.ErrorDeleteProject)
+                    if (result.err.code == 1) deleteProject(idProject)
+                    else if (result.err.code != 0) _listProjectState.postValue(ListProjectsState.ErrorDeleteProject)
                     else _listProjectState.postValue(ListProjectsState.NoInternet(result.err.message))
                 }
                 is BaseResult.Success -> {
@@ -58,7 +60,8 @@ class ListProjectsViewModel @Inject constructor(
         withContext(Dispatchers.IO) {
             when (val result = useCase.getListProjects(numberPage, countProjectsOnPage)) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) _listProjectState.postValue(
+                    if (result.err.code == 1) updateListProjectsData()
+                    else if (result.err.code != 0) _listProjectState.postValue(
                         ListProjectsState.Error(
                             result.err.message
                         )
