@@ -4,88 +4,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     android:elevation="15dp"
     app:cardCornerRadius="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EBEBEB"
-        android:padding="8dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name_project"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/dodger_blue"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="15dp"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/name_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                tools:text="Линии любви" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/img_pencil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pencil"
+                android:layout_marginEnd="20dp"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/img_trash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_trash"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/img_pencil"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="Название: Линии любви" />
+            android:orientation="vertical"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="15dp">
 
-        <TextView
-            android:id="@+id/description_project"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_project"
-            tools:text="Описание: Описание линий" />
+            <TextView
+                android:id="@+id/description_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textSize="18sp"
+                tools:text="Описание: Описание линий" />
 
-        <ImageView
-            android:id="@+id/img_pencil"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_pencil"
-            app:layout_constraintEnd_toStartOf="@+id/img_trash"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteY="1dp" />
+            <TextView
+                android:id="@+id/id_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                tools:text="Id: 1" />
 
-        <ImageView
-            android:id="@+id/img_trash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_trash"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteY="1dp" />
+            <TextView
+                android:id="@+id/status_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                tools:text="Статус: создано" />
 
-        <TextView
-            android:id="@+id/id_project"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_project"
-            tools:text="Id: 1" />
+            <TextView
+                android:id="@+id/date_create_project"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_project"
+                tools:text="Дата : Wed, 13 Jul 2022 10:10:27 GMT" />
 
-        <TextView
-            android:id="@+id/status_project"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_project"
-            tools:text="Статус: создано" />
-
-        <TextView
-            android:id="@+id/date_create_project"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/status_project"
-            tools:text="Дата : Wed, 13 Jul 2022 10:10:27 GMT" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
 

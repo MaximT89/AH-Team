@@ -37,11 +37,11 @@ class UpdateProjectViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = useCase.upgradeProject(requestUpdateProject)) {
                 is BaseResult.Error -> {
-                    if (result.err.code != 0) {
+                    if (result.err.code == 1) updateProject(requestUpdateProject)
+                    else if (result.err.code != 0)
                         _updateProjectState.postValue(UpdateProjectsState.Error(result.err.message))
-                    } else {
+                    else
                         _updateProjectState.postValue(UpdateProjectsState.NoInternet(result.err.message))
-                    }
                 }
                 is BaseResult.Success -> _updateProjectState.postValue(
                     UpdateProjectsState.Success(

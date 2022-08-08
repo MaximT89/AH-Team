@@ -31,22 +31,24 @@
                 android:id="@+id/btn_section_parsing"
                 android:layout_width="match_parent"
                 android:paddingVertical="5dp"
-                android:paddingHorizontal="8dp"
+                android:paddingHorizontal="10dp"
                 android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="15sp"
-                    android:text="@string/parsing_section"/>
+                    android:text="@string/parsing_section"
+                    android:ellipsize="end"
+                    android:textSize="22sp" />
 
                 <ImageView
                     android:id="@+id/btn_lock_section"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_lock_open_24"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_baseline_lock_open_24" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

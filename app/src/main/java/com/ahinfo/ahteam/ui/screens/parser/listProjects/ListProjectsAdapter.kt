@@ -33,7 +33,7 @@ class ListProjectsAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(item: ElementsItemProject) = with(binding) {
 
-            nameProject.text = "Название: ${item.name ?: ""}"
+            nameProject.text = item.name ?: ""
             descriptionProject.text = "Описание: ${item.description ?: ""}"
 
             idProject.text = "Id проекта: ${item.id.toString()}"
