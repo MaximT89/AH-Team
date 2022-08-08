@@ -48,7 +48,7 @@ class ListProjectsAdapter :
                 callBackUpgradeProject?.invoke(item)
             }
 
-            root.setOnClickListener {
+            body.setOnClickListener {
                 callBackGoDetailProject?.invoke(item.id!!)
             }
         }

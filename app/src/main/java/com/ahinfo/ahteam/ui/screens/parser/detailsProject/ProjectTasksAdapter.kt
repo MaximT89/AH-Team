@@ -33,7 +33,7 @@ class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
 
         fun bind(item: ElementsItemTask) = with(binding) {
 
-            nameProject.text = resourceProvider.string(R.string.name_task, item.name)
+            nameProject.text = item.name ?: ""
             descriptionProject.text = resourceProvider.string(R.string.description_task, item.description)
 
             idProject.text = resourceProvider.string(R.string.id_project_adapter, item.projectId.toString())
@@ -43,7 +43,7 @@ class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
 
             imgPencil.setOnClickListener { callBackUpdateTask?.invoke(item) }
             imgTrash.setOnClickListener { callBackDeleteTask?.invoke(item.parsingId) }
-            root.setOnClickListener { callBackNavigateForTask?.invoke(item) }
+            body.setOnClickListener { callBackNavigateForTask?.invoke(item) }
         }
     }
 
