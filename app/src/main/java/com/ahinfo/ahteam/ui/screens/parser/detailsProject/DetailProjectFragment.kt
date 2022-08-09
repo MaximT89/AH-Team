@@ -1,6 +1,5 @@
 package com.ahinfo.ahteam.ui.screens.parser.detailsProject
 
-import android.annotation.SuppressLint
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
@@ -15,7 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-@SuppressLint("SetTextI18n")
 class DetailProjectFragment :
     BaseFragment<FragmentDetailProjectBinding, DetailProjectViewModel>(FragmentDetailProjectBinding::inflate) {
 

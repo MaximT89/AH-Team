@@ -17,7 +17,6 @@ class SectionsFragment :
     }
 
     override fun initObservers() {
-
     }
 
     override fun title() = with(binding) {
