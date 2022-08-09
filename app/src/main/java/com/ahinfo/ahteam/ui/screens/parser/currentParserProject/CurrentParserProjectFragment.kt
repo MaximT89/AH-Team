@@ -1,5 +1,7 @@
 package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
@@ -18,6 +20,7 @@ class CurrentParserProjectFragment :
     BaseFragment<FragmentCurrentParserProjectBinding, CurrentParserProjectViewModel>(
         FragmentCurrentParserProjectBinding::inflate
     ) {
+
     override val viewModel: CurrentParserProjectViewModel by viewModels()
 
     @Inject
@@ -32,82 +35,93 @@ class CurrentParserProjectFragment :
             viewModel.getCurrentTaskStatus()
             arguments?.remove(DetailProjectFragment.ITEM_TASK)
         } else viewModel.getCurrentTaskStatus()
+
+        btnReloadCategoryStat.setOnClickListener { viewModel.getCurrentTaskStatus() }
     }
 
     override fun initObservers() {
         viewModel.currentParserState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                CurrentParserState.CatalogComplete -> {
-                    log("CurrentParserState.CatalogComplete")
-                    hideProgressBar()
+                CurrentParserState.ParsingCreate -> {
+                    log("CurrentParserState.ParsingCreate ")
+                    visibleRootProgressBar(false)
                     showBtnsField()
-                    showBtnDownloadOffers()
-                    loadTaskSectionStat()
-                }
-                CurrentParserState.CatalogError -> {
-                    log("CurrentParserState.CatalogError")
-                    hideProgressBar()
-                }
-                CurrentParserState.CatalogStart -> {
-                    log("CurrentParserState.CatalogError")
-                    hideProgressBar()
-                    showBtnsField()
-                    allBtnNotActive()
-                    loadTaskSectionStat()
-                }
-                CurrentParserState.ElementComplete -> {
-                    log("CurrentParserState.CatalogError")
-                    hideProgressBar()
-                    showBtnsField()
-                    allBtnNotActive()
-                    loadTaskSectionStat()
-                }
-                CurrentParserState.ElementError -> {
-                    log("CurrentParserState.ElementError")
-                    hideProgressBar()
-                }
-                CurrentParserState.ElementStart -> {
-                    log("CurrentParserState.ElementStart")
-                    hideProgressBar()
-                    showBtnsField()
-                    allBtnNotActive()
-                    loadTaskSectionStat()
-                }
-                is CurrentParserState.Error -> {
-                    log("CurrentParserState.Error")
-                    hideProgressBar()
-                }
-                CurrentParserState.Loading -> {
-                    log("CurrentParserState.Loading")
-                    hideProgressBar()
-                    showProgressBar()
-                }
-                CurrentParserState.MenuComplete -> {
-                    log("CurrentParserState.MenuComplete")
-                    hideProgressBar()
-                    showBtnsField()
-                    showBtnDownloadArticles()
-                    loadTaskSectionStat()
-                }
-                CurrentParserState.MenuError -> {
-                    log("CurrentParserState.MenuError")
-                    hideProgressBar()
+                    showBtnDownloadCategory()
+                    visibleCatalogStat(false)
                 }
                 CurrentParserState.MenuStart -> {
                     log("CurrentParserState.MenuStart")
-                    hideProgressBar()
+                    visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
+                    visibleCatalogStat(false)
+                }
+                CurrentParserState.MenuComplete -> {
+                    log("CurrentParserState.MenuComplete")
+                    visibleRootProgressBar(false)
+                    showBtnsField()
+                    showBtnDownloadArticles()
+                    loadTaskSectionStat()
+                    visibleCatalogStat(false)
+                }
+                CurrentParserState.CatalogStart -> {
+                    log("CurrentParserState.CatalogError")
+                    visibleRootProgressBar(false)
+                    showBtnsField()
+                    allBtnNotActive()
+                    loadTaskSectionStat()
+                    visibleCatalogStat(true)
+                }
+                CurrentParserState.CatalogComplete -> {
+                    log("CurrentParserState.CatalogComplete")
+                    visibleRootProgressBar(false)
+                    showBtnsField()
+                    showBtnDownloadOffers()
+                    loadTaskSectionStat()
+                    visibleCatalogStat(true)
+                }
+                CurrentParserState.ElementStart -> {
+                    log("CurrentParserState.ElementStart")
+                    visibleRootProgressBar(false)
+                    showBtnsField()
+                    allBtnNotActive()
+                    loadTaskSectionStat()
+                    visibleCatalogStat(true)
+                }
+                CurrentParserState.ElementComplete -> {
+                    log("CurrentParserState.CatalogError")
+                    visibleRootProgressBar(false)
+                    showBtnsField()
+                    allBtnNotActive()
+                    loadTaskSectionStat()
+                    visibleCatalogStat(true)
+                }
+                CurrentParserState.CatalogError -> {
+                    log("CurrentParserState.CatalogError")
+                    visibleCatalogStat(false)
+                    visibleRootProgressBar(false)
+                }
+                CurrentParserState.ElementError -> {
+                    log("CurrentParserState.ElementError")
+                    visibleCatalogStat(false)
+                    visibleRootProgressBar(false)
+                }
+                is CurrentParserState.Error -> {
+                    log("CurrentParserState.Error")
+                    visibleCatalogStat(false)
+                    visibleRootProgressBar(false)
+                }
+                CurrentParserState.Loading -> {
+                    log("CurrentParserState.Loading")
+                    visibleRootProgressBar(true)
+                }
+                CurrentParserState.MenuError -> {
+                    log("CurrentParserState.MenuError")
+                    visibleRootProgressBar(false)
                 }
                 is CurrentParserState.NoInternet -> {
                     log("CurrentParserState.NoInternet")
-                    hideProgressBar()
-                }
-                CurrentParserState.ParsingCreate -> {
-                    log("CurrentParserState.ParsingCreate ")
-                    hideProgressBar()
-                    showBtnsField()
-                    showBtnDownloadCategory()
+                    visibleRootProgressBar(false)
                 }
                 is CurrentParserState.SuccessLoadSectionStat -> {
                     log("CurrentParserState.SuccessLoadSectionStat work")
@@ -122,6 +136,11 @@ class CurrentParserProjectFragment :
         viewModel.getTaskSectionStat()
     }
 
+    private fun visibleCatalogStat(status: Boolean) {
+        if (status) binding.rootCatalogStatistic.isVisible = true
+        else binding.rootCatalogStatistic.isGone = true
+    }
+
     private fun updateSectionStatField(data: GetSectionStatDomain) = with(binding) {
         totalCountElements.text =
             resourceProvider.string(R.string.total_element_parsing, data.countElements.toString())
@@ -133,12 +152,9 @@ class CurrentParserProjectFragment :
             resourceProvider.string(R.string.max_price_elements, data.maxPrice.toString())
     }
 
-    private fun showProgressBar() {
-        binding.progressBar.show()
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.hide()
+    private fun visibleRootProgressBar(status: Boolean) {
+        if (status) binding.progressBar.show()
+        else binding.progressBar.hide()
     }
 
     private fun showBtnDownloadCategory() = with(binding) {
