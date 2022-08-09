@@ -51,5 +51,10 @@
                     android:src="@drawable/ic_baseline_lock_open_24" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="300dp"
+            android:layout_height="300dp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
