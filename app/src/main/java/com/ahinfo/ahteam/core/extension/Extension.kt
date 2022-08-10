@@ -59,6 +59,10 @@ fun log(message: String) {
     Log.d("TAG", "log: $message")
 }
 
+fun log(tag: String, message: String) {
+    Log.d(tag, "log: $message")
+}
+
 fun Button.active(){
     isVisible = true
     isEnabled = true

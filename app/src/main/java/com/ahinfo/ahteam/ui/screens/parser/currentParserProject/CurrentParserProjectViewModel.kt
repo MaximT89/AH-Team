@@ -7,7 +7,6 @@ import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
-import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.data.parser.currentParserProject.local.ParserStatuses
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.dto.RequestGetParserTaskStatus
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
@@ -17,6 +16,7 @@ import com.ahinfo.ahteam.domain.parser.currentParserProject.useCase.TaskStatusUs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,7 +32,7 @@ class CurrentParserProjectViewModel @Inject constructor(
     val currentParserState: LiveData<CurrentParserState> = _currentParserState
 
     init {
-        _currentParserState.value = CurrentParserState.Loading
+        _currentParserState.value = CurrentParserState.LoadingRoot
     }
 
     fun saveCurrentTaskId(itemTask: ElementsItemTask) {
@@ -42,6 +42,9 @@ class CurrentParserProjectViewModel @Inject constructor(
 
     fun getTaskSectionStat() {
         viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main){
+                _currentParserState.postValue(CurrentParserState.LoadingSectionStat)
+            }
             when (val result =
                 taskSectionStatUseCase.getSectionStat(taskStatusUseCase.loadCurrentTaskId())) {
                 is BaseResult.Error -> {
@@ -115,7 +118,8 @@ class CurrentParserProjectViewModel @Inject constructor(
 }
 
 sealed class CurrentParserState {
-    object Loading : CurrentParserState()
+    object LoadingRoot : CurrentParserState()
+    object LoadingSectionStat : CurrentParserState()
     class Error(val messageError: String, val messageCode: Int? = null) : CurrentParserState()
     class SuccessLoadSectionStat(val data: GetSectionStatDomain) : CurrentParserState()
     class NoInternet(val messageNoInternet: String) : CurrentParserState()

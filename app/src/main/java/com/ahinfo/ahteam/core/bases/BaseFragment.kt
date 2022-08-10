@@ -47,6 +47,23 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         initCallbacks()
     }
 
+    fun <T> readArguments(key: String, ifExist: (data : T) -> Unit, dontExist: () -> Unit) {
+        if (arguments?.get(key) != null) {
+            val data = when (arguments?.get(key)) {
+                is Boolean -> arguments?.getBoolean(key)
+                is Int -> arguments?.getInt(key)
+                is String -> arguments?.getString(key)
+                is Long -> arguments?.getLong(key)
+                is Short -> arguments?.getShort(key)
+                else -> arguments?.getParcelable(key)
+            }
+            ifExist.invoke(data as T)
+            arguments?.remove(key)
+        } else {
+            dontExist.invoke()
+        }
+    }
+
     open fun initCallbacks() = Unit
 
     abstract fun initView() : Unit?
