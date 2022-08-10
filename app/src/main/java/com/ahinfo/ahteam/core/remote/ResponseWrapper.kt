@@ -25,31 +25,22 @@ interface ResponseWrapper {
             apiRequest: suspend () -> Response<T>
         ): BaseResult<R, Failure> {
 
-            log("-- handleResponse check --")
-
             return try {
                 val response = apiRequest.invoke()
 
                 if (response.isSuccessful) {
                     val body = response.body()
-                    log("success body = $body")
                     BaseResult.Success(mapper.map(body!!))
                 } else {
-                    log("error body = ${response.message()}")
                     BaseResult.Error(Failure(response.code(), response.message()))
                 }
             } catch (e: NoInternetConnectionException) {
-                log("NoInternetConnectionException")
                 BaseResult.Error(Failure(0, e.message))
             } catch (e: ProtocolException) {
-                log("!!!!! Protocol exception !!!!!")
                 BaseResult.Error(Failure(1, "Protocol exception"))
             }
              catch (e: Exception) {
                 e.printStackTrace()
-                log("Exception ${e.message}")
-                log("Exception $e")
-                log("Exception ${e.printStackTrace()}")
                 BaseResult.Error(Failure(-1, e.message.toString()))
             }
         }
