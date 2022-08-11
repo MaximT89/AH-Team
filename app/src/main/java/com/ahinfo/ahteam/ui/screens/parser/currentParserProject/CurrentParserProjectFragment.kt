@@ -37,13 +37,15 @@ class CurrentParserProjectFragment :
         }
     }
 
-    override fun listenBundleArguments() {
-        readArguments<ElementsItemTask>(DetailProjectFragment.ITEM_TASK, { itemTask ->
-            viewModel.saveCurrentTaskId(itemTask)
-            viewModel.getCurrentTaskStatus()
-        }, {
-            viewModel.getCurrentTaskStatus()
-        })
+    override fun listenerBundleArguments() {
+        readArguments<ElementsItemTask>(DetailProjectFragment.ITEM_TASK,
+            ifExist = { itemTask ->
+                viewModel.saveCurrentTaskId(itemTask)
+                viewModel.getCurrentTaskStatus()
+            },
+            dontExist = {
+                viewModel.getCurrentTaskStatus()
+            })
     }
 
     private fun roolSectionStat() {

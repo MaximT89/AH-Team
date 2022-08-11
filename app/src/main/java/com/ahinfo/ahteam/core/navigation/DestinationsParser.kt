@@ -24,7 +24,7 @@ enum class DestinationsParser(val id : Int) {
 
     UPDATE_TASK_PROJECT_TO_DETAIL_PROJECT(R.id.action_updateTaskProjectFragment_to_detailProjectFragment),
 
-    ADD_TASK_PROJECT_TO_DETAIL_PROJECT(R.id.action_updateTaskProjectFragment_to_detailProjectFragment),
+    ADD_TASK_PROJECT_TO_DETAIL_PROJECT(R.id.action_addTaskFragment_to_detailProjectFragment),
 
     CURRENT_PARSER_PROJECT_TO_DETAIL_PROJECT(R.id.action_currentParserProjectFragment_to_detailProjectFragment)
 }

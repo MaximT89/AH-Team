@@ -2,6 +2,7 @@ package com.ahinfo.ahteam.ui.screens.parser.detailsProject
 
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseFragment
 import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.core.extension.isRefreshingFalse
@@ -9,6 +10,7 @@ import com.ahinfo.ahteam.core.extension.isRefreshingTrue
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
+import com.ahinfo.ahteam.ui.screens.parser.addProjectTask.AddProjectTaskFragment
 import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -18,6 +20,7 @@ class DetailProjectFragment :
     BaseFragment<FragmentDetailProjectBinding, DetailProjectViewModel>(FragmentDetailProjectBinding::inflate) {
 
     companion object {
+        const val ID_PROJECT = "id_project"
         const val ITEM_TASK = "item_task"
     }
 
@@ -32,16 +35,37 @@ class DetailProjectFragment :
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
 
+        btnAddTask.setOnClickListener {
+            navigateTo(
+                DestinationsParser.DETAIL_PROJECT_TO_ADD_TASK.id,
+                bundleOf(ID_PROJECT to viewModel.loadProjectIdInPrefs())
+            )
+        }
+
         swipeRefresh.setOnRefreshListener { viewModel.updateUiProjectTasks() }
     }
 
-    override fun listenBundleArguments() {
-        readArguments<Int>(ListProjectsFragment.PARSER_PROJECT_ID, { projectId ->
-            viewModel.saveProjectIdInPrefs(projectId)
-            viewModel.updateUiProjectTasks()
-        }, {
-            viewModel.updateUiProjectTasks()
-        })
+    override fun listenerBundleArguments() {
+        readArguments<Int>(ListProjectsFragment.PARSER_PROJECT_ID,
+            ifExist = { projectId ->
+                viewModel.saveProjectIdInPrefs(projectId)
+                viewModel.updateUiProjectTasks()
+            },
+            dontExist = {
+                viewModel.updateUiProjectTasks()
+            })
+
+        readArguments<Boolean>(AddProjectTaskFragment.RESULT_ADD_PROJECT_TASK,
+            ifExist = { result ->
+                readResultAndShowSnackbar(
+                    result = result,
+                    positiveMess = string(R.string.success_add_project_task),
+                    negativeMess = string(R.string.fail_add_project_task),
+                    positiveResult = {
+                        viewModel.updateUiProjectTasks()
+                    }
+                )
+            })
     }
 
     override fun initObservers() {

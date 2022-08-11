@@ -35,22 +35,31 @@ class ListProjectsFragment :
         swipeRefresh.setOnRefreshListener { viewModel.updateListProjectsData() }
     }
 
-    override fun listenBundleArguments() {
-        readArguments<Boolean>(AddProjectFragment.RESULT_ADD_PROJECT) { result ->
-            updatePageAndShowSnackbar(
-                result = result,
-                positiveMess = string(R.string.success_add_project),
-                negativeMess = string(R.string.fail_add_project)
-            )
-        }
+    override fun listenerBundleArguments() {
 
-        readArguments<Boolean>(UpdateProjectFragment.RESULT_UPDATE_PROJECT) { result ->
-            updatePageAndShowSnackbar(
-                result = result,
-                positiveMess = string(R.string.success_add_project),
-                negativeMess = string(R.string.fail_add_project)
-            )
-        }
+        readArguments<Boolean>(AddProjectFragment.RESULT_ADD_PROJECT,
+            ifExist = { result ->
+                readResultAndShowSnackbar(
+                    result = result,
+                    positiveMess = string(R.string.success_add_project),
+                    negativeMess = string(R.string.fail_add_project),
+                    positiveResult = {
+                        viewModel.updateListProjectsData()
+                    }
+                )
+            })
+
+        readArguments<Boolean>(UpdateProjectFragment.RESULT_UPDATE_PROJECT,
+            ifExist = { result ->
+                readResultAndShowSnackbar(
+                    result = result,
+                    positiveMess = string(R.string.success_update_project),
+                    negativeMess = string(R.string.fail_update_project),
+                    positiveResult = {
+                        viewModel.updateListProjectsData()
+                    }
+                )
+            })
     }
 
     override fun initCallbacks() {
@@ -98,35 +107,22 @@ class ListProjectsFragment :
                     updateContent(state.data)
                 }
                 ListProjectsState.ErrorDeleteProject -> {
-                    updatePageAndShowSnackbar(
+                    readResultAndShowSnackbar(
                         result = false,
                         positiveMess = string(R.string.success_delete_project),
-                        negativeMess = string(R.string.fail_delete_project)
+                        negativeMess = string(R.string.fail_delete_project),
+                        positiveResult = { viewModel.updateListProjectsData() }
                     )
                 }
                 ListProjectsState.SuccessDeleteProject -> {
-                    updatePageAndShowSnackbar(
+                    readResultAndShowSnackbar(
                         result = true,
                         positiveMess = string(R.string.success_delete_project),
-                        negativeMess = string(R.string.fail_delete_project)
+                        negativeMess = string(R.string.fail_delete_project),
+                        positiveResult = { viewModel.updateListProjectsData() }
                     )
                 }
             }
-        }
-    }
-
-    private fun updatePageAndShowSnackbar(
-        result: Boolean,
-        positiveMess: String,
-        negativeMess: String
-    ) {
-        if (result) {
-            viewModel.updateListProjectsData()
-            // TODO: вывети снекбар кастомизированный зеленый
-            showSnackbar(binding.root, positiveMess)
-        } else {
-            // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
-            showSnackbar(binding.root, negativeMess)
         }
     }
 

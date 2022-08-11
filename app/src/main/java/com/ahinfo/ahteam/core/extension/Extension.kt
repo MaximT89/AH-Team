@@ -207,6 +207,7 @@ fun SharedPreferences.Editor.put(pair: Pair<String, Any>) {
     }
 }
 
+
 fun isRefreshingFalse(view: SwipeRefreshLayout){
     view.isRefreshing = false
 }

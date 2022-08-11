@@ -11,10 +11,8 @@ class GetProjectTasksUseCase @Inject constructor(private val repository: GetProj
 
     suspend fun getProjectTasks(
         request: RequestGetProjectTasks
-    ):
-            BaseResult<GetProjectTasksDomain, Failure> =
+    ): BaseResult<GetProjectTasksDomain, Failure> =
         repository.getProjectTasks(request)
-
 
     fun loadPage(): Int = repository.loadPage()
 
@@ -32,9 +30,9 @@ class GetProjectTasksUseCase @Inject constructor(private val repository: GetProj
         repository.returnToDefaultSettings()
     }
 
-    fun saveProjectIdInPrefs(projectId : Int) {
+    fun saveProjectIdInPrefs(projectId: Int) {
         repository.saveProjectId(projectId)
     }
 
-    fun loadProjectIdFromPrefs() : Int = repository.loadProjectId()
+    fun loadProjectIdFromPrefs(): Int = repository.loadProjectId()
 }

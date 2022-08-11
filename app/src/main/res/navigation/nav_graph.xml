@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
-        android:name="com.ahinfo.ahteam.ui.screens.parser.addTaskProject.AddTaskFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.addProjectTask.AddProjectTaskFragment"
         android:label="fragment_add_task"
         tools:layout="@layout/fragment_add_task" >
         <action

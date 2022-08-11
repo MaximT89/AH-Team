@@ -33,6 +33,7 @@ class ListProjectsAdapter :
         @SuppressLint("SetTextI18n")
         fun bind(item: ElementsItemProject) = with(binding) {
 
+            // TODO: вынести строки в ресурсы
             nameProject.text = item.name ?: ""
             descriptionProject.text = "Описание: ${item.description ?: ""}"
 

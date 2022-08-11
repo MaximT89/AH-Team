@@ -42,6 +42,8 @@
     <string name="count_elements_exist">В наличии: %s</string>
     <string name="min_price_elements">Минимальная цена: %s</string>
     <string name="max_price_elements">Максимальная цена: %s</string>
+    <string name="success_add_project_task">Парсер добавлен</string>
+    <string name="fail_add_project_task">Ошибка создания парсера</string>
 
 
 </resources>

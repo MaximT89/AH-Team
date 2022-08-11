@@ -42,6 +42,8 @@ class DetailProjectViewModel @Inject constructor(
         useCase.saveProjectIdInPrefs(projectId)
     }
 
+    fun loadProjectIdInPrefs() = useCase.loadProjectIdFromPrefs()
+
     private suspend fun getProjectTasks(projectId: Int) =
         withContext(Dispatchers.IO) {
             when (val result = useCase.getProjectTasks(

@@ -34,10 +34,9 @@ class UpdateProjectFragment :
         }
     }
 
-    override fun listenBundleArguments() {
-        readArguments<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID) {
-            viewModel.updateElementsItem(it)
-        }
+    override fun listenerBundleArguments() {
+        readArguments<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID,
+            ifExist = { viewModel.updateElementsItem(it) })
     }
 
     override fun initObservers() {
