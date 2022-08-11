@@ -24,13 +24,6 @@ class UpdateProjectFragment :
 
     override fun initView() = with(binding) {
 
-        if (arguments?.getParcelable<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID) != null) {
-            val parserItem =
-                arguments?.getParcelable<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID)
-            viewModel.updateElementsItem(parserItem!!)
-            arguments?.remove(ListProjectsFragment.PARSER_PROJECT_ID)
-        }
-
         btnUpdateProject.setOnClickListener {
             val request = RequestUpdateProject(
                 name = editNameProject.text.toString(),
@@ -38,6 +31,12 @@ class UpdateProjectFragment :
                 projectId = viewModel.elementsItemProject.value!!.id
             )
             viewModel.updateProject(request)
+        }
+    }
+
+    override fun listenBundleArguments() {
+        readArguments<ElementsItemProject>(ListProjectsFragment.PARSER_PROJECT_ID) {
+            viewModel.updateElementsItem(it)
         }
     }
 

@@ -13,6 +13,10 @@
     <string name="btn_update_project">сохранить изменения</string>
     <string name="success_add_project">Проект добавлен</string>
     <string name="fail_add_project">Ошибка добавления проекта</string>
+
+    <string name="success_delete_project">Проект удален</string>
+    <string name="fail_delete_project">Ошибка удаления проекта</string>
+
     <string name="success_update_project">Проект изменен</string>
     <string name="fail_update_project">Ошибка изменения проекта</string>
     <string name="sections">Разделы</string>

@@ -29,20 +29,19 @@ class DetailProjectFragment :
     private var projectTasksAdapter: ProjectTasksAdapter? = null
 
     override fun initView() = with(binding) {
-
         projectTasksAdapter = ProjectTasksAdapter(resourceProvider)
         recyclerViewTasks.adapter = projectTasksAdapter
 
         swipeRefresh.setOnRefreshListener { viewModel.updateUiProjectTasks() }
+    }
 
-        if (arguments?.getInt(ListProjectsFragment.PARSER_PROJECT_ID) != null) {
-            val projectId = arguments?.getInt(ListProjectsFragment.PARSER_PROJECT_ID)
-            viewModel.saveProjectIdInPrefs(projectId!!)
+    override fun listenBundleArguments() {
+        readArguments<Int>(ListProjectsFragment.PARSER_PROJECT_ID, { projectId ->
+            viewModel.saveProjectIdInPrefs(projectId)
             viewModel.updateUiProjectTasks()
-            arguments?.remove(ListProjectsFragment.PARSER_PROJECT_ID)
-        } else {
+        }, {
             viewModel.updateUiProjectTasks()
-        }
+        })
     }
 
     override fun initObservers() {
@@ -86,9 +85,9 @@ class DetailProjectFragment :
         }
     }
 
-    private fun loading(status: Boolean) {
-        if (status) isRefreshingTrue(binding.swipeRefresh)
-        else isRefreshingFalse(binding.swipeRefresh)
+    private fun loading(status: Boolean) = with(binding) {
+        if (status) isRefreshingTrue(swipeRefresh)
+        else isRefreshingFalse(swipeRefresh)
     }
 
     override fun title() {

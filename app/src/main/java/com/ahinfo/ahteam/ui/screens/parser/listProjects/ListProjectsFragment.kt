@@ -27,6 +27,32 @@ class ListProjectsFragment :
 
     private val listProjectsAdapter = ListProjectsAdapter()
 
+    override fun initView() = with(binding) {
+        recyclerView.adapter = listProjectsAdapter
+
+        btnAddProject.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECTS_TO_ADD_PROJECT.id) }
+
+        swipeRefresh.setOnRefreshListener { viewModel.updateListProjectsData() }
+    }
+
+    override fun listenBundleArguments() {
+        readArguments<Boolean>(AddProjectFragment.RESULT_ADD_PROJECT) { result ->
+            updatePageAndShowSnackbar(
+                result = result,
+                positiveMess = string(R.string.success_add_project),
+                negativeMess = string(R.string.fail_add_project)
+            )
+        }
+
+        readArguments<Boolean>(UpdateProjectFragment.RESULT_UPDATE_PROJECT) { result ->
+            updatePageAndShowSnackbar(
+                result = result,
+                positiveMess = string(R.string.success_add_project),
+                negativeMess = string(R.string.fail_add_project)
+            )
+        }
+    }
+
     override fun initCallbacks() {
         listProjectsAdapter.callBackDeleteProject = { id ->
             viewModel.deleteProject(id)
@@ -44,49 +70,6 @@ class ListProjectsFragment :
                 DestinationsParser.LIST_PROJECTS_TO_DETAIL_PROJECT.id,
                 bundleOf(PARSER_PROJECT_ID to projectId)
             )
-        }
-    }
-
-    override fun initView() = with(binding) {
-        recyclerView.adapter = listProjectsAdapter
-
-        btnAddProject.setOnClickListener { navigateTo(DestinationsParser.LIST_PROJECTS_TO_ADD_PROJECT.id) }
-
-        swipeRefresh.setOnRefreshListener { viewModel.updateListProjectsData() }
-
-        if (arguments?.getBoolean(AddProjectFragment.RESULT_ADD_PROJECT) != null) {
-            val result = arguments?.getBoolean(AddProjectFragment.RESULT_ADD_PROJECT)
-            updatePageAndShowSnackbar(
-                result = result!!,
-                positiveMess = string(R.string.success_add_project),
-                negativeMess = string(R.string.fail_add_project)
-            )
-            arguments?.remove(AddProjectFragment.RESULT_ADD_PROJECT)
-        }
-
-        if (arguments?.getBoolean(UpdateProjectFragment.RESULT_UPDATE_PROJECT) != null) {
-            val result = arguments?.getBoolean(UpdateProjectFragment.RESULT_UPDATE_PROJECT)
-            updatePageAndShowSnackbar(
-                result = result!!,
-                positiveMess = string(R.string.success_update_project),
-                negativeMess = string(R.string.fail_update_project)
-            )
-            arguments?.remove(UpdateProjectFragment.RESULT_UPDATE_PROJECT)
-        }
-    }
-
-    private fun updatePageAndShowSnackbar(
-        result: Boolean,
-        positiveMess: String,
-        negativeMess: String
-    ) {
-        if (result) {
-            viewModel.updateListProjectsData()
-            // TODO: вывети снекбар кастомизированный зеленый
-            showSnackbar(binding.root, positiveMess)
-        } else {
-            // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
-            showSnackbar(binding.root, negativeMess)
         }
     }
 
@@ -115,12 +98,35 @@ class ListProjectsFragment :
                     updateContent(state.data)
                 }
                 ListProjectsState.ErrorDeleteProject -> {
-                    // TODO: вывести снекбар где описана ошибка удаления проекта
+                    updatePageAndShowSnackbar(
+                        result = false,
+                        positiveMess = string(R.string.success_delete_project),
+                        negativeMess = string(R.string.fail_delete_project)
+                    )
                 }
                 ListProjectsState.SuccessDeleteProject -> {
-                    // TODO: вывести снекбар где описано успешное удаление проекта
+                    updatePageAndShowSnackbar(
+                        result = true,
+                        positiveMess = string(R.string.success_delete_project),
+                        negativeMess = string(R.string.fail_delete_project)
+                    )
                 }
             }
+        }
+    }
+
+    private fun updatePageAndShowSnackbar(
+        result: Boolean,
+        positiveMess: String,
+        negativeMess: String
+    ) {
+        if (result) {
+            viewModel.updateListProjectsData()
+            // TODO: вывети снекбар кастомизированный зеленый
+            showSnackbar(binding.root, positiveMess)
+        } else {
+            // TODO: вывести снекбар кастомизированный красный в котором будет ошибка
+            showSnackbar(binding.root, negativeMess)
         }
     }
 

@@ -1,7 +1,6 @@
 package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
 import android.annotation.SuppressLint
-import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
@@ -30,27 +29,21 @@ class CurrentParserProjectFragment :
 
     override fun initView() = with(binding) {
 
-//        if (arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK) != null) {
-//            val itemTask =
-//                arguments?.getParcelable<ElementsItemTask>(DetailProjectFragment.ITEM_TASK)
-//            viewModel.saveCurrentTaskId(itemTask!!)
-//            viewModel.getCurrentTaskStatus()
-//            arguments?.remove(DetailProjectFragment.ITEM_TASK)
-//        } else
-//            viewModel.getCurrentTaskStatus()
+        btnReloadCategoryStat.setOnClickListener { viewModel.getCurrentTaskStatus() }
 
-        readArguments<ElementsItemTask>(DetailProjectFragment.ITEM_TASK, {
-            viewModel.saveCurrentTaskId(it)
+        arrowVisibleField.setOnClickListener {
+            if (fieldStatisticSectionStat.isVisible) roolSectionStat()
+            else unrollSectionStat()
+        }
+    }
+
+    override fun listenBundleArguments() {
+        readArguments<ElementsItemTask>(DetailProjectFragment.ITEM_TASK, { itemTask ->
+            viewModel.saveCurrentTaskId(itemTask)
             viewModel.getCurrentTaskStatus()
         }, {
             viewModel.getCurrentTaskStatus()
         })
-
-        btnReloadCategoryStat.setOnClickListener { viewModel.getCurrentTaskStatus() }
-        arrowVisibleField.setOnClickListener {
-            if (fieldStatisticSectionStat.isVisible) roolSectionStat()
-            else unRollSectionStat()
-        }
     }
 
     private fun roolSectionStat() {
@@ -63,7 +56,7 @@ class CurrentParserProjectFragment :
         )
     }
 
-    private fun unRollSectionStat() {
+    private fun unrollSectionStat() {
         binding.fieldStatisticSectionStat.show()
         binding.arrowVisibleField.setImageDrawable(
             resources.getDrawable(

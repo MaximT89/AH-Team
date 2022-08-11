@@ -41,13 +41,14 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        listenBundleArguments()
         initObservers()
         title()
         navigationArrowBack()
         initCallbacks()
     }
 
-    fun <T> readArguments(key: String, ifExist: (data : T) -> Unit, dontExist: () -> Unit) {
+    fun <T> readArguments(key: String, ifExist: (data: T) -> Unit, dontExist: () -> Unit) {
         if (arguments?.get(key) != null) {
             val data = when (arguments?.get(key)) {
                 is Boolean -> arguments?.getBoolean(key)
@@ -64,9 +65,25 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         }
     }
 
+    fun <T> readArguments(key: String, ifExist: (data: T) -> Unit) {
+        if (arguments?.get(key) != null) {
+            val data = when (arguments?.get(key)) {
+                is Boolean -> arguments?.getBoolean(key)
+                is Int -> arguments?.getInt(key)
+                is String -> arguments?.getString(key)
+                is Long -> arguments?.getLong(key)
+                is Short -> arguments?.getShort(key)
+                else -> arguments?.getParcelable(key)
+            }
+            ifExist.invoke(data as T)
+            arguments?.remove(key)
+        }
+    }
+
+    open fun listenBundleArguments() = Unit
     open fun initCallbacks() = Unit
 
-    abstract fun initView() : Unit?
+    abstract fun initView(): Unit?
     abstract fun initObservers()
     abstract fun title()
     abstract fun navigationArrowBack()
