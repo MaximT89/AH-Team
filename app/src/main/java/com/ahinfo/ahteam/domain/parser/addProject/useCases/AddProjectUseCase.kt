@@ -14,5 +14,4 @@ class AddProjectUseCase @Inject constructor(
     suspend fun addProject(requestAddProject: RequestAddProject): BaseResult<AddProjectDomain, Failure> {
         return repository.addProject(requestAddProject)
     }
-
 }

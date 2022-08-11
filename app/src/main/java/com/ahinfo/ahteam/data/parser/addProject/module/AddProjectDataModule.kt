@@ -1,6 +1,6 @@
 package com.ahinfo.ahteam.data.parser.addProject.module
 
-import com.ahinfo.ahteam.data.parser.addProject.remote.AppProjectRepositoryImpl
+import com.ahinfo.ahteam.data.parser.addProject.AppProjectRepositoryImpl
 import com.ahinfo.ahteam.domain.parser.addProject.repositoty.AddProjectRepository
 import dagger.Binds
 import dagger.Module
