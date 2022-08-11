@@ -82,6 +82,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/root_header_section_stat_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -131,6 +132,22 @@
                     android:paddingVertical="8dp"
                     android:visibility="visible"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/avg_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Item_holder"
+                        android:text="@string/total_element_parsing"
+                        tools:text="Средняя цена: 18247" />
+
+                    <TextView
+                        android:id="@+id/avg_weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Item_holder"
+                        android:text="@string/total_element_parsing"
+                        tools:text="Средний вес: 2,2888" />
 
                     <TextView
                         android:id="@+id/total_count_elements"

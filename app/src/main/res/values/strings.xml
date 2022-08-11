@@ -37,6 +37,8 @@
     <!--CurrentParserProjectFragment-->
     <string name="title_current_parser_project">Парсинг</string>
     <string name="total_element_parsing">Всего элементов: %s</string>
+    <string name="avg_price">Средняя цена: %s</string>
+    <string name="avg_weight">Средний вес: %s</string>
     <string name="count_elements_exist">В наличии: %s</string>
     <string name="min_price_elements">Минимальная цена: %s</string>
     <string name="max_price_elements">Максимальная цена: %s</string>

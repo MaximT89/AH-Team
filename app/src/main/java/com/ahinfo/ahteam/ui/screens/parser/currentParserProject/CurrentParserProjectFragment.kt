@@ -31,7 +31,7 @@ class CurrentParserProjectFragment :
 
         btnReloadCategoryStat.setOnClickListener { viewModel.getCurrentTaskStatus() }
 
-        arrowVisibleField.setOnClickListener {
+        rootHeaderSectionStatField.setOnClickListener {
             if (fieldStatisticSectionStat.isVisible) roolSectionStat()
             else unrollSectionStat()
         }
@@ -176,7 +176,6 @@ class CurrentParserProjectFragment :
     }
 
     private fun loadTaskSectionStat() {
-        log("loadTaskSectionStat work")
         viewModel.getTaskSectionStat()
     }
 
@@ -186,6 +185,8 @@ class CurrentParserProjectFragment :
     }
 
     private fun updateSectionStatField(data: GetSectionStatDomain) = with(binding) {
+        avgPrice.text = resourceProvider.string(R.string.avg_price, data.avgPrice.toString())
+        avgWeight.text = resourceProvider.string(R.string.avg_weight, data.avgWeight.toString())
         totalCountElements.text =
             resourceProvider.string(R.string.total_element_parsing, data.countElements.toString())
         countElementsExist.text =
