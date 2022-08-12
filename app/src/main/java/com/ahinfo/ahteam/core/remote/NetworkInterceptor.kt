@@ -10,7 +10,6 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-
 /**
  * Данный интерсептор проверяет есть ли у пользователя интернет, и метод [intercept] вернет true -
  * в случае если интернет есть, и false - если интернет в данный момент отсутствует

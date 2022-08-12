@@ -128,7 +128,6 @@ fun AnimatorSet.playSingleSet(end: () -> Unit) {
             end.invoke()
         }
     })
-
 }
 
 /**
