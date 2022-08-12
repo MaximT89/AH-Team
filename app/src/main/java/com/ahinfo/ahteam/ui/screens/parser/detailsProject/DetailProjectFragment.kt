@@ -12,6 +12,7 @@ import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentDetailProjectBinding
 import com.ahinfo.ahteam.ui.screens.parser.addProjectTask.AddProjectTaskFragment
 import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsFragment
+import com.ahinfo.ahteam.ui.screens.parser.updateTaskProject.UpdateTaskProjectFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -61,6 +62,18 @@ class DetailProjectFragment :
                     result = result,
                     positiveMess = string(R.string.success_add_project_task),
                     negativeMess = string(R.string.fail_add_project_task),
+                    positiveResult = {
+                        viewModel.updateUiProjectTasks()
+                    }
+                )
+            })
+
+        readArguments<Boolean>(UpdateTaskProjectFragment.RESULT_UPDATE_PROJECT_TASK,
+            ifExist = { result ->
+                readResultAndShowSnackbar(
+                    result = result,
+                    positiveMess = string(R.string.success_update_project_task),
+                    negativeMess = string(R.string.fail_update_project_task),
                     positiveResult = {
                         viewModel.updateUiProjectTasks()
                     }

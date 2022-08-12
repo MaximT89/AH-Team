@@ -45,5 +45,8 @@
     <string name="success_add_project_task">Парсер добавлен</string>
     <string name="fail_add_project_task">Ошибка создания парсера</string>
 
+    <string name="success_update_project_task">Парсер изменен</string>
+    <string name="fail_update_project_task">Ошибка изменения парсера</string>
+
 
 </resources>
