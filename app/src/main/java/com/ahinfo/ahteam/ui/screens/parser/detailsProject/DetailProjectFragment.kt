@@ -73,10 +73,22 @@ class DetailProjectFragment :
         viewModel.detailProjectState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is DetailProjectState.Error -> loading(false)
-                DetailProjectState.ErrorDeleteProject -> loading(false)
+                DetailProjectState.ErrorDeleteProject -> {
+                    readResultAndShowSnackbar(
+                        result = false,
+                        positiveMess = string(R.string.success_delete_project),
+                        negativeMess = string(R.string.fail_delete_project)
+                    )
+                }
                 DetailProjectState.Loading -> loading(true)
                 is DetailProjectState.NoInternet -> loading(false)
-                DetailProjectState.SuccessDeleteProject -> loading(false)
+                DetailProjectState.SuccessDeleteProject -> {
+                    readResultAndShowSnackbar(
+                        result = true,
+                        positiveMess = string(R.string.success_delete_project),
+                        negativeMess = string(R.string.fail_delete_project)
+                    )
+                }
                 is DetailProjectState.Success -> {
                     loading(false)
                     updateRecyclerView(state.data.elements)

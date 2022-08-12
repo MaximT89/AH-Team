@@ -8,11 +8,13 @@ import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.core.extension.log
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestDeleteProjectTask
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestGetProjectTasks
 import com.ahinfo.ahteam.data.parser.listProjects.remote.dto.ElementsItemProject
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.useCases.GetProjectTasksUseCase
 import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
+import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -72,10 +74,24 @@ class DetailProjectViewModel @Inject constructor(
         }
 
     fun deleteTask(idTask: Int?) {
-        // TODO: сделать запрос на удаление задачи в проекте
+        viewModelScope.launch(Dispatchers.IO){
+            val list = listOf(idTask)
+            val request = RequestDeleteProjectTask(list)
+            when(val result = useCase.deleteProjectTask(request)){
+                is BaseResult.Error -> {
+                    if (result.err.code == 1) deleteTask(idTask)
+                    else if (result.err.code != 0) _detailProjectState.postValue(DetailProjectState.ErrorDeleteProject)
+                    else _detailProjectState.postValue(DetailProjectState.NoInternet(result.err.message))
+                }
+                is BaseResult.Success -> {
+                    if (result.data.result) {
+                        _detailProjectState.postValue(DetailProjectState.SuccessDeleteProject)
+                        getProjectTasks(useCase.loadProjectIdFromPrefs())
+                    } else _detailProjectState.postValue(DetailProjectState.ErrorDeleteProject)
+                }
+            }
+        }
     }
-
-
 }
 
 sealed class DetailProjectState {

@@ -1,5 +1,6 @@
 package com.ahinfo.ahteam.data.parser.detailsProject.module
 
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.api.DeleteProjectTaskApi
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.api.GetProjectTasksApi
 import dagger.Module
 import dagger.Provides
@@ -14,4 +15,8 @@ object GetProjectTasksModule {
     @Provides
     fun provideGetProjectTasksApi(retrofit: Retrofit): GetProjectTasksApi =
         retrofit.create(GetProjectTasksApi::class.java)
+
+    @Provides
+    fun provideDeleteProjectTaskApi(retrofit: Retrofit): DeleteProjectTaskApi =
+        retrofit.create(DeleteProjectTaskApi::class.java)
 }

@@ -110,16 +110,14 @@ class ListProjectsFragment :
                     readResultAndShowSnackbar(
                         result = false,
                         positiveMess = string(R.string.success_delete_project),
-                        negativeMess = string(R.string.fail_delete_project),
-                        positiveResult = { viewModel.updateListProjectsData() }
+                        negativeMess = string(R.string.fail_delete_project)
                     )
                 }
                 ListProjectsState.SuccessDeleteProject -> {
                     readResultAndShowSnackbar(
                         result = true,
                         positiveMess = string(R.string.success_delete_project),
-                        negativeMess = string(R.string.fail_delete_project),
-                        positiveResult = { viewModel.updateListProjectsData() }
+                        negativeMess = string(R.string.fail_delete_project)
                     )
                 }
             }

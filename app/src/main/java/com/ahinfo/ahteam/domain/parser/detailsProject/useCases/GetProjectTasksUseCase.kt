@@ -2,17 +2,26 @@ package com.ahinfo.ahteam.domain.parser.detailsProject.useCases
 
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.remote.Failure
+import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestDeleteProjectTask
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.RequestGetProjectTasks
+import com.ahinfo.ahteam.domain.parser.detailsProject.entity.DeleteProjectTaskDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.entity.GetProjectTasksDomain
 import com.ahinfo.ahteam.domain.parser.detailsProject.repositoty.GetProjectTasksRepository
 import javax.inject.Inject
 
-class GetProjectTasksUseCase @Inject constructor(private val repository: GetProjectTasksRepository) {
+class GetProjectTasksUseCase @Inject constructor(
+    private val repository: GetProjectTasksRepository
+    ) {
 
     suspend fun getProjectTasks(
         request: RequestGetProjectTasks
     ): BaseResult<GetProjectTasksDomain, Failure> =
         repository.getProjectTasks(request)
+
+    suspend fun deleteProjectTask(
+        request: RequestDeleteProjectTask
+    ): BaseResult<DeleteProjectTaskDomain, Failure> =
+        repository.deleteProjectTask(request)
 
     fun loadPage(): Int = repository.loadPage()
 
