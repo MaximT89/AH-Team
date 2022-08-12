@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-@SuppressLint("UseCompatLoadingForDrawables")
+@SuppressLint("UseCompatLoadingForDrawables, SetTextI18n")
 class CurrentParserProjectFragment :
     BaseFragment<FragmentCurrentParserProjectBinding, CurrentParserProjectViewModel>(
         FragmentCurrentParserProjectBinding::inflate
@@ -35,6 +35,11 @@ class CurrentParserProjectFragment :
             if (fieldStatisticSectionStat.isVisible) roolSectionStat()
             else unrollSectionStat()
         }
+
+        rootHeaderParserManage.setOnClickListener {
+            if (manageParserField.isVisible) roolManageParser()
+            else unroolManageParser()
+        }
     }
 
     override fun listenerBundleArguments() {
@@ -48,93 +53,110 @@ class CurrentParserProjectFragment :
             })
     }
 
+    private fun roolManageParser() {
+        binding.manageParserField.hide()
+        binding.arrowVisibleParserManage.setImageDrawable(
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
+        )
+    }
+
+    private fun unroolManageParser() {
+        binding.manageParserField.show()
+        binding.arrowVisibleParserManage.setImageDrawable(
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
+        )
+    }
+
     private fun roolSectionStat() {
         binding.fieldStatisticSectionStat.hide()
         binding.arrowVisibleField.setImageDrawable(
-            resources.getDrawable(
-                R.drawable.ic_baseline_keyboard_arrow_down_24,
-                null
-            )
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
         )
     }
 
     private fun unrollSectionStat() {
         binding.fieldStatisticSectionStat.show()
         binding.arrowVisibleField.setImageDrawable(
-            resources.getDrawable(
-                R.drawable.ic_baseline_keyboard_arrow_up_24,
-                null
-            )
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
         )
     }
 
     override fun initObservers() {
         viewModel.currentParserState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                CurrentParserState.ParsingCreate -> {
+                is CurrentParserState.ParsingCreate -> {
                     log("CurrentParserState.ParsingCreate ")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     showBtnDownloadCategory()
                     visibleCatalogStat(false)
                 }
-                CurrentParserState.MenuStart -> {
+                is CurrentParserState.MenuStart -> {
                     log("CurrentParserState.MenuStart")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
                     visibleCatalogStat(false)
                 }
-                CurrentParserState.MenuComplete -> {
+                is CurrentParserState.MenuComplete -> {
                     log("CurrentParserState.MenuComplete")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     showBtnDownloadArticles()
                     loadTaskSectionStat()
                     visibleCatalogStat(false)
                 }
-                CurrentParserState.CatalogStart -> {
+                is CurrentParserState.CatalogStart -> {
                     log("CurrentParserState.CatalogError")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                 }
-                CurrentParserState.CatalogComplete -> {
+                is CurrentParserState.CatalogComplete -> {
                     log("CurrentParserState.CatalogComplete")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     showBtnDownloadOffers()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                 }
-                CurrentParserState.ElementStart -> {
+                is CurrentParserState.ElementStart -> {
 
                     // TODO: добавить остановку парсинга
 
                     log("CurrentParserState.ElementStart")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                 }
-                CurrentParserState.ElementComplete -> {
+                is CurrentParserState.ElementComplete -> {
                     log("CurrentParserState.CatalogError")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                 }
-                CurrentParserState.CatalogError -> {
+                is CurrentParserState.CatalogError -> {
                     log("CurrentParserState.CatalogError")
+                    updateCurrentStatus(state.status)
                     visibleCatalogStat(false)
                     visibleRootProgressBar(false)
                 }
-                CurrentParserState.ElementError -> {
+                is CurrentParserState.ElementError -> {
                     log("CurrentParserState.ElementError")
+                    updateCurrentStatus(state.status)
                     visibleCatalogStat(false)
                     visibleRootProgressBar(false)
                 }
@@ -147,8 +169,9 @@ class CurrentParserProjectFragment :
                     log("CurrentParserState.Loading")
                     visibleRootProgressBar(true)
                 }
-                CurrentParserState.MenuError -> {
+                is CurrentParserState.MenuError -> {
                     log("CurrentParserState.MenuError")
+                    updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
                 }
                 is CurrentParserState.NoInternet -> {
@@ -165,6 +188,10 @@ class CurrentParserProjectFragment :
                 }
             }
         }
+    }
+
+    private fun updateCurrentStatus(status: String) {
+        binding.currentStatus.text = "Статус: $status"
     }
 
     private fun visibleProgressSectionStat(status: Boolean) = with(binding) {

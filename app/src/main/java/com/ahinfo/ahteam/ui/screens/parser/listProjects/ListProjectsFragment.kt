@@ -93,7 +93,6 @@ class ListProjectsFragment :
                 }
                 ListProjectsState.Loading -> {
                     loading(true)
-                    showContent(false)
                 }
                 is ListProjectsState.NoInternet -> {
                     isRefreshingFalse(binding.swipeRefresh)

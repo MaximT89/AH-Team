@@ -63,7 +63,7 @@
 
             <TextView
                 android:id="@+id/description_project"
-                style="@style/Item_holder"
+                style="@style/Text_item_holder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/id_project"
-                style="@style/Item_holder"
+                style="@style/Text_item_holder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -79,14 +79,14 @@
 
             <TextView
                 android:id="@+id/status_project"
-                style="@style/Item_holder"
+                style="@style/Text_item_holder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Статус: создано" />
 
             <TextView
                 android:id="@+id/date_create_project"
-                style="@style/Item_holder"
+                style="@style/Text_item_holder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -22,53 +23,113 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/field_state_btn"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:paddingHorizontal="10dp">
+        style="@style/Card_view_holder"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_title_field_btn_state"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Следующий этап парсинга:"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_download_category"
+        <LinearLayout
+            android:id="@+id/field_state_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="1. Скачать категории (из меню)"
-            android:clickable="false"
-            android:enabled="false"
-            android:visibility="visible" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_download_articles"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="false"
-            android:enabled="false"
-            android:text="2. Скачать артикулы из категорий"
-            android:visibility="visible" />
+            <RelativeLayout
+                android:id="@+id/root_header_parser_manage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btn_download_offers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="false"
-            android:enabled="false"
-            android:text="3. Скачать параметры артикулов"
-            android:visibility="visible" />
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/parser_manage_title"
+                    style="@style/Title_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/cornflower_blue"
+                    android:gravity="center_horizontal"
+                    android:text="Управление парсером" />
+
+                <ImageView
+                    android:id="@+id/arrow_visible_parser_manage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/manage_parser_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="5dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_download_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="1. Скачать категории (из меню)"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/btn_download_articles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:text="2. Скачать артикулы из категорий"
+                    android:visibility="visible" />
+
+                <Button
+                    android:id="@+id/btn_download_offers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="false"
+                    android:enabled="false"
+                    android:text="3. Скачать параметры артикулов"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/current_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text_item_holder"
+                        tools:text="Status: menu_complete"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:id="@+id/img_help_about_status"
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/ic_baseline_help_outline_24"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/saddle_brown" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/root_catalog_statistic"
@@ -137,7 +198,7 @@
                         android:id="@+id/avg_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Item_holder"
+                        style="@style/Text_item_holder"
                         android:text="@string/total_element_parsing"
                         tools:text="Средняя цена: 18247" />
 
@@ -145,7 +206,7 @@
                         android:id="@+id/avg_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Item_holder"
+                        style="@style/Text_item_holder"
                         android:text="@string/total_element_parsing"
                         tools:text="Средний вес: 2,2888" />
 
@@ -153,7 +214,7 @@
                         android:id="@+id/total_count_elements"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Item_holder"
+                        style="@style/Text_item_holder"
                         android:text="@string/total_element_parsing"
                         tools:text="Всего элементов: 10177" />
 
@@ -161,7 +222,7 @@
                         android:id="@+id/count_elements_exist"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Item_holder"
+                        style="@style/Text_item_holder"
                         android:text="@string/count_elements_exist"
                         tools:text="В наличии: 2819" />
 
@@ -170,14 +231,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/min_price_elements"
-                        style="@style/Item_holder"
+                        style="@style/Text_item_holder"
                         tools:text="Минимальная цена: 190" />
 
                     <TextView
                         android:id="@+id/max_price_elements"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Item_holder"
+                        style="@style/Text_item_holder"
                         android:text="@string/max_price_elements"
                         tools:text="Максимальная цена: 495890" />
                 </LinearLayout>
