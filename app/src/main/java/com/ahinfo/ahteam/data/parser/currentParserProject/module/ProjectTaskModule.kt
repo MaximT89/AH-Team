@@ -1,5 +1,6 @@
 package com.ahinfo.ahteam.data.parser.currentParserProject.module
 
+import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.GetTaskElementStatApi
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.GetTaskSectionStatApi
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.GetTaskStatusApi
 import dagger.Module
@@ -19,4 +20,8 @@ object ProjectTaskModule {
     @Provides
     fun provideGetTaskSectionStatApi(retrofit: Retrofit) : GetTaskSectionStatApi =
         retrofit.create(GetTaskSectionStatApi::class.java)
+
+    @Provides
+    fun provideGetElementStatApi(retrofit: Retrofit) : GetTaskElementStatApi =
+        retrofit.create(GetTaskElementStatApi::class.java)
 }

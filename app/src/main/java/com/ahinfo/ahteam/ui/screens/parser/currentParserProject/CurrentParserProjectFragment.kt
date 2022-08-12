@@ -10,6 +10,7 @@ import com.ahinfo.ahteam.core.extension.*
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.databinding.FragmentCurrentParserProjectBinding
+import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetElementStatDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetSectionStatDomain
 import com.ahinfo.ahteam.ui.screens.parser.detailsProject.DetailProjectFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,9 @@ class CurrentParserProjectFragment :
 
     override fun initView() = with(binding) {
 
-        btnReloadCategoryStat.setOnClickListener { viewModel.getCurrentTaskStatus() }
+        btnReloadCategoryStat.setOnClickListener { viewModel.getTaskSectionStat() }
+
+        btnReloadElementStat.setOnClickListener { viewModel.getTaskElementStat() }
 
         rootHeaderSectionStatField.setOnClickListener {
             if (fieldStatisticSectionStat.isVisible) roolSectionStat()
@@ -39,6 +42,11 @@ class CurrentParserProjectFragment :
         rootHeaderParserManage.setOnClickListener {
             if (manageParserField.isVisible) roolManageParser()
             else unroolManageParser()
+        }
+
+        rootHeaderElementStatField.setOnClickListener {
+            if (fieldStatisticElementStat.isVisible) roolElementStat()
+            else unroolElementStat()
         }
     }
 
@@ -52,6 +60,22 @@ class CurrentParserProjectFragment :
                 viewModel.getCurrentTaskStatus()
             })
     }
+
+
+    private fun roolElementStat() {
+        binding.fieldStatisticElementStat.hide()
+        binding.arrowVisibleElementsStatField.setImageDrawable(
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
+        )
+    }
+
+    private fun unroolElementStat() {
+        binding.fieldStatisticElementStat.show()
+        binding.arrowVisibleElementsStatField.setImageDrawable(
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
+        )
+    }
+
 
     private fun roolManageParser() {
         binding.manageParserField.hide()
@@ -91,6 +115,7 @@ class CurrentParserProjectFragment :
                     showBtnsField()
                     showBtnDownloadCategory()
                     visibleCatalogStat(false)
+                    visibleElementStat(false)
                 }
                 is CurrentParserState.MenuStart -> {
                     log("CurrentParserState.MenuStart")
@@ -99,6 +124,7 @@ class CurrentParserProjectFragment :
                     showBtnsField()
                     allBtnNotActive()
                     visibleCatalogStat(false)
+                    visibleElementStat(false)
                 }
                 is CurrentParserState.MenuComplete -> {
                     log("CurrentParserState.MenuComplete")
@@ -108,6 +134,7 @@ class CurrentParserProjectFragment :
                     showBtnDownloadArticles()
                     loadTaskSectionStat()
                     visibleCatalogStat(false)
+                    visibleElementStat(false)
                 }
                 is CurrentParserState.CatalogStart -> {
                     log("CurrentParserState.CatalogError")
@@ -117,6 +144,7 @@ class CurrentParserProjectFragment :
                     allBtnNotActive()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
+                    visibleElementStat(false)
                 }
                 is CurrentParserState.CatalogComplete -> {
                     log("CurrentParserState.CatalogComplete")
@@ -126,6 +154,7 @@ class CurrentParserProjectFragment :
                     showBtnDownloadOffers()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
+                    visibleElementStat(false)
                 }
                 is CurrentParserState.ElementStart -> {
 
@@ -138,6 +167,7 @@ class CurrentParserProjectFragment :
                     allBtnNotActive()
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
+                    visibleElementStat(false)
                 }
                 is CurrentParserState.ElementComplete -> {
                     log("CurrentParserState.CatalogError")
@@ -146,23 +176,28 @@ class CurrentParserProjectFragment :
                     showBtnsField()
                     allBtnNotActive()
                     loadTaskSectionStat()
+                    loadTaskElementStat()
                     visibleCatalogStat(true)
+                    visibleElementStat(true)
                 }
                 is CurrentParserState.CatalogError -> {
                     log("CurrentParserState.CatalogError")
                     updateCurrentStatus(state.status)
                     visibleCatalogStat(false)
+                    visibleElementStat(false)
                     visibleRootProgressBar(false)
                 }
                 is CurrentParserState.ElementError -> {
                     log("CurrentParserState.ElementError")
                     updateCurrentStatus(state.status)
                     visibleCatalogStat(false)
+                    visibleElementStat(false)
                     visibleRootProgressBar(false)
                 }
                 is CurrentParserState.Error -> {
                     log("CurrentParserState.Error")
                     visibleCatalogStat(false)
+                    visibleElementStat(false)
                     visibleRootProgressBar(false)
                 }
                 CurrentParserState.LoadingRoot -> {
@@ -178,20 +213,42 @@ class CurrentParserProjectFragment :
                     log("CurrentParserState.NoInternet")
                     visibleRootProgressBar(false)
                 }
+                CurrentParserState.LoadingSectionStat -> visibleProgressSectionStat(true)
                 is CurrentParserState.SuccessLoadSectionStat -> {
                     log("CurrentParserState.SuccessLoadSectionStat work")
                     visibleProgressSectionStat(false)
                     updateSectionStatField(state.data)
                 }
-                CurrentParserState.LoadingSectionStat -> {
-                    visibleProgressSectionStat(true)
+                CurrentParserState.LoadingElementStat -> visibleProgressElementStat(true)
+                is CurrentParserState.SuccessLoadElementStat -> {
+                    visibleProgressElementStat(false)
+                    updateElementStatField(state.data)
                 }
             }
         }
     }
 
+    private fun updateElementStatField(data: GetElementStatDomain) = with(binding) {
+        statCountElements.text =
+            resourceProvider.string(R.string.stat_count_element, data.countElements.toString())
+        statCountOffers.text =
+            resourceProvider.string(R.string.stat_count_offers, data.countOffers.toString())
+        totalCountStore.text =
+            resourceProvider.string(R.string.stat_count_store, data.countStore.toString())
+    }
+
     private fun updateCurrentStatus(status: String) {
         binding.currentStatus.text = "Статус: $status"
+    }
+
+    private fun visibleProgressElementStat(status: Boolean) = with(binding) {
+        if (status) {
+            progressBarElementStat.show()
+            fieldStatisticElementStat.hide()
+        } else {
+            progressBarElementStat.hide()
+            fieldStatisticElementStat.show()
+        }
     }
 
     private fun visibleProgressSectionStat(status: Boolean) = with(binding) {
@@ -208,9 +265,18 @@ class CurrentParserProjectFragment :
         viewModel.getTaskSectionStat()
     }
 
+    private fun loadTaskElementStat() {
+        viewModel.getTaskElementStat()
+    }
+
     private fun visibleCatalogStat(status: Boolean) {
         if (status) binding.rootCatalogStatistic.show()
         else binding.rootCatalogStatistic.hide()
+    }
+
+    private fun visibleElementStat(status: Boolean) {
+        if (status) binding.rootElementStatistic.show()
+        else binding.rootElementStatistic.hide()
     }
 
     private fun updateSectionStatField(data: GetSectionStatDomain) = with(binding) {

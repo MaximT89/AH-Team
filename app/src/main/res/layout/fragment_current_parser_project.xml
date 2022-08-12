@@ -129,8 +129,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
-
     <androidx.cardview.widget.CardView
         android:id="@+id/root_catalog_statistic"
         android:layout_width="match_parent"
@@ -194,6 +192,7 @@
                     android:visibility="visible"
                     android:orientation="vertical">
 
+
                     <TextView
                         android:id="@+id/avg_price"
                         android:layout_width="wrap_content"
@@ -243,12 +242,129 @@
                         tools:text="Максимальная цена: 495890" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
                 <RelativeLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="100dp"
                     android:layout_height="fill_parent">
 
                     <ImageButton
                         android:id="@+id/btn_reload_category_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/round_corner"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_baseline_repeat_24" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/root_element_statistic"
+        android:layout_width="match_parent"
+        style="@style/Card_view_holder"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/root_header_element_stat_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/field_statistic_element_title"
+                    style="@style/Title_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/cornflower_blue"
+                    android:gravity="center_horizontal"
+                    android:text="Статистика по товарам" />
+
+                <ImageView
+                    android:id="@+id/arrow_visible_elements_stat_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_baseline_keyboard_arrow_up_24" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/progress_bar_element_stat"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="100dp">
+
+                <ProgressBar
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/field_statistic_element_stat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="8dp"
+                    android:visibility="visible"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/stat_count_elements"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text_item_holder"
+                        android:text="@string/stat_count_element"
+                        tools:text="Артикулов: 26983" />
+
+                    <TextView
+                        android:id="@+id/stat_count_offers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text_item_holder"
+                        android:text="@string/stat_count_offers"
+                        tools:text="Торговых предложений: 93016" />
+
+                    <TextView
+                        android:id="@+id/total_count_store"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text_item_holder"
+                        android:text="@string/stat_count_store"
+                        tools:text="На остатках: 10177" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <RelativeLayout
+                    android:layout_width="100dp"
+                    android:layout_height="fill_parent">
+
+                    <ImageButton
+                        android:id="@+id/btn_reload_element_stat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"

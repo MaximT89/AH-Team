@@ -3,6 +3,7 @@ package com.ahinfo.ahteam.domain.parser.currentParserProject.repository
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.remote.Failure
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.dto.RequestGetParserTaskStatus
+import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetElementStatDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetParserTaskStatusDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetSectionStatDomain
 
@@ -15,6 +16,10 @@ interface ParserTaskRepository {
     suspend fun getSectionStat(
         taskId : Int
     ) : BaseResult<GetSectionStatDomain, Failure>
+
+    suspend fun getElementStat(
+        taskId : Int
+    ) : BaseResult<GetElementStatDomain, Failure>
 
     fun loadCurrentProjectId(): Int
 

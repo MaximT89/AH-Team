@@ -47,6 +47,9 @@
 
     <string name="success_update_project_task">Парсер изменен</string>
     <string name="fail_update_project_task">Ошибка изменения парсера</string>
+    <string name="stat_count_element">Артикулов: %s</string>
+    <string name="stat_count_offers">Торговых предложений: %s</string>
+    <string name="stat_count_store">На остатках: %s</string>
 
 
 </resources>
