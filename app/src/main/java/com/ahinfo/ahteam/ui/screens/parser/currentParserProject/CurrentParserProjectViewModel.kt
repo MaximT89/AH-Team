@@ -60,6 +60,11 @@ class CurrentParserProjectViewModel @Inject constructor(
                 "Макс. цена: ${_sectionStat.value?.maxPrice}\n\n" +
                 "https://www.ah-team.com/parser/${taskStatusUseCase.loadCurrentTaskId()}"
 
+    fun getElementStatShareText() = "Артикулов: ${_elementStat.value?.countElements}\n" +
+            "Торг. предложений: ${_elementStat.value?.countOffers}\n" +
+            "На остатках: ${_elementStat.value?.countStore}\n" +
+            "https://www.ah-team.com/parser/${taskStatusUseCase.loadCurrentTaskId()}"
+
     fun getTaskElementStat() {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {

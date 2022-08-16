@@ -47,6 +47,14 @@ class CurrentParserProjectFragment :
             startActivity(Intent.createChooser(intent, "Статистика по каталогу: "))
         }
 
+        btnShareElementStat.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, viewModel.getElementStatShareText())
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Статистика по элементам: "))
+        }
+
         rootHeaderSectionStatField.setOnClickListener {
             if (fieldStatisticSectionStat.isVisible) roolSectionStat()
             else unrollSectionStat()
