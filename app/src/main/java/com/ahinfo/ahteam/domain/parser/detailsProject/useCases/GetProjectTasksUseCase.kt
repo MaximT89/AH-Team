@@ -10,8 +10,7 @@ import com.ahinfo.ahteam.domain.parser.detailsProject.repositoty.GetProjectTasks
 import javax.inject.Inject
 
 class GetProjectTasksUseCase @Inject constructor(
-    private val repository: GetProjectTasksRepository
-    ) {
+    private val repository: GetProjectTasksRepository) {
 
     suspend fun getProjectTasks(
         request: RequestGetProjectTasks

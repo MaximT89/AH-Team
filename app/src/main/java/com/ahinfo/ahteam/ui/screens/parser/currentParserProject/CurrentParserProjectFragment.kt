@@ -24,7 +24,7 @@ class CurrentParserProjectFragment :
         FragmentCurrentParserProjectBinding::inflate
     ) {
 
-    companion object{
+    companion object {
         const val PARSER_TASK_ID = "parser_task_id"
     }
 
@@ -74,7 +74,7 @@ class CurrentParserProjectFragment :
     override fun listenerBundleArguments() {
 
         // Читаем deeplink
-        readArguments<String>(PARSER_TASK_ID, ifExist =  {
+        readArguments<String>(PARSER_TASK_ID, ifExist = {
             viewModel.saveCurrentTaskId(it)
             viewModel.getCurrentTaskStatus()
         })
