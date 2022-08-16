@@ -247,19 +247,32 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="fill_parent">
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="8dp"
+                    android:gravity="top|end"
+                    android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/btn_reload_category_stat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:background="@drawable/round_corner"
-                        android:padding="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:padding="3dp"
                         android:src="@drawable/ic_baseline_repeat_24" />
-                </RelativeLayout>
+
+                    <ImageButton
+                        android:id="@+id/btn_share_catalog_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_corner"
+                        android:layout_marginEnd="10dp"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_baseline_share_24" />
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -359,19 +372,31 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"/>
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="fill_parent">
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="8dp"
+                    android:gravity="top|end"
+                    android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/btn_reload_element_stat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:background="@drawable/round_corner"
-                        android:padding="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:padding="3dp"
                         android:src="@drawable/ic_baseline_repeat_24" />
-                </RelativeLayout>
+
+                    <ImageButton
+                        android:id="@+id/btn_share_element_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_corner"
+                        android:layout_marginEnd="10dp"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_baseline_share_24" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -1,6 +1,7 @@
 package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
@@ -23,6 +24,10 @@ class CurrentParserProjectFragment :
         FragmentCurrentParserProjectBinding::inflate
     ) {
 
+    companion object{
+        const val PARSER_TASK_ID = "parser_task_id"
+    }
+
     override val viewModel: CurrentParserProjectViewModel by viewModels()
 
     @Inject
@@ -33,6 +38,14 @@ class CurrentParserProjectFragment :
         btnReloadCategoryStat.setOnClickListener { viewModel.getTaskSectionStat() }
 
         btnReloadElementStat.setOnClickListener { viewModel.getTaskElementStat() }
+
+        btnShareCatalogStat.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_SEND
+            intent.putExtra(Intent.EXTRA_TEXT, viewModel.getSectionStatShareText())
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent, "Статистика по каталогу: "))
+        }
 
         rootHeaderSectionStatField.setOnClickListener {
             if (fieldStatisticSectionStat.isVisible) roolSectionStat()
@@ -51,6 +64,13 @@ class CurrentParserProjectFragment :
     }
 
     override fun listenerBundleArguments() {
+
+        // Читаем deeplink
+        readArguments<String>(PARSER_TASK_ID, ifExist =  {
+            viewModel.saveCurrentTaskId(it)
+            viewModel.getCurrentTaskStatus()
+        })
+
         readArguments<ElementsItemTask>(DetailProjectFragment.ITEM_TASK,
             ifExist = { itemTask ->
                 viewModel.saveCurrentTaskId(itemTask)

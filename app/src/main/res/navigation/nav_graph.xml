@@ -119,6 +119,11 @@
         android:name="com.ahinfo.ahteam.ui.screens.parser.currentParserProject.CurrentParserProjectFragment"
         android:label="fragment_current_parser_project"
         tools:layout="@layout/fragment_current_parser_project" >
+
+        <argument android:name="parser_task_id"
+            app:argType="string" />
+        <deepLink app:uri="www.ah-team.com/parser/{parser_task_id}" />
+
         <action
             android:id="@+id/action_currentParserProjectFragment_to_detailProjectFragment"
             app:destination="@id/detailProjectFragment" />

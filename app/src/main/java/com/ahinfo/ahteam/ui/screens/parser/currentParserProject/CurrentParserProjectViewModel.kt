@@ -33,6 +33,12 @@ class CurrentParserProjectViewModel @Inject constructor(
     private var _currentParserState = MutableLiveData<CurrentParserState>()
     val currentParserState: LiveData<CurrentParserState> = _currentParserState
 
+    private var _sectionStat = MutableLiveData<GetSectionStatDomain?>()
+    val sectionStat: LiveData<GetSectionStatDomain?> = _sectionStat
+
+    private var _elementStat = MutableLiveData<GetElementStatDomain?>()
+    val elementStat: LiveData<GetElementStatDomain?> = _elementStat
+
     init {
         _currentParserState.value = CurrentParserState.LoadingRoot
     }
@@ -42,6 +48,18 @@ class CurrentParserProjectViewModel @Inject constructor(
         taskStatusUseCase.saveCurrentProjectId(itemTask.projectId!!)
     }
 
+    fun saveCurrentTaskId(itemTaskId: String) {
+        taskStatusUseCase.saveCurrentTaskId(itemTaskId.toInt())
+    }
+
+    fun getSectionStatShareText() = "Средняя цена: ${_sectionStat.value?.avgPrice}\n" +
+                "Средний вес: ${_sectionStat.value?.avgWeight}\n" +
+                "Всего элементов: ${_sectionStat.value?.countElements}\n" +
+                "В наличии: ${_sectionStat.value?.exist}\n" +
+                "Мин. цена: ${_sectionStat.value?.minPrice}\n" +
+                "Макс. цена: ${_sectionStat.value?.maxPrice}\n\n" +
+                "https://www.ah-team.com/parser/${taskStatusUseCase.loadCurrentTaskId()}"
+
     fun getTaskElementStat() {
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
@@ -49,9 +67,12 @@ class CurrentParserProjectViewModel @Inject constructor(
             }
             when (val result = statUseCase.getElementStat(taskStatusUseCase.loadCurrentTaskId())) {
                 is BaseResult.Error -> errorResult(result) { getTaskElementStat() }
-                is BaseResult.Success -> _currentParserState.postValue(
-                    CurrentParserState.SuccessLoadElementStat(result.data)
-                )
+                is BaseResult.Success -> {
+                    _elementStat.postValue(result.data)
+                    _currentParserState.postValue(
+                        CurrentParserState.SuccessLoadElementStat(result.data)
+                    )
+                }
             }
         }
     }
@@ -63,9 +84,12 @@ class CurrentParserProjectViewModel @Inject constructor(
             }
             when (val result = statUseCase.getSectionStat(taskStatusUseCase.loadCurrentTaskId())) {
                 is BaseResult.Error -> errorResult(result) { getTaskSectionStat() }
-                is BaseResult.Success -> _currentParserState.postValue(
-                    CurrentParserState.SuccessLoadSectionStat(result.data)
-                )
+                is BaseResult.Success -> {
+                    _sectionStat.postValue(result.data)
+                    _currentParserState.postValue(
+                        CurrentParserState.SuccessLoadSectionStat(result.data)
+                    )
+                }
             }
         }
     }
