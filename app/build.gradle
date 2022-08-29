@@ -41,6 +41,9 @@ dependencies {
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanary"
 //    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanary"
 
+    // Kotlin reflect
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlinVersion"
+
     // Glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
@@ -88,7 +91,7 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:$rootProject.dataStoreVersion"
 
     implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }

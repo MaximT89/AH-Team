@@ -52,7 +52,7 @@ class DetailProjectFragment :
                 viewModel.saveProjectIdInPrefs(projectId)
                 viewModel.updateUiProjectTasks()
             },
-            dontExist = {
+            notExist = {
                 viewModel.updateUiProjectTasks()
             })
 

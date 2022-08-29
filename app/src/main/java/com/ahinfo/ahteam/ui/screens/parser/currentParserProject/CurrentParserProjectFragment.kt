@@ -84,7 +84,7 @@ class CurrentParserProjectFragment :
                 viewModel.saveCurrentTaskId(itemTask)
                 viewModel.getCurrentTaskStatus()
             },
-            dontExist = {
+            notExist = {
                 viewModel.getCurrentTaskStatus()
             })
     }
