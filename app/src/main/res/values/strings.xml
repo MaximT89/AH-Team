@@ -50,6 +50,16 @@
     <string name="stat_count_element">Артикулов: %s</string>
     <string name="stat_count_offers">Торговых предложений: %s</string>
     <string name="stat_count_store">На остатках: %s</string>
+    <string name="categories">Категории</string>
+    <string name="btn_simple_catalog">Товары в категориях</string>
+    <string name="btn_full_catalog">Товары с оферами</string>
+    <string name="look_offers">Просмотр украшений</string>
+    <string name="stat_on_offers">Статистика по товарам</string>
+    <string name="stat_on_links">Статистика по ссылкам</string>
+    <string name="btn_download_offers">3. Скачать параметры артикулов</string>
+    <string name="btn_download_articles">2. Скачать артикулы из категорий</string>
+    <string name="btn_download_category">1. Скачать категории (из меню)</string>
+    <string name="manage_parser">Управление парсером</string>
 
 
 </resources>

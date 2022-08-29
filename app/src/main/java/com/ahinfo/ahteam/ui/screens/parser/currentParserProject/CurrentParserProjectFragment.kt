@@ -89,6 +89,37 @@ class CurrentParserProjectFragment :
             })
     }
 
+    private fun activeBtnsCatalog(count: Int) = with(binding) {
+        when (count) {
+            -1 -> {
+                rootNavWatchingOffers.hide()
+            }
+            0 -> {
+                rootNavWatchingOffers.show()
+                btnCategory.notActive()
+                btnCatalogSimple.notActive()
+                btnCatalogFull.notActive()
+            }
+            1 -> {
+                rootNavWatchingOffers.show()
+                btnCategory.active()
+                btnCatalogSimple.notActive()
+                btnCatalogFull.notActive()
+            }
+            2 -> {
+                rootNavWatchingOffers.show()
+                btnCategory.active()
+                btnCatalogSimple.active()
+                btnCatalogFull.notActive()
+            }
+            3 -> {
+                rootNavWatchingOffers.show()
+                btnCategory.active()
+                btnCatalogSimple.active()
+                btnCatalogFull.active()
+            }
+        }
+    }
 
     private fun roolElementStat() {
         binding.fieldStatisticElementStat.hide()
@@ -134,7 +165,7 @@ class CurrentParserProjectFragment :
     }
 
     override fun initObservers() {
-        viewModel.currentParserState.observe(viewLifecycleOwner) { state ->
+        viewModel.currentParserState.observe { state ->
             when (state) {
                 is CurrentParserState.ParsingCreate -> {
                     log("CurrentParserState.ParsingCreate ")
@@ -144,6 +175,7 @@ class CurrentParserProjectFragment :
                     showBtnDownloadCategory()
                     visibleCatalogStat(false)
                     visibleElementStat(false)
+                    activeBtnsCatalog(0)
                 }
                 is CurrentParserState.MenuStart -> {
                     log("CurrentParserState.MenuStart")
@@ -153,6 +185,7 @@ class CurrentParserProjectFragment :
                     allBtnNotActive()
                     visibleCatalogStat(false)
                     visibleElementStat(false)
+                    activeBtnsCatalog(0)
                 }
                 is CurrentParserState.MenuComplete -> {
                     log("CurrentParserState.MenuComplete")
@@ -163,6 +196,7 @@ class CurrentParserProjectFragment :
                     loadTaskSectionStat()
                     visibleCatalogStat(false)
                     visibleElementStat(false)
+                    activeBtnsCatalog(1)
                 }
                 is CurrentParserState.CatalogStart -> {
                     log("CurrentParserState.CatalogError")
@@ -173,6 +207,7 @@ class CurrentParserProjectFragment :
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                     visibleElementStat(false)
+                    activeBtnsCatalog(1)
                 }
                 is CurrentParserState.CatalogComplete -> {
                     log("CurrentParserState.CatalogComplete")
@@ -183,6 +218,7 @@ class CurrentParserProjectFragment :
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                     visibleElementStat(false)
+                    activeBtnsCatalog(2)
                 }
                 is CurrentParserState.ElementStart -> {
 
@@ -196,6 +232,7 @@ class CurrentParserProjectFragment :
                     loadTaskSectionStat()
                     visibleCatalogStat(true)
                     visibleElementStat(false)
+                    activeBtnsCatalog(2)
                 }
                 is CurrentParserState.ElementComplete -> {
                     log("CurrentParserState.CatalogError")
@@ -207,6 +244,7 @@ class CurrentParserProjectFragment :
                     loadTaskElementStat()
                     visibleCatalogStat(true)
                     visibleElementStat(true)
+                    activeBtnsCatalog(3)
                 }
                 is CurrentParserState.CatalogError -> {
                     log("CurrentParserState.CatalogError")
@@ -214,6 +252,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
+                    activeBtnsCatalog(-1)
                 }
                 is CurrentParserState.ElementError -> {
                     log("CurrentParserState.ElementError")
@@ -221,12 +260,14 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
+                    activeBtnsCatalog(-1)
                 }
                 is CurrentParserState.Error -> {
                     log("CurrentParserState.Error")
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
+                    activeBtnsCatalog(-1)
                 }
                 CurrentParserState.LoadingRoot -> {
                     log("CurrentParserState.Loading")

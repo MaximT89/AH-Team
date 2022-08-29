@@ -57,7 +57,7 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@color/cornflower_blue"
                             android:gravity="center_horizontal"
-                            android:text="Управление парсером" />
+                            android:text="@string/manage_parser" />
 
                         <ImageView
                             android:id="@+id/arrow_visible_parser_manage"
@@ -84,7 +84,7 @@
                             android:layout_gravity="center_horizontal"
                             android:clickable="false"
                             android:enabled="false"
-                            android:text="1. Скачать категории (из меню)"
+                            android:text="@string/btn_download_category"
                             android:visibility="visible" />
 
                         <Button
@@ -94,7 +94,7 @@
                             android:layout_gravity="center_horizontal"
                             android:clickable="false"
                             android:enabled="false"
-                            android:text="2. Скачать артикулы из категорий"
+                            android:text="@string/btn_download_articles"
                             android:visibility="visible" />
 
                         <Button
@@ -104,7 +104,7 @@
                             android:layout_gravity="center_horizontal"
                             android:clickable="false"
                             android:enabled="false"
-                            android:text="3. Скачать параметры артикулов"
+                            android:text="@string/btn_download_offers"
                             android:visibility="visible" />
 
                         <LinearLayout
@@ -163,7 +163,7 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@color/cornflower_blue"
                             android:gravity="center_horizontal"
-                            android:text="Статистика по ссылкам" />
+                            android:text="@string/stat_on_links" />
 
                         <ImageView
                             android:id="@+id/arrow_visible_field"
@@ -311,7 +311,7 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@color/cornflower_blue"
                             android:gravity="center_horizontal"
-                            android:text="Статистика по товарам" />
+                            android:text="@string/stat_on_offers" />
 
                         <ImageView
                             android:id="@+id/arrow_visible_elements_stat_field"
@@ -436,7 +436,7 @@
                             android:layout_gravity="center_horizontal"
                             android:background="@color/cornflower_blue"
                             android:gravity="center_horizontal"
-                            android:text="Просмотр украшений" />
+                            android:text="@string/look_offers" />
 
                         <ImageView
                             android:id="@+id/arrow_visible_nav_catalog"
@@ -460,13 +460,25 @@
                             android:id="@+id/btn_category"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Категории"/>
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/categories"/>
 
                         <Button
-                            android:id="@+id/btn_offers_category"
+                            android:id="@+id/btn_catalog_simple"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Товары в категориях"/>
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/btn_simple_catalog"/>
+
+                        <Button
+                            android:id="@+id/btn_catalog_full"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:enabled="false"
+                            android:text="@string/btn_full_catalog"/>
 
 
                     </LinearLayout>

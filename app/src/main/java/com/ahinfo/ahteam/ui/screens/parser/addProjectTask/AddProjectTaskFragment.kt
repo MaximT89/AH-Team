@@ -39,7 +39,7 @@ class AddProjectTaskFragment :
     }
 
     override fun initObservers() {
-        viewModel.addProjectTaskState.observe(viewLifecycleOwner) { state ->
+        viewModel.addProjectTaskState.observe { state ->
             when (state) {
                 is AddProjectTaskState.Error -> {}
                 AddProjectTaskState.Loading -> {}

@@ -40,10 +40,10 @@ class UpdateProjectFragment :
     }
 
     override fun initObservers() {
-        viewModel.elementsItemProject.observe(viewLifecycleOwner) { elementItem ->
+        viewModel.elementsItemProject.observe { elementItem ->
             updateUi(elementItem)
         }
-        viewModel.updateProjectState.observe(viewLifecycleOwner) { state ->
+        viewModel.updateProjectState.observe { state ->
             when (state) {
                 is UpdateProjectsState.Error -> {}
                 UpdateProjectsState.Loading -> {}

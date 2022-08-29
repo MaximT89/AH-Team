@@ -83,7 +83,7 @@ class ListProjectsFragment :
     }
 
     override fun initObservers() {
-        viewModel.listProjectState.observe(this@ListProjectsFragment) { state ->
+        viewModel.listProjectState.observe { state ->
 
             when (state) {
                 is ListProjectsState.Error -> {

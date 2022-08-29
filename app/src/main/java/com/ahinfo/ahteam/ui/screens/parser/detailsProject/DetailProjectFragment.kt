@@ -82,7 +82,7 @@ class DetailProjectFragment :
     }
 
     override fun initObservers() {
-        viewModel.detailProjectState.observe(viewLifecycleOwner) { state ->
+        viewModel.detailProjectState.observe { state ->
             when (state) {
                 is DetailProjectState.Error -> loading(false)
                 DetailProjectState.ErrorDeleteProject -> {

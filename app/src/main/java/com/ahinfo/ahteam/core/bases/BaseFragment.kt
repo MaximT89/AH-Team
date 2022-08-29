@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -132,6 +133,10 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
 
     override fun navigateTo(resId: Int) =
         findNavController().navigate(resId)
+
+    protected infix fun <T> LiveData<T>.observe(block: (T) -> Unit) {
+        observe(this@BaseFragment.viewLifecycleOwner) { t -> block.invoke(t) }
+    }
 
     /**
      * Очищаем биндинг во всех фрагментах
