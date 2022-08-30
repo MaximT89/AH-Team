@@ -75,6 +75,14 @@ fun Button.notActive(){
     isClickable = false
 }
 
+fun <T>MutableLiveData<List<T>?>.newList(someLogic : (data : T) -> T) {
+    value.let { items ->
+        value = items?.map {
+            someLogic.invoke(it)
+        }
+    }
+}
+
 fun createGradient(textView: TextView, colors: IntArray) {
     val paint = textView.paint
     val width = paint.measureText(textView.text.toString())
