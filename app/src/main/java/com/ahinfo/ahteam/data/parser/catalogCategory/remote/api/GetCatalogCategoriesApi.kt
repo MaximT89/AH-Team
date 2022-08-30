@@ -8,6 +8,8 @@ import retrofit2.http.POST
 
 interface GetCatalogCategoriesApi {
 
+    //sdfhaskdf
+
     @POST("/parsing/parsing/get.sections/")
     suspend fun getCatalogCategories(@Body request : RequestGetCatalogCategories) : Response<ResponseGetCatalogCategories>
 }
