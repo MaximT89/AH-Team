@@ -52,6 +52,8 @@ class CurrentParserProjectViewModel @Inject constructor(
         taskStatusUseCase.saveCurrentTaskId(itemTaskId.toInt())
     }
 
+    fun loadCurrentTaskId() = taskStatusUseCase.loadCurrentTaskId()
+
     fun getSectionStatShareText() = "Средняя цена: ${_sectionStat.value?.avgPrice}\n" +
                 "Средний вес: ${_sectionStat.value?.avgWeight}\n" +
                 "Всего элементов: ${_sectionStat.value?.countElements}\n" +

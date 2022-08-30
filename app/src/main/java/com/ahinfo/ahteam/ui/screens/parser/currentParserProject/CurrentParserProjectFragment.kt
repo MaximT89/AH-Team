@@ -2,6 +2,7 @@ package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
@@ -39,6 +40,10 @@ class CurrentParserProjectFragment :
 
         btnReloadElementStat.setOnClickListener { viewModel.getTaskElementStat() }
 
+        btnCategory.setOnClickListener {
+            navigateTo(DestinationsParser.CURRENT_PARSER_PROJECT_TO_CATALOG_CATEGORY.id)
+        }
+
         btnShareCatalogStat.setOnClickListener {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
@@ -73,11 +78,12 @@ class CurrentParserProjectFragment :
 
     override fun listenerBundleArguments() {
 
-        // Читаем deeplink
-        readArguments<String>(PARSER_TASK_ID, ifExist = {
-            viewModel.saveCurrentTaskId(it)
-            viewModel.getCurrentTaskStatus()
-        })
+
+        readArguments<String>(PARSER_TASK_ID,
+            ifExist = {
+                viewModel.saveCurrentTaskId(it)
+                viewModel.getCurrentTaskStatus()
+            })
 
         readArguments<ElementsItemTask>(DetailProjectFragment.ITEM_TASK,
             ifExist = { itemTask ->

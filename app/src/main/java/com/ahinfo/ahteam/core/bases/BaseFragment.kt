@@ -16,6 +16,7 @@ import androidx.viewbinding.ViewBinding
 import com.ahinfo.ahteam.core.navigation.Navigator
 import com.google.android.material.snackbar.Snackbar
 import java.lang.IllegalArgumentException
+import java.lang.reflect.Array.get
 import kotlin.reflect.full.isSubclassOf
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -28,7 +29,7 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
     Fragment(), Navigator {
 
     private var _viewBinding: B? = null
-    protected val binding = checkNotNull(_viewBinding)
+    protected val binding get()  = checkNotNull(_viewBinding)
     protected abstract val viewModel: VM
     protected var toolbar: Toolbar? = null
 

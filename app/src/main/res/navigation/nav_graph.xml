@@ -127,5 +127,17 @@
         <action
             android:id="@+id/action_currentParserProjectFragment_to_detailProjectFragment"
             app:destination="@id/detailProjectFragment" />
+        <action
+            android:id="@+id/action_currentParserProjectFragment_to_catalogCategoryFragment"
+            app:destination="@id/catalogCategoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/catalogCategoryFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.catalogCategory.CatalogCategoryFragment"
+        android:label="fragment_catalog_category"
+        tools:layout="@layout/fragment_catalog_category" >
+        <action
+            android:id="@+id/action_catalogCategoryFragment_to_currentParserProjectFragment"
+            app:destination="@id/currentParserProjectFragment" />
     </fragment>
 </navigation>
