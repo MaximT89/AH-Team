@@ -121,6 +121,14 @@
                                 android:layout_height="wrap_content"
                                 tools:text="Status: menu_complete" />
 
+                            <TextView
+                                android:id="@+id/current_task_id"
+                                style="@style/Text_item_holder"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                tools:text="Parser: 35" />
+
                             <View
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"

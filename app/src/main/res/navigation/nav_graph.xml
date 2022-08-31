@@ -130,6 +130,9 @@
         <action
             android:id="@+id/action_currentParserProjectFragment_to_catalogCategoryFragment"
             app:destination="@id/catalogCategoryFragment" />
+        <action
+            android:id="@+id/action_currentParserProjectFragment_to_elementsLinksFragment"
+            app:destination="@id/elementsLinksFragment" />
     </fragment>
     <fragment
         android:id="@+id/catalogCategoryFragment"
@@ -138,6 +141,15 @@
         tools:layout="@layout/fragment_catalog_category" >
         <action
             android:id="@+id/action_catalogCategoryFragment_to_currentParserProjectFragment"
+            app:destination="@id/currentParserProjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/elementsLinksFragment"
+        android:name="com.ahinfo.ahteam.ui.screens.parser.catalogElementsLinks.ElementsLinksFragment"
+        android:label="fragment_elements_links"
+        tools:layout="@layout/fragment_elements_links" >
+        <action
+            android:id="@+id/action_elementsLinksFragment_to_currentParserProjectFragment"
             app:destination="@id/currentParserProjectFragment" />
     </fragment>
 </navigation>

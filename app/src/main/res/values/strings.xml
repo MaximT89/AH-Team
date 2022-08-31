@@ -61,9 +61,9 @@
     <string name="btn_download_category">1. Скачать категории (из меню)</string>
     <string name="manage_parser">Управление парсером</string>
 
-
     <string name="catalog_category_title">Каталог категорий</string>
     <string name="btn_stop_parser">Остановить парсер</string>
 
+    <string name="elements_links_title">Каталог товаров</string>
 
 </resources>

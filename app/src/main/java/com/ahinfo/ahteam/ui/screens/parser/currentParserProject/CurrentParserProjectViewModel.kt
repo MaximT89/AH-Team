@@ -36,10 +36,8 @@ class CurrentParserProjectViewModel @Inject constructor(
     val currentParserState: LiveData<CurrentParserState> = _currentParserState
 
     private var _sectionStat = MutableLiveData<GetSectionStatDomain?>()
-    val sectionStat: LiveData<GetSectionStatDomain?> = _sectionStat
 
     private var _elementStat = MutableLiveData<GetElementStatDomain?>()
-    val elementStat: LiveData<GetElementStatDomain?> = _elementStat
 
     init {
         _currentParserState.value = CurrentParserState.LoadingRoot

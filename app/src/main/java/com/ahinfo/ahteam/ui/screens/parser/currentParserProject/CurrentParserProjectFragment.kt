@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
-import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -47,6 +46,10 @@ class CurrentParserProjectFragment :
 
         btnCategory.setOnClickListener {
             navigateTo(DestinationsParser.CURRENT_PARSER_PROJECT_TO_CATALOG_CATEGORY.id)
+        }
+
+        btnCatalogFull.setOnClickListener {
+            navigateTo(DestinationsParser.CURRENT_PARSER_PROJECT_TO_ELEMENTS_LINKS.id)
         }
 
         btnShareCatalogStat.setOnClickListener {
@@ -109,6 +112,10 @@ class CurrentParserProjectFragment :
             })
     }
 
+    private fun updateCurrentTaskId(id: Int) {
+        binding.currentTaskId.text = "Parser: $id"
+    }
+
     private fun activeBtnsCatalog(count: Int) = with(binding) {
         when (count) {
             -1 -> {
@@ -161,6 +168,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.ParsingCreate -> {
                     log("CurrentParserState.ParsingCreate ")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     showBtnDownloadCategory()
@@ -172,6 +180,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.MenuStart -> {
                     log("CurrentParserState.MenuStart")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
@@ -183,6 +192,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.MenuComplete -> {
                     log("CurrentParserState.MenuComplete")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     showBtnDownloadArticles()
@@ -195,6 +205,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.CatalogStart -> {
                     log("CurrentParserState.CatalogError")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
@@ -207,6 +218,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.CatalogComplete -> {
                     log("CurrentParserState.CatalogComplete")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     showBtnDownloadOffers()
@@ -219,6 +231,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.ElementStart -> {
                     log("CurrentParserState.ElementStart")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
@@ -231,6 +244,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.ElementComplete -> {
                     log("CurrentParserState.CatalogError")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleRootProgressBar(false)
                     showBtnsField()
                     allBtnNotActive()
@@ -244,6 +258,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.CatalogError -> {
                     log("CurrentParserState.CatalogError")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
@@ -253,6 +268,7 @@ class CurrentParserProjectFragment :
                 is CurrentParserState.ElementError -> {
                     log("CurrentParserState.ElementError")
                     updateCurrentStatus(state.status)
+                    updateCurrentTaskId(viewModel.loadCurrentTaskId())
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
@@ -270,6 +286,8 @@ class CurrentParserProjectFragment :
                 CurrentParserState.LoadingRoot -> {
                     log("CurrentParserState.Loading")
                     visibleRootProgressBar(true)
+                    visibleProgressSectionStat(true)
+                    visibleProgressElementStat(true)
                 }
                 is CurrentParserState.MenuError -> {
                     log("CurrentParserState.MenuError")
