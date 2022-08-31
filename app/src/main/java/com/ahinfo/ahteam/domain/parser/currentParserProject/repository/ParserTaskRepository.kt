@@ -6,6 +6,7 @@ import com.ahinfo.ahteam.data.parser.currentParserProject.remote.dto.RequestGetP
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetElementStatDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetParserTaskStatusDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetSectionStatDomain
+import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.ParserStopDomain
 
 interface ParserTaskRepository {
 
@@ -20,6 +21,10 @@ interface ParserTaskRepository {
     suspend fun getElementStat(
         taskId : Int
     ) : BaseResult<GetElementStatDomain, Failure>
+
+    suspend fun parserStop(
+        taskId : Int
+    ) : BaseResult<ParserStopDomain, Failure>
 
     fun loadCurrentProjectId(): Int
 

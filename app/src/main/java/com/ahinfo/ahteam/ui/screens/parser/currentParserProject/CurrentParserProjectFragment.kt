@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import androidx.core.os.bundleOf
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.R
@@ -42,6 +43,8 @@ class CurrentParserProjectFragment :
 
         btnReloadElementStat.setOnClickListener { viewModel.getTaskElementStat() }
 
+        btnParserStop.setOnClickListener { viewModel.parserStop() }
+
         btnCategory.setOnClickListener {
             navigateTo(DestinationsParser.CURRENT_PARSER_PROJECT_TO_CATALOG_CATEGORY.id)
         }
@@ -63,17 +66,23 @@ class CurrentParserProjectFragment :
         }
 
         rootHeaderSectionStatField.setOnClickListener {
-            if (fieldStatisticSectionStat.isVisible) rool(fieldStatisticSectionStat, arrowVisibleField)
+            if (fieldStatisticSectionStat.isVisible) rool(
+                fieldStatisticSectionStat,
+                arrowVisibleField
+            )
             else unrool(fieldStatisticSectionStat, arrowVisibleField)
         }
 
         rootHeaderParserManage.setOnClickListener {
-            if (manageParserField.isVisible) rool(manageParserField,arrowVisibleParserManage)
-            else unrool(manageParserField,arrowVisibleParserManage)
+            if (manageParserField.isVisible) rool(manageParserField, arrowVisibleParserManage)
+            else unrool(manageParserField, arrowVisibleParserManage)
         }
 
         rootHeaderElementStatField.setOnClickListener {
-            if (fieldStatisticElementStat.isVisible) rool(fieldStatisticElementStat, arrowVisibleElementsStatField)
+            if (fieldStatisticElementStat.isVisible) rool(
+                fieldStatisticElementStat,
+                arrowVisibleElementsStatField
+            )
             else unrool(fieldStatisticElementStat, arrowVisibleElementsStatField)
         }
 
@@ -132,14 +141,14 @@ class CurrentParserProjectFragment :
         }
     }
 
-    private fun rool(roolView : View, imgArrow : ImageView){
+    private fun rool(roolView: View, imgArrow: ImageView) {
         roolView.hide()
         imgArrow.setImageDrawable(
             resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
         )
     }
 
-    private fun unrool(roolView : View, imgArrow : ImageView){
+    private fun unrool(roolView: View, imgArrow: ImageView) {
         roolView.show()
         imgArrow.setImageDrawable(
             resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
@@ -158,6 +167,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     activeBtnsCatalog(0)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.MenuStart -> {
                     log("CurrentParserState.MenuStart")
@@ -168,6 +178,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     activeBtnsCatalog(0)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.MenuComplete -> {
                     log("CurrentParserState.MenuComplete")
@@ -179,6 +190,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(false)
                     visibleElementStat(false)
                     activeBtnsCatalog(1)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.CatalogStart -> {
                     log("CurrentParserState.CatalogError")
@@ -190,6 +202,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(true)
                     visibleElementStat(false)
                     activeBtnsCatalog(1)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.CatalogComplete -> {
                     log("CurrentParserState.CatalogComplete")
@@ -201,11 +214,9 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(true)
                     visibleElementStat(false)
                     activeBtnsCatalog(2)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.ElementStart -> {
-
-                    // TODO: добавить остановку парсинга
-
                     log("CurrentParserState.ElementStart")
                     updateCurrentStatus(state.status)
                     visibleRootProgressBar(false)
@@ -215,6 +226,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(true)
                     visibleElementStat(false)
                     activeBtnsCatalog(2)
+                    visibleBtnStopParser(true)
                 }
                 is CurrentParserState.ElementComplete -> {
                     log("CurrentParserState.CatalogError")
@@ -227,6 +239,7 @@ class CurrentParserProjectFragment :
                     visibleCatalogStat(true)
                     visibleElementStat(true)
                     activeBtnsCatalog(3)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.CatalogError -> {
                     log("CurrentParserState.CatalogError")
@@ -235,6 +248,7 @@ class CurrentParserProjectFragment :
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
                     activeBtnsCatalog(-1)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.ElementError -> {
                     log("CurrentParserState.ElementError")
@@ -243,6 +257,7 @@ class CurrentParserProjectFragment :
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
                     activeBtnsCatalog(-1)
+                    visibleBtnStopParser(false)
                 }
                 is CurrentParserState.Error -> {
                     log("CurrentParserState.Error")
@@ -250,6 +265,7 @@ class CurrentParserProjectFragment :
                     visibleElementStat(false)
                     visibleRootProgressBar(false)
                     activeBtnsCatalog(-1)
+                    visibleBtnStopParser(false)
                 }
                 CurrentParserState.LoadingRoot -> {
                     log("CurrentParserState.Loading")
@@ -277,6 +293,11 @@ class CurrentParserProjectFragment :
                 }
             }
         }
+    }
+
+    private fun visibleBtnStopParser(status: Boolean) {
+        if (status) binding.btnParserStop.isVisible = true
+        else binding.btnParserStop.isGone = true
     }
 
     private fun updateElementStatField(data: GetElementStatDomain) = with(binding) {

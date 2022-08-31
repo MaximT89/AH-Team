@@ -13,6 +13,7 @@ import com.ahinfo.ahteam.data.parser.currentParserProject.remote.dto.RequestGetP
 import com.ahinfo.ahteam.data.parser.detailsProject.remote.dto.ElementsItemTask
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetElementStatDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetSectionStatDomain
+import com.ahinfo.ahteam.domain.parser.currentParserProject.useCase.ParserManageUseCase
 import com.ahinfo.ahteam.domain.parser.currentParserProject.useCase.StatUseCase
 import com.ahinfo.ahteam.domain.parser.currentParserProject.useCase.TaskStatusUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,8 @@ import javax.inject.Inject
 class CurrentParserProjectViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider,
     private val taskStatusUseCase: TaskStatusUseCase,
-    private val statUseCase: StatUseCase
+    private val statUseCase: StatUseCase,
+    private val parserManageUseCase: ParserManageUseCase
 ) : BaseViewModel() {
 
     override fun title(): String = resourceProvider.string(R.string.title_current_parser_project)
@@ -66,6 +68,17 @@ class CurrentParserProjectViewModel @Inject constructor(
             "Торг. предложений: ${_elementStat.value?.countOffers}\n" +
             "На остатках: ${_elementStat.value?.countStore}\n" +
             "https://www.ah-team.com/parser/${taskStatusUseCase.loadCurrentTaskId()}"
+
+    fun parserStop(){
+        viewModelScope.launch(Dispatchers.IO){
+            when(val result = parserManageUseCase.parserStop(taskStatusUseCase.loadCurrentTaskId())){
+                is BaseResult.Error -> errorResult(result) { parserStop() }
+                is BaseResult.Success -> {
+                    getCurrentTaskStatus()
+                }
+            }
+        }
+    }
 
     fun getTaskElementStat() {
         viewModelScope.launch(Dispatchers.IO) {

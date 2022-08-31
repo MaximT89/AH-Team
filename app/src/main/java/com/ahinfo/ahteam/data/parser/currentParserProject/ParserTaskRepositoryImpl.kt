@@ -3,18 +3,21 @@ package com.ahinfo.ahteam.data.parser.currentParserProject
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.remote.Failure
 import com.ahinfo.ahteam.data.parser.currentParserProject.local.CurrentProjectPrefs
+import com.ahinfo.ahteam.data.parser.currentParserProject.remote.cloudDataSource.ParserManageCloudDataSource
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.cloudDataSource.ProjectTaskStatusCloudDataSource
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.cloudDataSource.StatCloudDataSource
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.dto.RequestGetParserTaskStatus
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetElementStatDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetParserTaskStatusDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.GetSectionStatDomain
+import com.ahinfo.ahteam.domain.parser.currentParserProject.entity.ParserStopDomain
 import com.ahinfo.ahteam.domain.parser.currentParserProject.repository.ParserTaskRepository
 import javax.inject.Inject
 
 class ParserTaskRepositoryImpl @Inject constructor(
     private val taskStatusCloudDataSource: ProjectTaskStatusCloudDataSource,
     private val statCloudDataSource: StatCloudDataSource,
+    private val parserManageCloudDataSource: ParserManageCloudDataSource,
     private val prefs: CurrentProjectPrefs
 ) : ParserTaskRepository {
 
@@ -27,6 +30,9 @@ class ParserTaskRepositoryImpl @Inject constructor(
 
     override suspend fun getElementStat(taskId: Int): BaseResult<GetElementStatDomain, Failure> =
         statCloudDataSource.getTaskElementStat(taskId)
+
+    override suspend fun parserStop(taskId: Int): BaseResult<ParserStopDomain, Failure> =
+        parserManageCloudDataSource.parserStop(taskId)
 
     override fun loadCurrentProjectId(): Int = prefs.loadCurrentProjectId()
 

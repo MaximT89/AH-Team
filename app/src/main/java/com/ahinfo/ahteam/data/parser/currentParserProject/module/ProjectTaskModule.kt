@@ -3,6 +3,7 @@ package com.ahinfo.ahteam.data.parser.currentParserProject.module
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.GetTaskElementStatApi
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.GetTaskSectionStatApi
 import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.GetTaskStatusApi
+import com.ahinfo.ahteam.data.parser.currentParserProject.remote.api.ParserStopApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,4 +25,8 @@ object ProjectTaskModule {
     @Provides
     fun provideGetElementStatApi(retrofit: Retrofit) : GetTaskElementStatApi =
         retrofit.create(GetTaskElementStatApi::class.java)
+
+    @Provides
+    fun provideParserStopApi(retrofit: Retrofit) : ParserStopApi =
+        retrofit.create(ParserStopApi::class.java)
 }
