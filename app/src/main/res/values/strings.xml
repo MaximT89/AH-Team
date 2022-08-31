@@ -65,5 +65,6 @@
     <string name="btn_stop_parser">Остановить парсер</string>
 
     <string name="elements_links_title">Каталог товаров</string>
+    <string name="dfgsdf"><![CDATA[<strike>crossed</strike>]]></string>
 
 </resources>
