@@ -19,5 +19,4 @@ class CatalogCategoriesCloudDataSource @Inject constructor(
         responseWrapper.handleResponse(mapper) {
             api.getCatalogCategories(request)
         }
-
 }

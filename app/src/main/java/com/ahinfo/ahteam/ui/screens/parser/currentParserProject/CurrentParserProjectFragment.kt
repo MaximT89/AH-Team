@@ -77,8 +77,6 @@ class CurrentParserProjectFragment :
     }
 
     override fun listenerBundleArguments() {
-
-
         readArguments<String>(PARSER_TASK_ID,
             ifExist = {
                 viewModel.saveCurrentTaskId(it)
