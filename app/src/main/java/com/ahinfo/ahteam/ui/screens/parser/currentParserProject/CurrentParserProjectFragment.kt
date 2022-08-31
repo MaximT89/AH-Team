@@ -74,6 +74,18 @@ class CurrentParserProjectFragment :
             if (fieldStatisticElementStat.isVisible) roolElementStat()
             else unroolElementStat()
         }
+
+        rootHeaderNavCatalog.setOnClickListener {
+            if (fieldNavCatalogBtns.isVisible) roolNavCatalogBtns()
+            else unroolNavCatalogBtns()
+        }
+    }
+
+    private fun unroolNavCatalogBtns() {
+        binding.fieldNavCatalogBtns.show()
+        binding.arrowVisibleNavCatalog.setImageDrawable(
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
+        )
     }
 
     override fun listenerBundleArguments() {
@@ -124,6 +136,14 @@ class CurrentParserProjectFragment :
             }
         }
     }
+
+    private fun roolNavCatalogBtns() {
+        binding.fieldNavCatalogBtns.hide()
+        binding.arrowVisibleNavCatalog.setImageDrawable(
+            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
+        )
+    }
+
 
     private fun roolElementStat() {
         binding.fieldStatisticElementStat.hide()
