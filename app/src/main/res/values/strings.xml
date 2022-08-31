@@ -63,8 +63,7 @@
 
 
     <string name="catalog_category_title">Каталог категорий</string>
-
-
+    <string name="btn_stop_parser">Остановить парсер</string>
 
 
 </resources>

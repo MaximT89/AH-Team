@@ -2,6 +2,8 @@ package com.ahinfo.ahteam.ui.screens.parser.currentParserProject
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.view.View
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -61,31 +63,24 @@ class CurrentParserProjectFragment :
         }
 
         rootHeaderSectionStatField.setOnClickListener {
-            if (fieldStatisticSectionStat.isVisible) roolSectionStat()
-            else unrollSectionStat()
+            if (fieldStatisticSectionStat.isVisible) rool(fieldStatisticSectionStat, arrowVisibleField)
+            else unrool(fieldStatisticSectionStat, arrowVisibleField)
         }
 
         rootHeaderParserManage.setOnClickListener {
-            if (manageParserField.isVisible) roolManageParser()
-            else unroolManageParser()
+            if (manageParserField.isVisible) rool(manageParserField,arrowVisibleParserManage)
+            else unrool(manageParserField,arrowVisibleParserManage)
         }
 
         rootHeaderElementStatField.setOnClickListener {
-            if (fieldStatisticElementStat.isVisible) roolElementStat()
-            else unroolElementStat()
+            if (fieldStatisticElementStat.isVisible) rool(fieldStatisticElementStat, arrowVisibleElementsStatField)
+            else unrool(fieldStatisticElementStat, arrowVisibleElementsStatField)
         }
 
         rootHeaderNavCatalog.setOnClickListener {
-            if (fieldNavCatalogBtns.isVisible) roolNavCatalogBtns()
-            else unroolNavCatalogBtns()
+            if (fieldNavCatalogBtns.isVisible) rool(fieldNavCatalogBtns, arrowVisibleNavCatalog)
+            else unrool(fieldNavCatalogBtns, arrowVisibleNavCatalog)
         }
-    }
-
-    private fun unroolNavCatalogBtns() {
-        binding.fieldNavCatalogBtns.show()
-        binding.arrowVisibleNavCatalog.setImageDrawable(
-            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
-        )
     }
 
     override fun listenerBundleArguments() {
@@ -137,53 +132,16 @@ class CurrentParserProjectFragment :
         }
     }
 
-    private fun roolNavCatalogBtns() {
-        binding.fieldNavCatalogBtns.hide()
-        binding.arrowVisibleNavCatalog.setImageDrawable(
+    private fun rool(roolView : View, imgArrow : ImageView){
+        roolView.hide()
+        imgArrow.setImageDrawable(
             resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
         )
     }
 
-
-    private fun roolElementStat() {
-        binding.fieldStatisticElementStat.hide()
-        binding.arrowVisibleElementsStatField.setImageDrawable(
-            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
-        )
-    }
-
-    private fun unroolElementStat() {
-        binding.fieldStatisticElementStat.show()
-        binding.arrowVisibleElementsStatField.setImageDrawable(
-            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
-        )
-    }
-
-
-    private fun roolManageParser() {
-        binding.manageParserField.hide()
-        binding.arrowVisibleParserManage.setImageDrawable(
-            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
-        )
-    }
-
-    private fun unroolManageParser() {
-        binding.manageParserField.show()
-        binding.arrowVisibleParserManage.setImageDrawable(
-            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
-        )
-    }
-
-    private fun roolSectionStat() {
-        binding.fieldStatisticSectionStat.hide()
-        binding.arrowVisibleField.setImageDrawable(
-            resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_down_24, null)
-        )
-    }
-
-    private fun unrollSectionStat() {
-        binding.fieldStatisticSectionStat.show()
-        binding.arrowVisibleField.setImageDrawable(
+    private fun unrool(roolView : View, imgArrow : ImageView){
+        roolView.show()
+        imgArrow.setImageDrawable(
             resources.getDrawable(R.drawable.ic_baseline_keyboard_arrow_up_24, null)
         )
     }
