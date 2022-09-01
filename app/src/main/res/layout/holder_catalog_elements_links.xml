@@ -67,15 +67,6 @@
                     android:foreground="@drawable/strike_text"
                     tools:text="2450 ₽" />
             </LinearLayout>
-
-
-
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
