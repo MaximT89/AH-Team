@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn
-object GetElementsLinksApiModule {
+object ElementsLinksApiModule {
 
     @Provides
     fun provideElementsLinksApi(retrofit: Retrofit): ElementsLinksApi =

@@ -2,7 +2,7 @@ package com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseGetElementsLinksStat(
+data class ResponseElementsLinksStat(
 
 	@field:SerializedName("stat")
 	val stat: Stat? = null

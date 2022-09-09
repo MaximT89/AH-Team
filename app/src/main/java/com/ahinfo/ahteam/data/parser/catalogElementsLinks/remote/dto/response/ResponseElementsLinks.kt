@@ -2,7 +2,7 @@ package com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseGetElementsLinks(
+data class ResponseElementsLinks(
 
 	@field:SerializedName("summary")
 	val summary: Int? = null,

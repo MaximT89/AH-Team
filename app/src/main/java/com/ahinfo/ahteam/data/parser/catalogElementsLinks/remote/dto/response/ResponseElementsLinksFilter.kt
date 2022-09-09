@@ -2,7 +2,7 @@ package com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseGetElementsLinksFilter(
+data class ResponseElementsLinksFilter(
 
 	@field:SerializedName("filters")
 	val filters: Filters? = null

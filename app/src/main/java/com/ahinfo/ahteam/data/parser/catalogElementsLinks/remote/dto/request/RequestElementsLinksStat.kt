@@ -2,10 +2,10 @@ package com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.request
 
 import com.google.gson.annotations.SerializedName
 
-data class RequestGetElementsLinksFilter(
+data class RequestElementsLinksStat(
 
 	@field:SerializedName("filter")
-	val filterLinks: Filter? = null,
+	val filter: FilterStat? = null,
 
 	@field:SerializedName("search")
 	val search: String? = null,
@@ -14,7 +14,7 @@ data class RequestGetElementsLinksFilter(
 	val parsingId: Int? = null
 )
 
-data class Filter(
+data class FilterStat(
 
 	@field:SerializedName("exist")
 	val exist: Boolean? = null,
