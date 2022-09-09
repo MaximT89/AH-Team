@@ -2,7 +2,6 @@ package com.ahinfo.ahteam.ui.screens.parser.addProject
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
@@ -11,8 +10,6 @@ import com.ahinfo.ahteam.core.common.ResourceProvider
 import com.ahinfo.ahteam.data.parser.addProject.remote.dto.RequestAddProject
 import com.ahinfo.ahteam.domain.parser.addProject.entity.AddProjectDomain
 import com.ahinfo.ahteam.domain.parser.addProject.useCases.AddProjectUseCase
-import com.ahinfo.ahteam.domain.parser.listProjects.entity.ListProjectsGetDomain
-import com.ahinfo.ahteam.ui.screens.parser.listProjects.ListProjectsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

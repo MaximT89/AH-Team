@@ -29,3 +29,8 @@ class ElementsLinksFragment :
         }
     }
 }
+
+
+open class Animal
+
+class Dog : Animal()

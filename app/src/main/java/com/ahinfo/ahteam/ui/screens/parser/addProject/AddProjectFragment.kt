@@ -1,10 +1,8 @@
 package com.ahinfo.ahteam.ui.screens.parser.addProject
 
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.ahinfo.ahteam.core.bases.BaseFragment
-import com.ahinfo.ahteam.core.extension.log
 import com.ahinfo.ahteam.core.navigation.DestinationsParser
 import com.ahinfo.ahteam.data.parser.addProject.remote.dto.RequestAddProject
 import com.ahinfo.ahteam.databinding.FragmentAddProjectBinding
