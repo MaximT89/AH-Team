@@ -1,6 +1,7 @@
 package com.ahinfo.ahteam.core.bases
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import com.ahinfo.ahteam.core.navigation.Navigator
 import com.google.android.material.snackbar.Snackbar
+import java.lang.IllegalArgumentException
+import kotlin.reflect.full.isSubclassOf
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
@@ -49,24 +52,30 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         initCallbacks()
     }
 
-    fun <T> readArguments(
+    inline fun <reified T> readArguments(
         key: String,
-        ifExist: (data: T) -> Unit,
-        dontExist: () -> Unit = {}
+        ifExist: (data: T) -> Unit = {},
+        notExist: () -> Unit = {},
     ) {
         if (arguments?.get(key) != null) {
-            val data = when (arguments?.get(key)) {
-                is Boolean -> arguments?.getBoolean(key)
-                is Int -> arguments?.getInt(key)
-                is String -> arguments?.getString(key)
-                is Long -> arguments?.getLong(key)
-                is Short -> arguments?.getShort(key)
-                else -> arguments?.getParcelable(key)
+
+            val data = if (T::class.isSubclassOf(Parcelable::class)) {
+                arguments?.getParcelable(key)
+            } else {
+                when (T::class) {
+                    Boolean::class -> arguments?.getBoolean(key)
+                    Int::class -> arguments?.getInt(key)
+                    String::class -> arguments?.getString(key)
+                    Long::class -> arguments?.getLong(key)
+                    Short::class -> arguments?.getShort(key)
+                    else -> throw IllegalArgumentException("readArguments unknown argument")
+                }
             }
+
             ifExist.invoke(data as T)
             arguments?.remove(key)
         } else {
-            dontExist.invoke()
+            notExist.invoke()
         }
     }
 
