@@ -16,7 +16,6 @@ import androidx.viewbinding.ViewBinding
 import com.ahinfo.ahteam.core.navigation.Navigator
 import com.google.android.material.snackbar.Snackbar
 import java.lang.IllegalArgumentException
-import java.lang.reflect.Array.get
 import kotlin.reflect.full.isSubclassOf
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -29,7 +28,7 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
     Fragment(), Navigator {
 
     private var _viewBinding: B? = null
-    protected val binding get()  = checkNotNull(_viewBinding)
+    protected val binding get() = checkNotNull(_viewBinding)
     protected abstract val viewModel: VM
     protected var toolbar: Toolbar? = null
 
@@ -84,8 +83,8 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
         result: Boolean,
         positiveMess: String,
         negativeMess: String,
-        positiveResult : () -> Unit = {},
-        negativeResult : () -> Unit = {},
+        positiveResult: () -> Unit = {},
+        negativeResult: () -> Unit = {},
     ) {
         if (result) {
             positiveResult.invoke()
@@ -119,9 +118,7 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
      *
      * @param id передаем id строки из [strings]
      */
-    fun string(@StringRes id: Int): String {
-        return requireActivity().getString(id)
-    }
+    fun string(@StringRes id: Int) = requireActivity().getString(id)
 
     /**
      * Выносим логику навигации в базовый фрагмент, во фрагментах используем метод [navigateTo]
@@ -129,11 +126,9 @@ abstract class BaseFragment<B : ViewBinding, VM : ViewModel>(private val inflate
     override fun navigateTo(resId: Int, args: Bundle?, navOptions: NavOptions?) =
         findNavController().navigate(resId, args, navOptions)
 
-    override fun navigateTo(resId: Int, args: Bundle?) =
-        findNavController().navigate(resId, args)
+    override fun navigateTo(resId: Int, args: Bundle?) = findNavController().navigate(resId, args)
 
-    override fun navigateTo(resId: Int) =
-        findNavController().navigate(resId)
+    override fun navigateTo(resId: Int) = findNavController().navigate(resId)
 
     protected infix fun <T> LiveData<T>.observe(block: (T) -> Unit) {
         observe(this@BaseFragment.viewLifecycleOwner) { t -> block.invoke(t) }
