@@ -5,7 +5,7 @@ import com.ahinfo.ahteam.core.extension.editMe
 import com.ahinfo.ahteam.core.extension.put
 import javax.inject.Inject
 
-class CatalogElementsLinksPrefs @Inject constructor(private val baseSharedPreferences: BaseSharedPreferences) {
+class ElementsLinksPrefs @Inject constructor(private val baseSharedPreferences: BaseSharedPreferences) {
 
     companion object {
         const val NUMBER_PAGE_CATALOG_ELEMENTS = "number_page_catalog_elements"
@@ -38,11 +38,11 @@ class CatalogElementsLinksPrefs @Inject constructor(private val baseSharedPrefer
             .editMe { it.put(COUNT_ITEMS_ON_PAGE_CATALOG_ELEMENTS to value) }
     }
 
-    fun saveProjectId(value: Int) {
+    fun saveParserId(value: Int) {
         baseSharedPreferences.defaultPref().editMe { it.put(PROJECT_ID_CATALOG_ELEMENTS to value) }
     }
 
-    fun loadProjectId() = baseSharedPreferences.defaultPref().getInt(
+    fun loadParserId() = baseSharedPreferences.defaultPref().getInt(
         PROJECT_ID_CATALOG_ELEMENTS,
         DEFAULT_PROJECT_ID_CATALOG_ELEMENTS
     )
