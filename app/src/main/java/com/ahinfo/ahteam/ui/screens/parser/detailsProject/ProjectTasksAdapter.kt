@@ -18,7 +18,7 @@ class ProjectTasksAdapter(private val resourceProvider: ResourceProvider) :
     var callBackDeleteTask: ((id: Int?) -> Unit)? = null
     var callBackNavigateForTask: ((item: ElementsItemTask) -> Unit)? = null
 
-    class ItemComparator : DiffUtil.ItemCallback<ElementsItemTask>() {
+    private class ItemComparator : DiffUtil.ItemCallback<ElementsItemTask>() {
         override fun areItemsTheSame(oldItem: ElementsItemTask, newItem: ElementsItemTask): Boolean {
             return oldItem.parsingId == newItem.parsingId
         }

@@ -12,6 +12,7 @@ task clean(type: Delete) {
 
 ext {
     kotlinVersion = '1.7.0'
+    pagingThree = '3.2.0-alpha02'
     lifecycleVersion = '2.5.1'
     fragmentKtxVersion = '1.5.2'
     glideVersion = '4.13.0'

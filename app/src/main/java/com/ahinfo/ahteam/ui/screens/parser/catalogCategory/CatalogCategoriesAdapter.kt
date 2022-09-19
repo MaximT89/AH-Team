@@ -19,7 +19,7 @@ class CatalogCategoriesAdapter :
         }
     }
 
-    class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
+    private class ItemComparator : DiffUtil.ItemCallback<ElementsItem>() {
         override fun areItemsTheSame(oldItem: ElementsItem, newItem: ElementsItem): Boolean {
             return oldItem.sectionId == newItem.sectionId
         }

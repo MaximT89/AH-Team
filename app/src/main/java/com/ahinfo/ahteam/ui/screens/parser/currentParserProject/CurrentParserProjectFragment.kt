@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
+import androidx.core.os.bundleOf
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -49,7 +50,8 @@ class CurrentParserProjectFragment :
         }
 
         btnCatalogFull.setOnClickListener {
-            navigateTo(DestinationsParser.CURRENT_PARSER_PROJECT_TO_ELEMENTS_LINKS.id)
+            navigateTo(DestinationsParser.CURRENT_PARSER_PROJECT_TO_ELEMENTS_LINKS.id,
+            bundleOf(PARSER_TASK_ID to viewModel.loadCurrentTaskId()))
         }
 
         btnShareCatalogStat.setOnClickListener {

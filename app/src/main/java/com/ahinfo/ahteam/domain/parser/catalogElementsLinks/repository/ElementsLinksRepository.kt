@@ -11,21 +11,21 @@ import com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity.ElementsLinks
 
 interface ElementsLinksRepository {
 
-    suspend fun getElementsLinksCatalog(request : RequestElementsLinks) : BaseResult<ElementsLinksDomain, Failure>
+    suspend fun getElementsLinksCatalog(request: RequestElementsLinks): BaseResult<ElementsLinksDomain, Failure>
 
-    suspend fun getElementsLinksFilter(request : RequestElementsLinksFilter) : BaseResult<ElementsLinksFilterDomain, Failure>
+    suspend fun getElementsLinksFilter(request: RequestElementsLinksFilter): BaseResult<ElementsLinksFilterDomain, Failure>
 
-    suspend fun getElementsLinksStat(request : RequestElementsLinksStat) : BaseResult<ElementsLinksStatDomain, Failure>
+    suspend fun getElementsLinksStat(request: RequestElementsLinksStat): BaseResult<ElementsLinksStatDomain, Failure>
 
-    fun loadCatalogPage() : Int
+    fun loadCatalogPage(): Int
 
-    fun saveCatalogPage(page : Int)
+    fun saveCatalogPage(page: Int)
 
-    fun loadCountItemOnPage() : Int
+    fun loadCountItemOnPage(): Int
 
-    fun saveCountItemOnPage(countItem : Int)
+    fun saveCountItemOnPage(countItem: Int)
 
-    fun loadParserId() : Int
+    fun loadParserId(): Int
 
-    fun saveParserId(parserId : Int)
+    fun saveParserId(parserId: Int)
 }

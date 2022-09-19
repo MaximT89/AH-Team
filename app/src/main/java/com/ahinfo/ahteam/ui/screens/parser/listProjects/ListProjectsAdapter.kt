@@ -17,7 +17,7 @@ class ListProjectsAdapter :
     var callBackUpgradeProject : ((item : ElementsItemProject) -> Unit)? = null
     var callBackGoDetailProject : ((projectId : Int) -> Unit)? = null
 
-    class ItemComparator : DiffUtil.ItemCallback<ElementsItemProject>() {
+    private class ItemComparator : DiffUtil.ItemCallback<ElementsItemProject>() {
         override fun areItemsTheSame(oldItem: ElementsItemProject, newItem: ElementsItemProject): Boolean {
             return oldItem.id == newItem.id
         }

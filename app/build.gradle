@@ -41,6 +41,9 @@ dependencies {
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:$rootProject.leakcanary"
 //    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakcanary"
 
+    // Paging 3
+    implementation "androidx.paging:paging-runtime:$rootProject.pagingThree"
+
     // Kotlin reflect
     implementation "org.jetbrains.kotlin:kotlin-reflect:$rootProject.kotlinVersion"
 

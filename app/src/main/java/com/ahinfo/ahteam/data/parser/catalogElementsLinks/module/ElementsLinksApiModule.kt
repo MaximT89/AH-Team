@@ -4,10 +4,11 @@ import com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.api.ElementsLin
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 
 @Module
-@InstallIn
+@InstallIn(SingletonComponent::class)
 object ElementsLinksApiModule {
 
     @Provides
