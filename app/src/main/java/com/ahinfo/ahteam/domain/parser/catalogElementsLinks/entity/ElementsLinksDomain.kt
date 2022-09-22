@@ -1,7 +1,8 @@
 package com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity
 
 data class ElementsLinksDomain(
-    val elements: List<ElementLinks>
+    val elements: List<ElementLinks>,
+    val pageCount: Int? = null
 )
 
 data class ElementLinks(
@@ -10,5 +11,5 @@ data class ElementLinks(
     val img: String? = null,
     val name: String? = null,
     val price: Int? = null,
-    val oldPrice: Int? = null
+    val oldPrice: Int? = null,
 )

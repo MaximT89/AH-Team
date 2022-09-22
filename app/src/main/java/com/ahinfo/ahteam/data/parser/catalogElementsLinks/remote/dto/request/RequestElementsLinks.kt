@@ -1,26 +1,28 @@
 package com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.request
 
+import androidx.lifecycle.MutableLiveData
+import com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity.ElementsLinksFilterDomain
 import com.google.gson.annotations.SerializedName
 
 data class RequestElementsLinks(
 
-	@field:SerializedName("filter")
-	val filterLinks: FilterLinks? = null,
+    @field:SerializedName("filter")
+    val filterLinks: FilterLinks? = null,
 
-	@field:SerializedName("search")
-	val search: String? = null,
+    @field:SerializedName("search")
+    val search: String? = null,
 
-	@field:SerializedName("parsing_id")
-	val parsingId: Int? = null,
+    @field:SerializedName("parsing_id")
+    val parsingId: Int? = null,
 
-	@field:SerializedName("page")
-	val page: Int? = null,
+    @field:SerializedName("page")
+    val page: Int? = null,
 
-	@field:SerializedName("sort")
-	val sort: Sort? = null,
+    @field:SerializedName("sort")
+    val sort: Sort? = null,
 
-	@field:SerializedName("count_items")
-	val countItems: Int? = null
+    @field:SerializedName("count_items")
+    val countItems: Int? = null
 )
 
 data class FilterLinks(

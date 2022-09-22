@@ -18,9 +18,9 @@ class ElementsLinksDataToDomainMapper @Inject constructor() :
                         it?.img,
                         it?.name,
                         it?.price,
-                        it?.oldPrice
+                        it?.oldPrice,
                     )
                 )
             }
-        })
+        }, data.pageCount)
 }
