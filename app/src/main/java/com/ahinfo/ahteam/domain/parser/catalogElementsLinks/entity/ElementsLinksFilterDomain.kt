@@ -1,7 +1,5 @@
 package com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity
 
-import com.google.gson.annotations.SerializedName
-
 data class ElementsLinksFilterDomain(
 	val filters: FiltersDomain? = null
 )

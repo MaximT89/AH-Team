@@ -1,7 +1,5 @@
 package com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.request
 
-import androidx.lifecycle.MutableLiveData
-import com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity.ElementsLinksFilterDomain
 import com.google.gson.annotations.SerializedName
 
 data class RequestElementsLinks(

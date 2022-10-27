@@ -7,7 +7,7 @@ import com.ahinfo.ahteam.R
 import com.ahinfo.ahteam.core.bases.BaseResult
 import com.ahinfo.ahteam.core.bases.BaseViewModel
 import com.ahinfo.ahteam.core.common.ResourceProvider
-import com.ahinfo.ahteam.core.extension.log
+import com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.request.FilterLinks
 import com.ahinfo.ahteam.data.parser.catalogElementsLinks.remote.dto.request.RequestElementsLinks
 import com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity.ElementsLinksDomain
 import com.ahinfo.ahteam.domain.parser.catalogElementsLinks.entity.ElementsLinksFilterDomain
@@ -29,8 +29,11 @@ class ElementsLinksViewModel @Inject constructor(
     private var _elementsLinksState = MutableLiveData<ElementsLinksState>()
     val elementsLinksState: LiveData<ElementsLinksState> = _elementsLinksState
 
-    private var _elementsLinksFilter = MutableLiveData<ElementsLinksFilterDomain?>()
-    val elementsLinksFilter: LiveData<ElementsLinksFilterDomain?> = _elementsLinksFilter
+    private var _filtersForRequest = MutableLiveData<FilterLinks?>()
+    val filtersForRequest: LiveData<FilterLinks?> = _filtersForRequest
+
+    private var _searchString = MutableLiveData<String?>()
+    val searchString : LiveData<String?> = _searchString
 
     private var _maxPages = MutableLiveData(0)
 
@@ -41,51 +44,18 @@ class ElementsLinksViewModel @Inject constructor(
     val canUpdateCatalog: LiveData<Boolean> = _canUpdateCatalog
 
     /**
-     * Функции для получения и сохранения ParserId
-     */
-    fun saveCurrentParserTaskId(id: Int) {
-        interactor.saveParserId(id)
-    }
-
-    fun loadCurrentParserTaskId(): Int = interactor.loadParserId()
-
-    /**
-     * Функция для обновления переменной которая открывает возможность обновлять каталог
-     */
-    fun switchCanUpdateCatalog() {
-        _canUpdateCatalog.value = !_canUpdateCatalog.value!!
-    }
-
-    /**
-     * Сохраняем максимальную страницу каталога для текущего парсера
-     */
-    fun saveMaxPages(maxPage: Int) {
-        _maxPages.value = maxPage
-    }
-
-    fun incPageAndAddItems() {
-        if (_canUpdateCatalog.value == true) {
-            _currentPage.value = _currentPage.value?.plus(1)
-
-            if (_currentPage.value!! <= _maxPages.value!!) {
-                switchCanUpdateCatalog()
-                getElementsLinks()
-            }
-        }
-    }
-
-    /**
      * Функция для получения каталога для текущей страницы
      */
     fun getElementsLinks() {
 
-        log("TAG1", "пошла загрузка")
-
         val request = RequestElementsLinks(
-            filterLinks = _elementsLinksFilter.value,
+            filterLinks = _filtersForRequest.value,
             page = _currentPage.value,
             countItems = interactor.loadCountItemOnPage(),
-            parsingId = interactor.loadParserId()
+            parsingId = interactor.loadParserId(),
+            search = _searchString.value,
+
+            // TODO: тут нужно будет еще добавить сортировку
         )
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -114,13 +84,70 @@ class ElementsLinksViewModel @Inject constructor(
         }
     }
 
-    suspend fun loadingCatalog() = withContext(Dispatchers.Main) {
-        _elementsLinksState.value = ElementsLinksState.LoadingCatalog
+    /**
+     * Фукнция для запуска отображения прогресс бара пока загружается каталог
+     */
+    private suspend fun loadingCatalog() {
+        withContext(Dispatchers.Main) {
+            _elementsLinksState.value = ElementsLinksState.LoadingCatalog
+        }
     }
+
+    /**
+     * Функции для получения и сохранения ParserId
+     */
+    fun saveCurrentParserTaskId(id: Int) {
+        interactor.saveParserId(id)
+    }
+
+    fun loadCurrentParserTaskId(): Int = interactor.loadParserId()
+
+    /**
+     * Функция для обновления переменной которая открывает возможность обновлять каталог
+     */
+    fun switchCanUpdateCatalog() {
+        _canUpdateCatalog.value = !_canUpdateCatalog.value!!
+    }
+
+    /**
+     * Сохраняем максимальную страницу каталога для текущего парсера
+     */
+    fun saveMaxPages(maxPage: Int) {
+        _maxPages.value = maxPage
+    }
+
+    /**
+     * Функция для очистки фильтров
+     */
+    fun clearFilter(){
+        _filtersForRequest.value = null
+    }
+
+    /**
+     * Функция для очистки строки поиска
+     */
+    fun clearSearchString() {
+        _searchString.value = null
+    }
+
+    /**
+     * Функция увеличения страницы для запроса новой партии укарашений в каталог
+     */
+    fun incPageAndAddItems() {
+        if (_canUpdateCatalog.value == true) {
+            _currentPage.value = _currentPage.value?.plus(1)
+
+            if (_currentPage.value!! <= _maxPages.value!!) {
+                switchCanUpdateCatalog()
+                getElementsLinks()
+            }
+        }
+    }
+
 }
 
 /**
- * Статусы для каталога
+ * Состояния для UI каталога
  */
 sealed class ElementsLinksState {
 

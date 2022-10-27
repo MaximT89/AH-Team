@@ -12,5 +12,6 @@ import dagger.hilt.components.SingletonComponent
 abstract class ElementsLinksDataModule {
 
     @Binds
-    abstract fun bindElementsLinksRepository(repository: ElementsLinksRepositoryImpl): ElementsLinksRepository
+    abstract fun bindElementsLinksRepository(repository: ElementsLinksRepositoryImpl):
+            ElementsLinksRepository
 }
